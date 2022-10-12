@@ -3,7 +3,6 @@ namespace Content {
     let predicates: string[] = ["benutzt", "isst", "raucht", "zerstört", "braucht", "will"];
     let objects: string[] = ["den Ring", "Kuchen", "Stich", "Pfeifenkraut", "Isengart", "Beutelsend"];
 
-
     for (let index = subjects.length; index >= 1; index--) {
         let verseReturn: string = getVerse(subjects, predicates, objects);
         console.log(verseReturn);
@@ -16,7 +15,6 @@ namespace Content {
         let randomNumberObjects: number = Math.floor(Math.random() * _objects.length);
         let randomNumberPredicates: number = Math.floor(Math.random() * _predicates.length);
         
-
         let countArrayPoint: number = 0;
 
         holdVerse[countArrayPoint]  = _subjects[randomNumberSubjects];
