@@ -4,11 +4,6 @@ namespace Content {
     let objects: string[] = ["den Ring", "Kuchen", "Stich", "Pfeifenkraut", "Isengart", "Beutelsend"];
 
 
-
-    //console.log(subjects);
-    //console.log(objects);
-    //console.log(predicates);
-
     for (let index = subjects.length; index >= 1; index--) {
         let verseReturn: string = getVerse(subjects, predicates, objects);
         console.log(verseReturn);
@@ -38,15 +33,29 @@ namespace Content {
     
         let returnString: string = "";
 
-        for (let index: number = 0; index < holdVerse.length; index++) {
-            returnString += holdVerse[index];
-            returnString += " ";
+
+
+
+        for (let index: number = 0; index <= holdVerse.length; index++) {
             
-        }
-        
+            if (index == 0) {
+                returnString += holdVerse[index]; 
+            }
+            
+            else if (index < holdVerse.length) {
+                returnString += " "; 
+                returnString += holdVerse[index];
+                 
+            }
+           
+            else {
+                returnString += ".";
+            }
+           
+            
+        } 
+
         return(returnString);
-
-
     }
 
     
