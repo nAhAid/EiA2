@@ -13,8 +13,8 @@ namespace Content {
     function getVerse(_subjects: string[], _predicates: string[], _objects: string[]) {
         let holdVerse: string [] = [];
         let randomNumberSubjects: number = Math.floor(Math.random() * _subjects.length);
-        let randomNumberObjects: number = Math.floor(Math.random() * _subjects.length);
-        let randomNumberPredicates: number = Math.floor(Math.random() * _subjects.length);
+        let randomNumberObjects: number = Math.floor(Math.random() * _objects.length);
+        let randomNumberPredicates: number = Math.floor(Math.random() * _predicates.length);
         
 
         let countArrayPoint: number = 0;

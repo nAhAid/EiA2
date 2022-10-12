@@ -11,8 +11,8 @@ var Content;
     function getVerse(_subjects, _predicates, _objects) {
         let holdVerse = [];
         let randomNumberSubjects = Math.floor(Math.random() * _subjects.length);
-        let randomNumberObjects = Math.floor(Math.random() * _subjects.length);
-        let randomNumberPredicates = Math.floor(Math.random() * _subjects.length);
+        let randomNumberObjects = Math.floor(Math.random() * _objects.length);
+        let randomNumberPredicates = Math.floor(Math.random() * _predicates.length);
         let countArrayPoint = 0;
         holdVerse[countArrayPoint] = _subjects[randomNumberSubjects];
         _subjects.splice(randomNumberSubjects, 1);
