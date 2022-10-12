@@ -52,6 +52,5 @@ namespace Content {
 
         return(returnString);
     }
-
-    
+ 
 }
