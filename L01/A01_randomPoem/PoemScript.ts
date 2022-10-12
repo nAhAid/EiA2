@@ -37,8 +37,6 @@ namespace Content {
         let returnString: string = "";
 
 
-
-
         for (let index: number = 0; index <= holdVerse.length; index++) {
             
             if (index == 0) {
