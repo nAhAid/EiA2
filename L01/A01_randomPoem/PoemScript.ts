@@ -31,8 +31,6 @@ namespace Content {
 
         holdVerse[countArrayPoint] = _objects[randomNumberObjects];
         _objects.splice(randomNumberObjects, 1);
-        
-        //holdVerse.toString();
     
         let returnString: string = "";
 
@@ -41,15 +39,11 @@ namespace Content {
             
             if (index == 0) {
                 returnString += holdVerse[index]; 
-            }
-            
-            else if (index < holdVerse.length) {
+            } else if (index < holdVerse.length) {
                 returnString += " "; 
                 returnString += holdVerse[index];
                  
-            }
-           
-            else {
+            } else {
                 returnString += ".";
             }
            

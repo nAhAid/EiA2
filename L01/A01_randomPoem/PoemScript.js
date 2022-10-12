@@ -22,7 +22,6 @@ var Content;
         countArrayPoint++;
         holdVerse[countArrayPoint] = _objects[randomNumberObjects];
         _objects.splice(randomNumberObjects, 1);
-        //holdVerse.toString();
         let returnString = "";
         for (let index = 0; index <= holdVerse.length; index++) {
             if (index == 0) {
