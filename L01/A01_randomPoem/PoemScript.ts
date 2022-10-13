@@ -3,7 +3,7 @@ namespace Content {
     let predicates: string[] = ["benutzt", "isst", "raucht", "zerstört", "braucht", "will"];
     let objects: string[] = ["den Ring", "Kuchen", "Stich", "Pfeifenkraut", "Isengart", "Beutelsend"];
 
-    for (let index = subjects.length; index >= 1; index--) {
+    for (let index: number  = subjects.length; index >= 1; index--) {
         let verseReturn: string = getVerse(subjects, predicates, objects);
         console.log(verseReturn);
         
