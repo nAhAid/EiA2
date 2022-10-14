@@ -1,4 +1,11 @@
 "use strict";
+/*
+Aufgabe: <A01_ Random Poem>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <14.10.2022>
+Quellen: <Ich>
+*/
 var Content;
 (function (Content) {
     let subjects = ["Gandalf", "Bilbo", "Frodo", "Morgoth", "Sauron", "Sam"];

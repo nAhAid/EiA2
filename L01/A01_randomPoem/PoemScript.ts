@@ -1,3 +1,12 @@
+/*
+Aufgabe: <A01_ Random Poem>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <14.10.2022>
+Quellen: <Ich>
+*/
+
+
 namespace Content {
     let subjects: string[] = ["Gandalf", "Bilbo", "Frodo", "Morgoth", "Sauron", "Sam"];
     let predicates: string[] = ["benutzt", "isst", "raucht", "zerstört", "braucht", "will"];
