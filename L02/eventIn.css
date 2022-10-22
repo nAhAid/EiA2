@@ -1,0 +1,18 @@
+#cursor {
+    position: fixed;
+}
+
+#content {
+    display: flex;
+    align-content: center;
+    width: 100%;
+}
+
+
+
+div {
+    position: relative;
+    border: thin solid black;
+    width: 50%;
+    height: 40em;
+}

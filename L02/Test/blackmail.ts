@@ -34,7 +34,7 @@ function chooseCharacter(_event: KeyboardEvent): void {
 function deleteLetter(_event: MouseEvent): void {
     let target: Node = <Node>_event.target;
     let parent: Node = <Node>target.parentNode;
-    parent.removeChild(target);
+    parent.removeChild(target); 
 
 
 }
