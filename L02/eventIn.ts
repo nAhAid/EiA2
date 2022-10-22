@@ -7,14 +7,11 @@ namespace L02_EventInspector {
         document.addEventListener("keyup", logInfo);
         let body: HTMLElement = <HTMLElement>document.querySelector("body");
         let div: HTMLElement = <HTMLElement>document.querySelector("div");
-
-        
+ 
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
         div.addEventListener("click", logInfo);
         div.addEventListener("keyup", logInfo);
-
-    
     }
 
     function setInfoBox (_event: MouseEvent): void {
@@ -28,12 +25,8 @@ namespace L02_EventInspector {
 
         span.style.top = y + 30 + "px";
         span.style.left = x + 20 + "px";
-        
-
-        
-
-
     }
+
 
     function logInfo (_event: Event): void {
         console.log("Events-Type: " + _event.type);
