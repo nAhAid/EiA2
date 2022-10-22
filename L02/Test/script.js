@@ -2,6 +2,10 @@
 var TestSpace;
 (function (TestSpace) {
     let number = 1;
-    document.querySelector("#text").addEventListener("click", () => console.log(number));
+    function handleClick(_event) {
+        console.log(number);
+        number++;
+    }
+    document.querySelector("#text")?.addEventListener("click", (handleClick));
 })(TestSpace || (TestSpace = {}));
 //# sourceMappingURL=script.js.map

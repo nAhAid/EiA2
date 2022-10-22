@@ -1,7 +1,11 @@
 namespace TestSpace {
     let number: number = 1;
 
-    document.querySelector("#text").addEventListener("click", () => console.log(number));
+    function handleClick(_event: Event): void {
+        console.log(number);
+        number++;
+    }
 
+    document.querySelector("#text")?.addEventListener("click", (handleClick));
 }
 
