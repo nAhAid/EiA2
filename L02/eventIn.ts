@@ -16,6 +16,20 @@ namespace L02_EventInspector {
 
     function setInfoBox (_event: MouseEvent): void {
         //console.log(_event);
+        let x: number = _event.clientX;
+        let y: number = _event.clientY;
+        let target: HTMLElement = <HTMLElement>_event.target;
+        let span: HTMLElement = <HTMLElement>document.getElementById("cursor");
+
+        span.innerHTML = target + "<br>" + x + "<br>" + y;
+
+        span.style.top = y + "px";
+        span.style.left = x + "px";
+        span.style.offset = "5px 5px";
+
+        
+
+
     }
 
     function logInfo (_event: MouseEvent): void {

@@ -1,5 +1,6 @@
 #cursor {
     position: fixed;
+    border: thin dotted red;
 }
 
 #content {

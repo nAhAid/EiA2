@@ -12,6 +12,14 @@ var L02_EventInspector;
     }
     function setInfoBox(_event) {
         //console.log(_event);
+        let x = _event.clientX;
+        let y = _event.clientY;
+        let target = _event.target;
+        let span = document.getElementById("cursor");
+        span.innerHTML = target + "<br>" + x + "<br>" + y;
+        span.style.top = y + "px";
+        span.style.left = x + "px";
+        span.style.offset = "5px 5px";
     }
     function logInfo(_event) {
         console.log(_event);
