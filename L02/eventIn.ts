@@ -3,7 +3,7 @@ namespace L02_EventInspector {
 
     let clicked: string = "Ich wurde geklickt!";
 
-    function handleLoad (_event: Event) {
+    function handleLoad (_event: Event): void {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
         document.addEventListener("keyup", logInfo);
