@@ -1,17 +1,22 @@
 namespace L02_EventInspector {
     window.addEventListener("load", handleLoad);
 
+    let clicked: string = "Ich wurde geklickt!";
+
     function handleLoad (_event: Event) {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
         document.addEventListener("keyup", logInfo);
         let body: HTMLElement = <HTMLElement>document.querySelector("body");
         let div: HTMLElement = <HTMLElement>document.querySelector("div");
+        let button: HTMLElement = <HTMLElement>document.querySelector("#button");
+        
  
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
         div.addEventListener("click", logInfo);
         div.addEventListener("keyup", logInfo);
+        button.addEventListener("click", buttonHandler);
     }
 
     function setInfoBox (_event: MouseEvent): void {
@@ -33,5 +38,13 @@ namespace L02_EventInspector {
         console.log("Events-Target: " + _event.target);
         console.log("Events-currentTarget: " + _event.currentTarget);
         console.log("Whole Event Object: " + _event);
+    }
+
+    let event: CustomEvent = new CustomEvent("tryOutSpecialType", {bubbles: true, detail: {button: clicked}});
+
+
+    function buttonHandler (_event: Event): void {
+        _event = event;
+        console.log(_event);
     }
 }

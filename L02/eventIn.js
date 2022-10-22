@@ -2,16 +2,19 @@
 var L02_EventInspector;
 (function (L02_EventInspector) {
     window.addEventListener("load", handleLoad);
+    let clicked = "Ich wurde geklickt!";
     function handleLoad(_event) {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
         document.addEventListener("keyup", logInfo);
         let body = document.querySelector("body");
         let div = document.querySelector("div");
+        let button = document.querySelector("#button");
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
         div.addEventListener("click", logInfo);
         div.addEventListener("keyup", logInfo);
+        button.addEventListener("click", buttonHandler);
     }
     function setInfoBox(_event) {
         //console.log(_event);
@@ -28,6 +31,11 @@ var L02_EventInspector;
         console.log("Events-Target: " + _event.target);
         console.log("Events-currentTarget: " + _event.currentTarget);
         console.log("Whole Event Object: " + _event);
+    }
+    let event = new CustomEvent("tryOutSpecialType", { bubbles: true, detail: { button: clicked } });
+    function buttonHandler(_event) {
+        _event = event;
+        console.log(_event);
     }
 })(L02_EventInspector || (L02_EventInspector = {}));
 //# sourceMappingURL=eventIn.js.map
