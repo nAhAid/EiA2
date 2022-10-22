@@ -20,9 +20,8 @@ var L02_EventInspector;
         let target = _event.target;
         let span = document.getElementById("cursor");
         span.innerHTML = target + "<br>" + x + "<br>" + y;
-        span.style.top = y + "px";
-        span.style.left = x + "px";
-        span.style.offset = "5px 5px";
+        span.style.top = y + 30 + "px";
+        span.style.left = x + 20 + "px";
     }
     function logInfo(_event) {
         console.log("Events-Type: " + _event.type);

@@ -26,9 +26,9 @@ namespace L02_EventInspector {
 
         span.innerHTML = target + "<br>" + x + "<br>" + y;
 
-        span.style.top = y + "px";
-        span.style.left = x + "px";
-        span.style.offset = "5px 5px";
+        span.style.top = y + 30 + "px";
+        span.style.left = x + 20 + "px";
+        
 
         
 
