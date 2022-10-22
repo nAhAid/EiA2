@@ -4,12 +4,15 @@ namespace L02_EventInspector {
     function handleLoad (_event: Event) {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
+        document.addEventListener("keyup", logInfo);
         let body: HTMLElement = <HTMLElement>document.querySelector("body");
         let div: HTMLElement = <HTMLElement>document.querySelector("div");
 
         
         body.addEventListener("click", logInfo);
+        body.addEventListener("keyup", logInfo);
         div.addEventListener("click", logInfo);
+        div.addEventListener("keyup", logInfo);
 
     
     }
@@ -32,7 +35,7 @@ namespace L02_EventInspector {
 
     }
 
-    function logInfo (_event: MouseEvent): void {
+    function logInfo (_event: Event): void {
         console.log("Events-Type: " + _event.type);
         console.log("Events-Target: " + _event.target);
         console.log("Events-currentTarget: " + _event.currentTarget);

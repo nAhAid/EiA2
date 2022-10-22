@@ -5,10 +5,13 @@ var L02_EventInspector;
     function handleLoad(_event) {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
+        document.addEventListener("keyup", logInfo);
         let body = document.querySelector("body");
         let div = document.querySelector("div");
         body.addEventListener("click", logInfo);
+        body.addEventListener("keyup", logInfo);
         div.addEventListener("click", logInfo);
+        div.addEventListener("keyup", logInfo);
     }
     function setInfoBox(_event) {
         //console.log(_event);
