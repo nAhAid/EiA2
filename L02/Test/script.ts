@@ -6,6 +6,14 @@ namespace TestSpace {
         number++;
     }
 
-    document.querySelector("#text")?.addEventListener("click", (handleClick));
+    document.querySelector("#text")?.addEventListener("click", handleClick);
 }
+namespace L02_Load {
+    document.addEventListener("DOMContentLoaded", handleLoad);
+
+    function handleLoad(_event: Event): void {
+        console.log(_event);
+    }
+}
+
 
