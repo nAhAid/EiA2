@@ -33,6 +33,9 @@ namespace L02_EventInspector {
     }
 
     function logInfo (_event: MouseEvent): void {
-        console.log(_event);
+        console.log("Events-Type: " + _event.type);
+        console.log("Events-Target: " + _event.target);
+        console.log("Events-currentTarget: " + _event.currentTarget);
+        console.log("Whole Event Object: " + _event);
     }
 }

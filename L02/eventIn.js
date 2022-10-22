@@ -22,7 +22,10 @@ var L02_EventInspector;
         span.style.offset = "5px 5px";
     }
     function logInfo(_event) {
-        console.log(_event);
+        console.log("Events-Type: " + _event.type);
+        console.log("Events-Target: " + _event.target);
+        console.log("Events-currentTarget: " + _event.currentTarget);
+        console.log("Whole Event Object: " + _event);
     }
 })(L02_EventInspector || (L02_EventInspector = {}));
 //# sourceMappingURL=eventIn.js.map
