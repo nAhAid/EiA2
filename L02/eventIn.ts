@@ -7,6 +7,7 @@ namespace L02_EventInspector {
         document.addEventListener("mousemove", setInfoBox);
         document.addEventListener("click", logInfo);
         document.addEventListener("keyup", logInfo);
+        
         let body: HTMLElement = <HTMLElement>document.querySelector("body");
         let div: HTMLElement = <HTMLElement>document.querySelector("div");
         let button: HTMLElement = <HTMLElement>document.querySelector("#button");
@@ -17,6 +18,7 @@ namespace L02_EventInspector {
         div.addEventListener("click", logInfo);
         div.addEventListener("keyup", logInfo);
         button.addEventListener("click", buttonHandler);
+        document.addEventListener("tryOutSpecialType", logCustomEvent);
     }
 
     function setInfoBox (_event: MouseEvent): void {
@@ -40,11 +42,16 @@ namespace L02_EventInspector {
         console.log("Whole Event Object: " + _event);
     }
 
-    let event: CustomEvent = new CustomEvent("tryOutSpecialType", {bubbles: true, detail: {button: clicked}});
+    
 
 
     function buttonHandler (_event: Event): void {
-        _event = event;
+        let event: CustomEvent = new CustomEvent("tryOutSpecialType", {bubbles: true, detail: {button: clicked}});
+        let button: HTMLElement = <HTMLElement>document.querySelector("#button");
+        button.dispatchEvent(event);
+    }
+
+    function logCustomEvent (_event: Event): void {
         console.log(_event);
     }
 }

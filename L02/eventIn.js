@@ -15,6 +15,7 @@ var L02_EventInspector;
         div.addEventListener("click", logInfo);
         div.addEventListener("keyup", logInfo);
         button.addEventListener("click", buttonHandler);
+        document.addEventListener("tryOutSpecialType", logCustomEvent);
     }
     function setInfoBox(_event) {
         //console.log(_event);
@@ -32,9 +33,12 @@ var L02_EventInspector;
         console.log("Events-currentTarget: " + _event.currentTarget);
         console.log("Whole Event Object: " + _event);
     }
-    let event = new CustomEvent("tryOutSpecialType", { bubbles: true, detail: { button: clicked } });
     function buttonHandler(_event) {
-        _event = event;
+        let event = new CustomEvent("tryOutSpecialType", { bubbles: true, detail: { button: clicked } });
+        let button = document.querySelector("#button");
+        button.dispatchEvent(event);
+    }
+    function logCustomEvent(_event) {
         console.log(_event);
     }
 })(L02_EventInspector || (L02_EventInspector = {}));
