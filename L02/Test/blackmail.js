@@ -25,6 +25,7 @@ var L02_Blackmailer_Companion;
         choosenCharacter = _event.key;
     }
     function deleteLetter(_event) {
+        _event.stopPropagation();
         let target = _event.target;
         let parent = target.parentNode;
         parent.removeChild(target);
