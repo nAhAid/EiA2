@@ -36,10 +36,14 @@ namespace L02_EventInspector {
 
 
     function logInfo (_event: Event): void {
-        console.log("Events-Type: " + _event.type);
-        console.log("Events-Target: " + _event.target);
-        console.log("Events-currentTarget: " + _event.currentTarget);
-        console.log("Whole Event Object: " + _event);
+        console.log("Events-Type:");
+        console.log(_event.type);
+        console.log("Events-Target:");
+        console.log(_event.target);
+        console.log("Events-currentTarget:");
+        console.log(_event.currentTarget);
+        console.log("Whole Event Object:");
+        console.log(_event);
     }
 
     

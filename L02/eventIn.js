@@ -28,10 +28,14 @@ var L02_EventInspector;
         span.style.left = x + 20 + "px";
     }
     function logInfo(_event) {
-        console.log("Events-Type: " + _event.type);
-        console.log("Events-Target: " + _event.target);
-        console.log("Events-currentTarget: " + _event.currentTarget);
-        console.log("Whole Event Object: " + _event);
+        console.log("Events-Type:");
+        console.log(_event.type);
+        console.log("Events-Target:");
+        console.log(_event.target);
+        console.log("Events-currentTarget:");
+        console.log(_event.currentTarget);
+        console.log("Whole Event Object:");
+        console.log(_event);
     }
     function buttonHandler(_event) {
         let event = new CustomEvent("tryOutSpecialType", { bubbles: true, detail: { button: clicked } });
