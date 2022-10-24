@@ -43,7 +43,7 @@ namespace L02_EventInspector {
         console.log("Events-currentTarget:");
         console.log(_event.currentTarget);
         console.log("Whole Event Object:");
-        console.log(_event);
+        console.log("Whole Event Object: " + _event);
     }
 
     
