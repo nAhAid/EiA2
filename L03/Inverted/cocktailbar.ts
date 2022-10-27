@@ -1,4 +1,4 @@
-namespace CocktailBar {
+namespace L03_CocktailBar {
     window.addEventListener("load", handleLoad);
 
     function handleLoad() {
@@ -21,7 +21,9 @@ namespace CocktailBar {
     }
 
     function displayOrder() {
-
+        let inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll("input");
+        console.log(inputs);
+        console.log(inputs[1]);
     }
 
 

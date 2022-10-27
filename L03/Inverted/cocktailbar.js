@@ -1,6 +1,6 @@
 "use strict";
-var CocktailBar;
-(function (CocktailBar) {
+var L03_CocktailBar;
+(function (L03_CocktailBar) {
     window.addEventListener("load", handleLoad);
     function handleLoad() {
         let form = document.getElementById("form");
@@ -17,6 +17,9 @@ var CocktailBar;
         progress.value = parseFloat(amount);
     }
     function displayOrder() {
+        let inputs = document.querySelectorAll("input");
+        console.log(inputs);
+        console.log(inputs[1]);
     }
-})(CocktailBar || (CocktailBar = {}));
+})(L03_CocktailBar || (L03_CocktailBar = {}));
 //# sourceMappingURL=cocktailbar.js.map
