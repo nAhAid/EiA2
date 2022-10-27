@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="shoppinglist.css">
+    <script src="soppinglist.js" defer=""></script>
+</head>
+
+<body>
+    <header>
+        <h1>Shopping List</h1>
+    </header>
+
+    <main>
+        <form>
+            <div id="input">
+                <fieldset>
+                    <legend>Product</legend>
+                    <input type="text" name="Product" id="product" placeholder="Enter Product here" required />
+                </fieldset>
+                <fieldset>
+                    <legend>Quantity</legend>
+                    <input type="number" name="Quantity" id="quantity" placeholder="0" />
+                </fieldset>
+                <fieldset>
+                    <legend>Buy next time?</legend>
+                    <input type="radio" name="Radiogroup" value="true" id="true" />
+		            <label for="true">Yes!</label>
+                    <input type="radio" name="Radiogroup" value="false" id="false" />
+		            <label for="false">No!</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Custom Comment</legend>
+                    <textarea name="Comment" rows="3" placeholder="Add more Detail like unit"></textarea>
+                </fieldset>
+
+            </div>
+            <div id="display">
+                <fieldset>
+                    <legend>List</legend>
+                    <input type="checkbox" name="Product1" value="Milk" id="milk" class="true" />
+		            <label for="Milk">Milk; 4; Pack, 17.10.2022</label>
+                    <input type="checkbox" name="Product2" value="Eggs" id="eggs" class="false" />
+		            <label for="Eggs">Eggs; 6; Pieces, 06.10.2022</label>
+                </fieldset>
+            </div>
+        </form>
+
+    </main>
+
+</body>
+
+</html>
