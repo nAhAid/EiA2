@@ -17,9 +17,18 @@ var L03_CocktailBar;
         progress.value = parseFloat(amount);
     }
     function displayOrder() {
-        let inputs = document.querySelectorAll("input");
-        console.log(inputs);
-        console.log(inputs[1]);
+        //let inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll("input");
+        //console.log(inputs);
+        //console.log(inputs[1]);
+        let formData = new FormData(document.forms[0]);
+        //console.log(formData);
+        for (let entry of formData) {
+            console.log(entry);
+            let item = document.querySelector("[value='" + entry[1] + "']");
+            console.log(item);
+            let price = Number(item.getAttribute("price"));
+            console.log(price);
+        }
     }
 })(L03_CocktailBar || (L03_CocktailBar = {}));
 //# sourceMappingURL=cocktailbar.js.map
