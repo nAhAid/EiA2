@@ -1,3 +1,11 @@
+/*
+Aufgabe: <L03_shoppingList>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <27.10.2022>
+Quellen: <Ich, StackOverflow>
+*/
+
 namespace L03_shoppingList {
     window.addEventListener("load", handleLoad);
 

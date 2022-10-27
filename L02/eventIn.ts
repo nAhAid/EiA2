@@ -1,3 +1,11 @@
+/*
+Aufgabe: <L02_eventInspector>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <23.10.2022>
+Quellen: <Ich, StackOverflow>
+*/
+
 namespace L02_EventInspector {
     window.addEventListener("load", handleLoad);
 
