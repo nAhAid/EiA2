@@ -2,3 +2,8 @@ main {
     display: flex;
     align-content: center;
 }
+
+#order_text {
+    border: 3px;
+    height: fit-content;
+}
