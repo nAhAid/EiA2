@@ -9,11 +9,20 @@ namespace CocktailBar {
         slider.addEventListener("input", displayAmount);
     }
 
-    function handleChange (_event: Event): void {
+    function handleChange(_event: Event): void {
         displayOrder();
     }
 
-    function displayOrder () {
-        
+    function displayAmount(_event: Event): void {
+        let progress: HTMLProgressElement = <HTMLProgressElement>document.querySelector("progress");
+        let amount: string = (<HTMLInputElement>_event.target).value;
+        progress.value = parseFloat(amount);
+
     }
+
+    function displayOrder() {
+
+    }
+
+
 }

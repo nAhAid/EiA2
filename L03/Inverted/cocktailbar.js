@@ -11,6 +11,11 @@ var CocktailBar;
     function handleChange(_event) {
         displayOrder();
     }
+    function displayAmount(_event) {
+        let progress = document.querySelector("progress");
+        let amount = _event.target.value;
+        progress.value = parseFloat(amount);
+    }
     function displayOrder() {
     }
 })(CocktailBar || (CocktailBar = {}));
