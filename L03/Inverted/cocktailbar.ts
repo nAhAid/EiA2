@@ -55,6 +55,8 @@ namespace L03_CocktailBar {
         }
 
         console.log(total);
+        total = round(total, 2);
+        console.log(total);
         totalOrder.innerHTML = "<b>" + total + " €";
 
     }
@@ -65,5 +67,8 @@ namespace L03_CocktailBar {
         return (amount);
     }
 
+    function round(num: number, fractionDigits: number): number {
+        return Number(num.toFixed(fractionDigits));
+    }
 
 }

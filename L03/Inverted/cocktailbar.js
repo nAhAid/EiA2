@@ -44,11 +44,16 @@ var L03_CocktailBar;
             }
         }
         console.log(total);
+        total = round(total, 2);
+        console.log(total);
         totalOrder.innerHTML = "<b>" + total + " €";
     }
     function checkAmount() {
         let amount = document.querySelector("input#amount").value;
         return (amount);
+    }
+    function round(num, fractionDigits) {
+        return Number(num.toFixed(fractionDigits));
     }
 })(L03_CocktailBar || (L03_CocktailBar = {}));
 //# sourceMappingURL=cocktailbar.js.map
