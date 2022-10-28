@@ -1,4 +1,11 @@
 "use strict";
+/*
+Aufgabe: <L03_shoppingList>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <27.10.2022>
+Quellen: <Ich, StackOverflow>
+*/
 var L03_shoppingList;
 (function (L03_shoppingList) {
     window.addEventListener("load", handleLoad);
@@ -19,6 +26,8 @@ var L03_shoppingList;
     function handleListChange(_event) {
         let checked = _event.target;
         console.log(checked.checked);
+    }
+    function writeList() {
     }
 })(L03_shoppingList || (L03_shoppingList = {}));
 //# sourceMappingURL=shoppinglist.js.map

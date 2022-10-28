@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(150, 150, 150);
+}
+
 header {
     grid-column: span 2;
     text-align: center;
@@ -19,4 +23,69 @@ fieldset {
 
 textarea {
     width: 100%;
+}
+
+#display {
+    display: flex;
+    align-items: flex-start;
+}
+
+.trash {
+    height: 20px;
+    /* padding: 2px  0px 0px 435px; */
+    opacity: 20%;
+
+
+
+
+}
+
+.trash:hover {
+    opacity: 100;
+}
+
+.done {
+    background-color: #fff;
+    background-image: url("assets/check_mark.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 30px;
+}
+
+.open {
+    background-color: #fff;
+    background-image: url("assets/circle.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 30px;
+}
+
+#uList {
+    list-style: none;
+    padding: 0px;
+    justify-content: center;
+    margin-top: 0px;
+}
+
+li {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: #000;
+    padding: 5px 35px;
+    margin: 5px 0px;
+    width: 500px;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-style: double;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgb(255, 255, 255);
+
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 30px;
+
 }

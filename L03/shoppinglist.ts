@@ -32,4 +32,8 @@ namespace L03_shoppingList {
         let checked: HTMLInputElement = <HTMLInputElement>_event.target;
         console.log(checked.checked);
     }
+
+    function writeList (): void {
+        
+    }
 }
