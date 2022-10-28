@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(150, 150, 150);
+    background-color: rgb(182, 182, 182);
 }
 
 header {
@@ -58,6 +58,14 @@ textarea {
     background-repeat: no-repeat;
     background-position: left center;
     background-size: 30px;
+}
+
+.buy {
+    color: red;
+}
+
+.dontbuy {
+    color: blue;
 }
 
 #uList {

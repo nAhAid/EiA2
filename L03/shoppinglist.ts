@@ -15,6 +15,7 @@ namespace L03_shoppingList {
         product: string;
         quantity: number;
         buyNext: boolean;
+        isDone: boolean;
         comment: string;
         lastPurchase: string;
     }
@@ -24,6 +25,7 @@ namespace L03_shoppingList {
             product: "Milk",
             quantity: 1,
             buyNext: true,
+            isDone: false,
             comment: "Pack",
             lastPurchase: "17.10.2022"
         },
@@ -31,6 +33,7 @@ namespace L03_shoppingList {
             product: "Eggs",
             quantity: 6,
             buyNext: false,
+            isDone: true,
             comment: "Pieces",
             lastPurchase: "06.10.2022"
         }
@@ -44,7 +47,7 @@ namespace L03_shoppingList {
 
         let display: HTMLDivElement = <HTMLDivElement>document.getElementById("display");
         display.addEventListener("change", handleListChange);
-        
+
         let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById("commit");
         button.addEventListener("click", handleButton);
 
@@ -65,8 +68,8 @@ namespace L03_shoppingList {
         console.log(checked.checked);
     }
 
-    function handleButton (_event: MouseEvent) {
-        console.log("Button geclickt!");
+    function handleButton(_event: MouseEvent) {
+        console.log("Button clicked!");
     }
 
 
@@ -74,9 +77,9 @@ namespace L03_shoppingList {
         let list: HTMLElement = <HTMLElement>document.querySelector("#uList");
         list.innerHTML = "";
 
-        inputs.forEach((value, index) => {
-            let classes: string = value.buyNext ? "done" : "open";
-            list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + classes + "\">" + value.product + ", " + value.quantity + ", " + value.comment + ", " + value.lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+        /* inputs.forEach((value, index) => {
+            let checked: string = value.buyNext ? "done" : "open";
+            list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + "\">" + value.product + ", " + value.quantity + ", " + value.comment + ", " + value.lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
             listElement.addEventListener("click", handleClick);
 
@@ -86,10 +89,29 @@ namespace L03_shoppingList {
             //editElement.addEventListener("click", editList);
 
 
-        });
+        }); */
+
+        for (let index: number = 0; index < inputs.length; index++) {
+            let checked: string = inputs[index].isDone ? "done" : "open";
+            let buyNext: string = inputs[index].buyNext ? "buy" : "dontbuy";
+
+            list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            installListener(index);
+            //let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
+            //listElement.addEventListener("click", handleClick);
+
+        }
 
 
     }
+
+    function installListener(index: number): void {
+        let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
+
+        listElement.addEventListener("click", handleClick);
+
+    }
+
 
     function handleClick(_event: MouseEvent): void {
         console.log(_event.target);
