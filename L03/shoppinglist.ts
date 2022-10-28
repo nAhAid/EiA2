@@ -36,6 +36,14 @@ namespace L03_shoppingList {
             isDone: true,
             comment: "Pieces",
             lastPurchase: "06.10.2022"
+        },
+        {
+            product: "Cheese",
+            quantity: 1,
+            buyNext: true,
+            isDone: false,
+            comment: "Pack",
+            lastPurchase: "10.10.2022"
         }
 
     ];
@@ -77,60 +85,57 @@ namespace L03_shoppingList {
         let list: HTMLElement = <HTMLElement>document.querySelector("#uList");
         list.innerHTML = "";
 
-        /* inputs.forEach((value, index) => {
-            let checked: string = value.buyNext ? "done" : "open";
-            list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + "\">" + value.product + ", " + value.quantity + ", " + value.comment + ", " + value.lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
-            let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
-            listElement.addEventListener("click", handleClick);
-
-            let removeElement: HTMLElement = <HTMLElement>document.querySelector("#removeElement" + index);
-            //removeElement.addEventListener("click", removeList(index));
-            let editElement: HTMLElement = <HTMLElement>document.querySelector("#editElement" + index);
-            //editElement.addEventListener("click", editList);
-
-
-        }); */
-
         for (let index: number = 0; index < inputs.length; index++) {
             let checked: string = inputs[index].isDone ? "done" : "open";
             let buyNext: string = inputs[index].buyNext ? "buy" : "dontbuy";
 
             list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
-            installListener(index);
-            //let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
-            //listElement.addEventListener("click", handleClick);
 
         }
-
-
+        for (let index: number = 0; index < inputs.length; index++) {
+            installListener(index);
+        }
     }
 
     function installListener(index: number): void {
         let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
-
         listElement.addEventListener("click", handleClick);
-
     }
-
 
     function handleClick(_event: MouseEvent): void {
-        console.log(_event.target);
+        //console.log(_event.target);
+        //console.log(_event.currentTarget);
+
+        let id: string = (_event.target as Element).id;
+        //console.log(id);
+
+        if (id.includes("listElement")) {
+            let newID: number = cutID(id, 11);
+            clickList(newID);
+
+        }
+
+        else if (id.includes("removeElement")) {
+            let newID: number = cutID(id, 13);
+            console.log("Delete List Element " + newID);
+        }
+
+        else if (id.includes("editElement")) {
+            let newID: number = cutID(id, 11);
+            console.log("Element " + newID + " is about to change");
+        }
     }
 
-    function clickList(toDoIndex: number): void {
+    function clickList(_bought: number): void {
 
-        inputs[toDoIndex].buyNext = !inputs[toDoIndex].buyNext;
+        inputs[_bought].isDone = !inputs[_bought].isDone;
         writeList();
     }
 
-    function removeList(_elementIndex: string) {
-        console.log(_elementIndex);
+    function cutID(_id: string, _length: number) {
+        let newId: string = _id.slice(_length);
+        return parseInt(newId);
     }
-
-    function editList(_elementIndex: number) {
-        console.log(_elementIndex);
-    }
-
 
 
 }
