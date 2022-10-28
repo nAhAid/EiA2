@@ -2,7 +2,7 @@
 Aufgabe: <L03_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <27.10.2022>
+Datum: <28.10.2022>
 Quellen: <Ich, StackOverflow>
 */
 
@@ -44,6 +44,10 @@ namespace L03_shoppingList {
 
         let display: HTMLDivElement = <HTMLDivElement>document.getElementById("display");
         display.addEventListener("change", handleListChange);
+        
+        let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById("commit");
+        button.addEventListener("click", handleButton);
+
         writeList();
     }
 
@@ -61,6 +65,9 @@ namespace L03_shoppingList {
         console.log(checked.checked);
     }
 
+    function handleButton (_event: MouseEvent) {
+        console.log("Button geclickt!");
+    }
 
 
     function writeList(): void {
@@ -74,7 +81,7 @@ namespace L03_shoppingList {
             listElement.addEventListener("click", handleClick);
 
             let removeElement: HTMLElement = <HTMLElement>document.querySelector("#removeElement" + index);
-            //removeElement.addEventListener("click", removeList);
+            //removeElement.addEventListener("click", removeList(index));
             let editElement: HTMLElement = <HTMLElement>document.querySelector("#editElement" + index);
             //editElement.addEventListener("click", editList);
 
@@ -94,7 +101,7 @@ namespace L03_shoppingList {
         writeList();
     }
 
-    function removeList(_elementIndex: number) {
+    function removeList(_elementIndex: string) {
         console.log(_elementIndex);
     }
 

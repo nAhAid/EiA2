@@ -3,7 +3,7 @@
 Aufgabe: <L03_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <27.10.2022>
+Datum: <28.10.2022>
 Quellen: <Ich, StackOverflow>
 */
 var L03_shoppingList;
@@ -31,6 +31,8 @@ var L03_shoppingList;
         input.addEventListener("change", handleInputChange);
         let display = document.getElementById("display");
         display.addEventListener("change", handleListChange);
+        let button = document.getElementById("commit");
+        button.addEventListener("click", handleButton);
         writeList();
     }
     function handleInputChange(_event) {
@@ -44,6 +46,9 @@ var L03_shoppingList;
         let checked = _event.target;
         console.log(checked.checked);
     }
+    function handleButton(_event) {
+        console.log("Button geclickt!");
+    }
     function writeList() {
         let list = document.querySelector("#uList");
         list.innerHTML = "";
@@ -53,7 +58,7 @@ var L03_shoppingList;
             let listElement = document.querySelector("#listElement" + index);
             listElement.addEventListener("click", handleClick);
             let removeElement = document.querySelector("#removeElement" + index);
-            //removeElement.addEventListener("click", removeList);
+            //removeElement.addEventListener("click", removeList(index));
             let editElement = document.querySelector("#editElement" + index);
             //editElement.addEventListener("click", editList);
         });
