@@ -17,6 +17,13 @@ var L03_shoppingList;
             buyNext: true,
             comment: "Pack",
             lastPurchase: "17.10.2022"
+        },
+        {
+            product: "Eggs",
+            quantity: 6,
+            buyNext: false,
+            comment: "Pieces",
+            lastPurchase: "06.10.2022"
         }
     ];
     function handleLoad() {
@@ -40,7 +47,6 @@ var L03_shoppingList;
     function writeList() {
         let list = document.querySelector("#uList");
         list.innerHTML = "";
-        console.log(inputs.indexOf);
         inputs.forEach((value, index) => {
             let classes = value.buyNext ? "done" : "open";
             list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + classes + "\">" + value.product + ", " + value.quantity + ", " + value.comment + ", " + value.lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";

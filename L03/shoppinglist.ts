@@ -19,13 +19,20 @@ namespace L03_shoppingList {
         lastPurchase: string;
     }
 
-    let inputs: Input[] = [ 
+    let inputs: Input[] = [
         {
             product: "Milk",
             quantity: 1,
             buyNext: true,
             comment: "Pack",
             lastPurchase: "17.10.2022"
+        },
+        {
+            product: "Eggs",
+            quantity: 6,
+            buyNext: false,
+            comment: "Pieces",
+            lastPurchase: "06.10.2022"
         }
 
     ];
@@ -59,7 +66,6 @@ namespace L03_shoppingList {
     function writeList(): void {
         let list: HTMLElement = <HTMLElement>document.querySelector("#uList");
         list.innerHTML = "";
-        console.log(inputs.indexOf);
 
         inputs.forEach((value, index) => {
             let classes: string = value.buyNext ? "done" : "open";
@@ -78,7 +84,7 @@ namespace L03_shoppingList {
 
     }
 
-    function handleClick (_event: MouseEvent): void {
+    function handleClick(_event: MouseEvent): void {
         console.log(_event.target);
     }
 
@@ -96,6 +102,6 @@ namespace L03_shoppingList {
         console.log(_elementIndex);
     }
 
-    
+
 
 }
