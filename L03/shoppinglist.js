@@ -39,8 +39,6 @@ var L03_shoppingList;
     function handleLoad() {
         let input = document.getElementById("input");
         input.addEventListener("change", handleInputChange);
-        let display = document.getElementById("display");
-        display.addEventListener("change", handleListChange);
         let button = document.getElementById("commit");
         button.addEventListener("click", handleButton);
         writeList();
@@ -51,10 +49,6 @@ var L03_shoppingList;
             let item = document.querySelector("[name='" + entry[0] + "']");
             console.log(item.value);
         }
-    }
-    function handleListChange(_event) {
-        let checked = _event.target;
-        console.log(checked.checked);
     }
     function handleButton(_event) {
         console.log("Button clicked!");
@@ -95,6 +89,7 @@ var L03_shoppingList;
     }
     function clickList(_bought) {
         inputs[_bought].isDone = !inputs[_bought].isDone;
+        console.log(inputs[_bought].isDone);
         writeList();
     }
     function cutID(_id, _length) {
