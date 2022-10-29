@@ -73,8 +73,6 @@ namespace L03_shoppingList {
                 let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
                 console.log(item.value);
             }
-
-
         }
     }
 
