@@ -45,9 +45,15 @@ var L03_shoppingList;
     }
     function handleInputChange(_event) {
         for (let entry of formData) {
-            //console.log(entry);
-            let item = document.querySelector("[name='" + entry[0] + "']");
-            console.log(item.value);
+            console.log(entry);
+            if (entry[0] == "Radiogroup") {
+                let item = document.querySelector("[value='" + entry[1] + "']");
+                console.log(item.value);
+            }
+            else if (entry[0] != "Radiogroup") {
+                let item = document.querySelector("[name='" + entry[0] + "']");
+                console.log(item.value);
+            }
         }
     }
     function handleButton(_event) {
