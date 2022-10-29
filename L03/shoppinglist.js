@@ -45,7 +45,6 @@ var L03_shoppingList;
     }
     function handleInputChange(_event) {
         for (let entry of formData) {
-            console.log(entry);
             if (entry[0] == "Radiogroup") {
                 let item = document.querySelector("[value='" + entry[1] + "']");
                 console.log(item.value);

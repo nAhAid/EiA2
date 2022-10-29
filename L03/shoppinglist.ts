@@ -62,7 +62,6 @@ namespace L03_shoppingList {
     function handleInputChange(_event: Event) {
 
         for (let entry of formData) {
-            console.log(entry);
 
             if (entry[0] == "Radiogroup") {
                 let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[value='" + entry[1] + "']");
