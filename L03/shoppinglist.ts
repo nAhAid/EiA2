@@ -2,7 +2,7 @@
 Aufgabe: <L03_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <28.10.2022>
+Datum: <29.10.2022>
 Quellen: <Ich, StackOverflow>
 */
 
@@ -68,8 +68,6 @@ namespace L03_shoppingList {
         }
     }
 
-
-
     function handleButton(_event: MouseEvent) {
         console.log("Button clicked!");
     }
@@ -97,11 +95,8 @@ namespace L03_shoppingList {
     }
 
     function handleClick(_event: MouseEvent): void {
-        //console.log(_event.target);
-        //console.log(_event.currentTarget);
 
         let id: string = (_event.target as Element).id;
-        //console.log(id);
 
         if (id.includes("listElement")) {
             let newID: number = cutID(id, 11);

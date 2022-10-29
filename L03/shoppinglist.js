@@ -3,7 +3,7 @@
 Aufgabe: <L03_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <28.10.2022>
+Datum: <29.10.2022>
 Quellen: <Ich, StackOverflow>
 */
 var L03_shoppingList;
@@ -70,10 +70,7 @@ var L03_shoppingList;
         listElement.addEventListener("click", handleClick);
     }
     function handleClick(_event) {
-        //console.log(_event.target);
-        //console.log(_event.currentTarget);
         let id = _event.target.id;
-        //console.log(id);
         if (id.includes("listElement")) {
             let newID = cutID(id, 11);
             clickList(newID);
