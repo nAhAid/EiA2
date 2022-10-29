@@ -57,14 +57,17 @@ namespace L03_shoppingList {
         button.addEventListener("click", handleButton);
 
         writeList();
+
+        console.log(formData);
     }
 
     function handleInputChange(_event: Event) {
 
         for (let entry of formData) {
+            console.log(entry);
 
             if (entry[0] == "Radiogroup") {
-                let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[value='" + entry[1] + "']");
+                let item: HTMLInputElement = <HTMLInputElement>document.querySelector("#" + entry[1]);
                 console.log(item.value);
             }
 

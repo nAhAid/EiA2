@@ -42,11 +42,13 @@ var L03_shoppingList;
         let button = document.getElementById("commit");
         button.addEventListener("click", handleButton);
         writeList();
+        console.log(formData);
     }
     function handleInputChange(_event) {
         for (let entry of formData) {
+            console.log(entry);
             if (entry[0] == "Radiogroup") {
-                let item = document.querySelector("[value='" + entry[1] + "']");
+                let item = document.querySelector("#" + entry[1]);
                 console.log(item.value);
             }
             else if (entry[0] != "Radiogroup") {
