@@ -37,7 +37,9 @@ namespace L04_CocktailBar {
         let formData: FormData = new FormData(document.forms[0]);
         //console.log(formData);
         for (let entry of formData) {
+            console.log(entry);
             let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[value='" + entry[1] + "']");
+            console.log(item);
             let price: number = Number(item.getAttribute("price"));
         
             if (item.name == undefined && entry[0] != "Amount") {
@@ -57,9 +59,7 @@ namespace L04_CocktailBar {
             }
         }
 
-        console.log(total);
         total = round(total, 2);
-        console.log(total);
         totalOrder.innerHTML = "<b>" + total + " €";
 
     }

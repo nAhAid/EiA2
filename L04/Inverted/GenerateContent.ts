@@ -52,11 +52,13 @@ namespace L04_CocktailBar {
         let group: HTMLDivElement = document.createElement("div");
 
         for (let item of _items) {
+            console.log(item.name);
             let radio: HTMLInputElement = document.createElement("input");
             radio.type = "radio";
             radio.name = _category;
             radio.value = item.name;
             radio.setAttribute("price", item.price.toFixed(2));
+            radio.id = item.name;
 
             let label: HTMLLabelElement = document.createElement("label");
             label.textContent = item.name;

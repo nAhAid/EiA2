@@ -44,11 +44,13 @@ var L04_CocktailBar;
     function createSingle(_items, _category) {
         let group = document.createElement("div");
         for (let item of _items) {
+            console.log(item.name);
             let radio = document.createElement("input");
             radio.type = "radio";
             radio.name = _category;
             radio.value = item.name;
             radio.setAttribute("price", item.price.toFixed(2));
+            radio.id = item.name;
             let label = document.createElement("label");
             label.textContent = item.name;
             label.htmlFor = item.name;
