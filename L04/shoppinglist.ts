@@ -177,6 +177,8 @@ namespace L04_shoppingList {
                 check.value = (_element).toString();
             }
         }
+
+        lastPurchase = inputs[_element].lastPurchase;
     }
 
 }

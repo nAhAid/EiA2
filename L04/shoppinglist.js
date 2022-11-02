@@ -130,6 +130,7 @@ var L04_shoppingList;
                 check.value = (_element).toString();
             }
         }
+        L04_shoppingList.lastPurchase = L04_shoppingList.inputs[_element].lastPurchase;
     }
 })(L04_shoppingList || (L04_shoppingList = {}));
 //# sourceMappingURL=shoppinglist.js.map
