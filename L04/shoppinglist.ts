@@ -23,11 +23,11 @@ namespace L04_shoppingList {
     }
 
     function handleInputChange(_event: Event) {
-
+        console.log(formData);
         for (let entry of formData) {
 
-            if (entry[0] == "Radiogroup") {
-                htmlBuyNext = <HTMLInputElement>document.querySelector("#" + entry[1]);
+            if (entry[0] == "checkbox") {
+                htmlBuyNext = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
                 buyNext = JSON.parse(htmlBuyNext.value);
                 console.log(buyNext);
 
@@ -149,8 +149,8 @@ namespace L04_shoppingList {
     function editElement(_element: number) {
         for (let entry of formData) {
 
-            if (entry[0] == "Radiogroup") {
-                htmlBuyNext = <HTMLInputElement>document.querySelector("#" + entry[1]);
+            if (entry[0] == "checkbox") {
+                htmlBuyNext = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
                 htmlBuyNext.value = (inputs[_element].buyNext).toString();
                 buyNext = inputs[_element].buyNext;
             }

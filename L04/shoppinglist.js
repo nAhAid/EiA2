@@ -18,9 +18,10 @@ var L04_shoppingList;
         writeList();
     }
     function handleInputChange(_event) {
+        console.log(formData);
         for (let entry of formData) {
-            if (entry[0] == "Radiogroup") {
-                L04_shoppingList.htmlBuyNext = document.querySelector("#" + entry[1]);
+            if (entry[0] == "checkbox") {
+                L04_shoppingList.htmlBuyNext = document.querySelector("[name='" + entry[0] + "']");
                 L04_shoppingList.buyNext = JSON.parse(L04_shoppingList.htmlBuyNext.value);
                 console.log(L04_shoppingList.buyNext);
             }
@@ -105,8 +106,8 @@ var L04_shoppingList;
     }
     function editElement(_element) {
         for (let entry of formData) {
-            if (entry[0] == "Radiogroup") {
-                L04_shoppingList.htmlBuyNext = document.querySelector("#" + entry[1]);
+            if (entry[0] == "checkbox") {
+                L04_shoppingList.htmlBuyNext = document.querySelector("[name='" + entry[0] + "']");
                 L04_shoppingList.htmlBuyNext.value = (L04_shoppingList.inputs[_element].buyNext).toString();
                 L04_shoppingList.buyNext = L04_shoppingList.inputs[_element].buyNext;
             }
