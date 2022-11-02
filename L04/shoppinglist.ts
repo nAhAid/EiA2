@@ -59,14 +59,14 @@ namespace L04_shoppingList {
         let checked: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
 
         if (checked.value == "") {
-            inputs.push({product, quantity, buyNext, isDone, comment, lastPurchase});
+            inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
             console.log(inputs);
         }
 
         else if (checked.value != "") {
             let element: number = parseInt(checked.value);
 
-            inputs[element] = {product, quantity, buyNext, isDone, comment, lastPurchase};
+            inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase };
         }
 
         writeList();
@@ -106,7 +106,6 @@ namespace L04_shoppingList {
 
         else if (id.includes("removeElement")) {
             let newID: number = cutID(id, 13);
-            console.log("Delete List Element " + newID);
 
             deleteElement(newID);
 
@@ -114,7 +113,10 @@ namespace L04_shoppingList {
 
         else if (id.includes("editElement")) {
             let newID: number = cutID(id, 11);
-            console.log("Element " + newID + " is about to change");
+            //console.log("Element " + newID + " is about to change");
+
+            editElement(newID);
+
         }
     }
 
@@ -142,6 +144,39 @@ namespace L04_shoppingList {
     function deleteElement(_element: number) {
         inputs.splice(_element, 1);
         writeList();
+    }
+
+    function editElement(_element: number) {
+        for (let entry of formData) {
+
+            if (entry[0] == "Radiogroup") {
+                htmlBuyNext = <HTMLInputElement>document.querySelector("#" + entry[1]);
+                htmlBuyNext.value = (inputs[_element].buyNext).toString();
+                buyNext = inputs[_element].buyNext;
+            }
+
+            else if (entry[0] == "Product") {
+                htmlProduct = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                htmlProduct.value = inputs[_element].product;
+                product = inputs[_element].product;
+            }
+
+            else if (entry[0] == "Quantity") {
+                htmlQuantity = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                htmlQuantity.value = (inputs[_element].quantity).toString();
+                quantity = inputs[_element].quantity;
+            }
+
+            else if (entry[0] == "Comment") {
+                htmlComment = <HTMLTextAreaElement>document.querySelector("[name='" + entry[0] + "']");
+                htmlComment.value = inputs[_element].comment;
+                comment = inputs[_element].comment;
+            }
+            else if (entry[0] == "check") {
+                let check: HTMLInputElement = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                check.value = (_element).toString();
+            }
+        }
     }
 
 }

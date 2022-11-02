@@ -75,12 +75,12 @@ var L04_shoppingList;
         }
         else if (id.includes("removeElement")) {
             let newID = cutID(id, 13);
-            console.log("Delete List Element " + newID);
             deleteElement(newID);
         }
         else if (id.includes("editElement")) {
             let newID = cutID(id, 11);
-            console.log("Element " + newID + " is about to change");
+            //console.log("Element " + newID + " is about to change");
+            editElement(newID);
         }
     }
     function clickList(_bought) {
@@ -102,6 +102,34 @@ var L04_shoppingList;
     function deleteElement(_element) {
         L04_shoppingList.inputs.splice(_element, 1);
         writeList();
+    }
+    function editElement(_element) {
+        for (let entry of formData) {
+            if (entry[0] == "Radiogroup") {
+                L04_shoppingList.htmlBuyNext = document.querySelector("#" + entry[1]);
+                L04_shoppingList.htmlBuyNext.value = (L04_shoppingList.inputs[_element].buyNext).toString();
+                L04_shoppingList.buyNext = L04_shoppingList.inputs[_element].buyNext;
+            }
+            else if (entry[0] == "Product") {
+                L04_shoppingList.htmlProduct = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.htmlProduct.value = L04_shoppingList.inputs[_element].product;
+                L04_shoppingList.product = L04_shoppingList.inputs[_element].product;
+            }
+            else if (entry[0] == "Quantity") {
+                L04_shoppingList.htmlQuantity = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.htmlQuantity.value = (L04_shoppingList.inputs[_element].quantity).toString();
+                L04_shoppingList.quantity = L04_shoppingList.inputs[_element].quantity;
+            }
+            else if (entry[0] == "Comment") {
+                L04_shoppingList.htmlComment = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.htmlComment.value = L04_shoppingList.inputs[_element].comment;
+                L04_shoppingList.comment = L04_shoppingList.inputs[_element].comment;
+            }
+            else if (entry[0] == "check") {
+                let check = document.querySelector("[name='" + entry[0] + "']");
+                check.value = (_element).toString();
+            }
+        }
     }
 })(L04_shoppingList || (L04_shoppingList = {}));
 //# sourceMappingURL=shoppinglist.js.map
