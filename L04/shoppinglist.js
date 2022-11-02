@@ -16,23 +16,43 @@ var L04_shoppingList;
         let button = document.getElementById("commit");
         button.addEventListener("click", handleButton);
         writeList();
-        console.log(formData);
     }
     function handleInputChange(_event) {
         for (let entry of formData) {
-            console.log(entry);
             if (entry[0] == "Radiogroup") {
-                let item = document.querySelector("#" + entry[1]);
-                console.log(item.value);
+                L04_shoppingList.htmlBuyNext = document.querySelector("#" + entry[1]);
+                L04_shoppingList.buyNext = JSON.parse(L04_shoppingList.htmlBuyNext.value);
+                console.log(L04_shoppingList.buyNext);
             }
-            else if (entry[0] != "Radiogroup") {
-                let item = document.querySelector("[name='" + entry[0] + "']");
-                console.log(item.value);
+            else if (entry[0] == "Product") {
+                L04_shoppingList.htmlProduct = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.product = L04_shoppingList.htmlProduct.value;
+                console.log(L04_shoppingList.product);
+            }
+            else if (entry[0] == "Quantity") {
+                L04_shoppingList.htmlQuantity = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.quantity = parseInt(L04_shoppingList.htmlQuantity.value);
+                console.log(L04_shoppingList.quantity);
+            }
+            else if (entry[0] == "Comment") {
+                L04_shoppingList.htmlComment = document.querySelector("[name='" + entry[0] + "']");
+                L04_shoppingList.comment = L04_shoppingList.htmlComment.value;
+                console.log(L04_shoppingList.comment);
             }
         }
     }
     function handleButton(_event) {
-        console.log("Button clicked!");
+        //console.log("Button clicked!");
+        let checked = document.querySelector("#check");
+        if (checked.value == "") {
+            L04_shoppingList.inputs.push({ product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase });
+            console.log(L04_shoppingList.inputs);
+        }
+        else if (checked.value != "") {
+            let element = parseInt(checked.value);
+            L04_shoppingList.inputs[element] = { product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase };
+        }
+        writeList();
     }
     function writeList() {
         let list = document.querySelector("#uList");
@@ -66,9 +86,13 @@ var L04_shoppingList;
     function clickList(_bought) {
         L04_shoppingList.inputs[_bought].isDone = !L04_shoppingList.inputs[_bought].isDone;
         console.log(L04_shoppingList.inputs[_bought].isDone);
-        let date = 0;
-        date = Date.now();
+        /* let date: number = 0;
+
+
+        date = Date.now(); */
+        let date = new Date();
         L04_shoppingList.inputs[_bought].lastPurchase = date.toString();
+        console.log(L04_shoppingList.inputs[_bought].lastPurchase);
         writeList();
     }
     function cutID(_id, _length) {

@@ -20,29 +20,57 @@ namespace L04_shoppingList {
         button.addEventListener("click", handleButton);
 
         writeList();
-
-        console.log(formData);
     }
 
     function handleInputChange(_event: Event) {
 
         for (let entry of formData) {
-            console.log(entry);
 
             if (entry[0] == "Radiogroup") {
-                let item: HTMLInputElement = <HTMLInputElement>document.querySelector("#" + entry[1]);
-                console.log(item.value);
+                htmlBuyNext = <HTMLInputElement>document.querySelector("#" + entry[1]);
+                buyNext = JSON.parse(htmlBuyNext.value);
+                console.log(buyNext);
+
             }
 
-            else if (entry[0] != "Radiogroup") {
-                let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                console.log(item.value);
+            else if (entry[0] == "Product") {
+                htmlProduct = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                product = htmlProduct.value;
+                console.log(product);
+            }
+
+            else if (entry[0] == "Quantity") {
+                htmlQuantity = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                quantity = parseInt(htmlQuantity.value);
+                console.log(quantity);
+            }
+
+            else if (entry[0] == "Comment") {
+                htmlComment = <HTMLTextAreaElement>document.querySelector("[name='" + entry[0] + "']");
+                comment = htmlComment.value;
+                console.log(comment);
             }
         }
     }
 
     function handleButton(_event: MouseEvent) {
-        console.log("Button clicked!");
+        //console.log("Button clicked!");
+
+        let checked: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
+
+        if (checked.value == "") {
+            inputs.push({product, quantity, buyNext, isDone, comment, lastPurchase});
+            console.log(inputs);
+        }
+
+        else if (checked.value != "") {
+            let element: number = parseInt(checked.value);
+
+            inputs[element] = {product, quantity, buyNext, isDone, comment, lastPurchase};
+        }
+
+        writeList();
+
 
 
     }
@@ -94,10 +122,14 @@ namespace L04_shoppingList {
 
         inputs[_bought].isDone = !inputs[_bought].isDone;
         console.log(inputs[_bought].isDone);
-        let date: number = 0;
+        /* let date: number = 0;
 
-        date = Date.now();
+
+        date = Date.now(); */
+        let date: Date = new Date();
+
         inputs[_bought].lastPurchase = date.toString();
+        console.log(inputs[_bought].lastPurchase);
 
         writeList();
     }
@@ -107,7 +139,7 @@ namespace L04_shoppingList {
         return parseInt(newId);
     }
 
-    function deleteElement (_element: number) {
+    function deleteElement(_element: number) {
         inputs.splice(_element, 1);
         writeList();
     }
