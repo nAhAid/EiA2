@@ -41,6 +41,13 @@ var L04_shoppingList;
                 console.log(L04_shoppingList.comment);
             }
         }
+        let cb = formData.get("buyNext")?.toString();
+        if (cb == undefined) {
+            let test = cb;
+            console.log("test");
+        }
+        console.log("xxx");
+        console.log(cb);
     }
     function handleButton(_event) {
         //console.log("Button clicked!");

@@ -24,6 +24,7 @@ namespace L04_shoppingList {
 
     function handleInputChange(_event: Event) {
         console.log(formData);
+
         for (let entry of formData) {
 
             if (entry[0] == "checkbox") {
@@ -51,6 +52,17 @@ namespace L04_shoppingList {
                 console.log(comment);
             }
         }
+
+        let cb: string | undefined = formData.get("buyNext")?.toString();
+
+        if (cb == undefined) {
+            let test: string = cb!;
+            console.log("test");
+        }
+
+
+        console.log("xxx");
+        console.log(cb);
     }
 
     function handleButton(_event: MouseEvent) {
