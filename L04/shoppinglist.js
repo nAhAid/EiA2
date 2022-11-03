@@ -80,8 +80,9 @@ var L04_shoppingList;
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
                 console.log("Datum undefined; comment undefined");
             }
-            else {
+            else if (L04_shoppingList.inputs[index].lastPurchase == "" && L04_shoppingList.inputs[index].comment != "") {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                console.log("Datum undefined; comment undefined");
             }
         }
         for (let index = 0; index < L04_shoppingList.inputs.length; index++) {

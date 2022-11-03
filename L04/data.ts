@@ -43,12 +43,12 @@ namespace L04_shoppingList {
     export let quantity: number;
     export let buyNext: boolean;
     export let isDone: boolean;
-    export let comment: string;
-    export let lastPurchase: string;
+    export let comment: string = "";
+    export let lastPurchase: string = "";
 
     export let htmlProduct: HTMLInputElement;
     export let htmlQuantity: HTMLInputElement;
     export let htmlBuyNext: HTMLInputElement;
     export let htmlComment: HTMLTextAreaElement;
-    
+
 }

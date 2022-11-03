@@ -28,5 +28,7 @@ var L04_shoppingList;
         }
     ];
     L04_shoppingList.product = "";
+    L04_shoppingList.comment = "";
+    L04_shoppingList.lastPurchase = "";
 })(L04_shoppingList || (L04_shoppingList = {}));
 //# sourceMappingURL=data.js.map

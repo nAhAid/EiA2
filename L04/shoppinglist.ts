@@ -103,7 +103,7 @@ namespace L04_shoppingList {
             }
 
             else if (inputs[index].lastPurchase != "" && inputs[index].comment == "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", "  + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
                 console.log("Datum defined; comment undefined");
             }
 
@@ -111,10 +111,9 @@ namespace L04_shoppingList {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
                 console.log("Datum undefined; comment undefined");
             }
-
-            else {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
-
+            else if (inputs[index].lastPurchase == "" && inputs[index].comment != "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity  + ", " + inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                console.log("Datum undefined; comment undefined");
             }
 
         }
@@ -148,14 +147,14 @@ namespace L04_shoppingList {
             editElement(newID);
 
         }
-        
+
         else if (id.includes("buyNextElement")) {
             let newID: number = cutID(id, 14);
 
             buyNexttime(newID);
 
         }
-        
+
     }
 
     function clickList(_bought: number): void {
@@ -182,7 +181,7 @@ namespace L04_shoppingList {
         writeList();
     }
 
-    function buyNexttime (_element: number) {
+    function buyNexttime(_element: number) {
         inputs[_element].buyNext = !inputs[_element].buyNext;
 
         writeList();
