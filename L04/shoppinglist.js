@@ -68,8 +68,17 @@ var L04_shoppingList;
         for (let index = 0; index < L04_shoppingList.inputs.length; index++) {
             let checked = L04_shoppingList.inputs[index].isDone ? "done" : "open";
             let buyNext = L04_shoppingList.inputs[index].buyNext ? "buy" : "dontbuy";
-            if (L04_shoppingList.inputs[index].lastPurchase != undefined) {
+            if (L04_shoppingList.inputs[index].lastPurchase != "" && L04_shoppingList.inputs[index].comment != "") {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + ", " + L04_shoppingList.inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                console.log("Datum defined; comment defined");
+            }
+            else if (L04_shoppingList.inputs[index].lastPurchase != "" && L04_shoppingList.inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                console.log("Datum defined; comment undefined");
+            }
+            else if (L04_shoppingList.inputs[index].lastPurchase == "" && L04_shoppingList.inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                console.log("Datum undefined; comment undefined");
             }
             else {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
