@@ -9,7 +9,6 @@ Quellen: <Ich, StackOverflow>
 var L04_shoppingList;
 (function (L04_shoppingList) {
     window.addEventListener("load", handleLoad);
-    let formData = new FormData(document.forms[0]);
     function handleLoad() {
         let input = document.getElementById("input");
         input.addEventListener("change", handleInputChange);
@@ -18,36 +17,49 @@ var L04_shoppingList;
         writeList();
     }
     function handleInputChange(_event) {
+        let formData = new FormData(document.forms[0]);
         console.log(formData);
-        for (let entry of formData) {
+        /* for (let entry of formData) {
+
             if (entry[0] == "checkbox") {
-                L04_shoppingList.htmlBuyNext = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.buyNext = JSON.parse(L04_shoppingList.htmlBuyNext.value);
-                console.log(L04_shoppingList.buyNext);
+                htmlBuyNext = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                buyNext = JSON.parse(htmlBuyNext.value);
+                console.log(buyNext);
+
             }
+
             else if (entry[0] == "Product") {
-                L04_shoppingList.htmlProduct = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.product = L04_shoppingList.htmlProduct.value;
-                console.log(L04_shoppingList.product);
+                htmlProduct = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                product = htmlProduct.value;
+                console.log(product);
             }
+
             else if (entry[0] == "Quantity") {
-                L04_shoppingList.htmlQuantity = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.quantity = parseInt(L04_shoppingList.htmlQuantity.value);
-                console.log(L04_shoppingList.quantity);
+                htmlQuantity = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
+                quantity = parseInt(htmlQuantity.value);
+                console.log(quantity);
             }
+
             else if (entry[0] == "Comment") {
-                L04_shoppingList.htmlComment = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.comment = L04_shoppingList.htmlComment.value;
-                console.log(L04_shoppingList.comment);
+                htmlComment = <HTMLTextAreaElement>document.querySelector("[name='" + entry[0] + "']");
+                comment = htmlComment.value;
+                console.log(comment);
             }
+        } */
+        let buy = formData.get("buyNext")?.toString();
+        L04_shoppingList.product = formData.get("Product")?.toString();
+        L04_shoppingList.quantity = Number(formData.get("Quantity"));
+        L04_shoppingList.comment = formData.get("Comment")?.toString();
+        if (buy != "true") {
+            L04_shoppingList.buyNext = false;
         }
-        let cb = formData.get("buyNext")?.toString();
-        if (cb == undefined) {
-            let test = cb;
-            console.log("test");
+        else if (buy == "true") {
+            L04_shoppingList.buyNext = true;
         }
-        console.log("xxx");
-        console.log(cb);
+        console.log(L04_shoppingList.product);
+        console.log(L04_shoppingList.quantity);
+        console.log(L04_shoppingList.buyNext);
+        console.log(L04_shoppingList.comment);
     }
     function handleButton(_event) {
         //console.log("Button clicked!");
@@ -60,6 +72,22 @@ var L04_shoppingList;
             let element = parseInt(checked.value);
             L04_shoppingList.inputs[element] = { product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase };
         }
+        L04_shoppingList.product = "";
+        L04_shoppingList.quantity = 0;
+        L04_shoppingList.buyNext = false;
+        L04_shoppingList.isDone = false;
+        L04_shoppingList.comment = "";
+        L04_shoppingList.lastPurchase = "";
+        let check = document.querySelector("#check");
+        check.value = "";
+        L04_shoppingList.htmlProduct = document.querySelector("#product");
+        L04_shoppingList.htmlProduct.value = L04_shoppingList.product;
+        L04_shoppingList.htmlQuantity = document.querySelector("#quantity");
+        L04_shoppingList.htmlQuantity.value = L04_shoppingList.quantity.toString();
+        L04_shoppingList.htmlBuyNext = document.querySelector("#buyNext");
+        L04_shoppingList.htmlBuyNext.checked = L04_shoppingList.buyNext;
+        L04_shoppingList.htmlComment = document.querySelector("#comment");
+        L04_shoppingList.htmlComment.value = L04_shoppingList.comment;
         writeList();
     }
     function writeList() {
@@ -112,32 +140,20 @@ var L04_shoppingList;
         writeList();
     }
     function editElement(_element) {
-        for (let entry of formData) {
-            if (entry[0] == "checkbox") {
-                L04_shoppingList.htmlBuyNext = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.htmlBuyNext.value = (L04_shoppingList.inputs[_element].buyNext).toString();
-                L04_shoppingList.buyNext = L04_shoppingList.inputs[_element].buyNext;
-            }
-            else if (entry[0] == "Product") {
-                L04_shoppingList.htmlProduct = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.htmlProduct.value = L04_shoppingList.inputs[_element].product;
-                L04_shoppingList.product = L04_shoppingList.inputs[_element].product;
-            }
-            else if (entry[0] == "Quantity") {
-                L04_shoppingList.htmlQuantity = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.htmlQuantity.value = (L04_shoppingList.inputs[_element].quantity).toString();
-                L04_shoppingList.quantity = L04_shoppingList.inputs[_element].quantity;
-            }
-            else if (entry[0] == "Comment") {
-                L04_shoppingList.htmlComment = document.querySelector("[name='" + entry[0] + "']");
-                L04_shoppingList.htmlComment.value = L04_shoppingList.inputs[_element].comment;
-                L04_shoppingList.comment = L04_shoppingList.inputs[_element].comment;
-            }
-            else if (entry[0] == "check") {
-                let check = document.querySelector("[name='" + entry[0] + "']");
-                check.value = (_element).toString();
-            }
-        }
+        L04_shoppingList.product = L04_shoppingList.inputs[_element].product;
+        L04_shoppingList.quantity = L04_shoppingList.inputs[_element].quantity;
+        L04_shoppingList.buyNext = L04_shoppingList.inputs[_element].buyNext;
+        L04_shoppingList.comment = L04_shoppingList.inputs[_element].comment;
+        let check = document.querySelector("#check");
+        check.value = (_element).toString();
+        L04_shoppingList.htmlProduct = document.querySelector("#product");
+        L04_shoppingList.htmlProduct.value = L04_shoppingList.product;
+        L04_shoppingList.htmlQuantity = document.querySelector("#quantity");
+        L04_shoppingList.htmlQuantity.value = L04_shoppingList.quantity.toString();
+        L04_shoppingList.htmlBuyNext = document.querySelector("#buyNext");
+        L04_shoppingList.htmlBuyNext.checked = L04_shoppingList.buyNext;
+        L04_shoppingList.htmlComment = document.querySelector("#comment");
+        L04_shoppingList.htmlComment.value = L04_shoppingList.comment;
         L04_shoppingList.lastPurchase = L04_shoppingList.inputs[_element].lastPurchase;
     }
 })(L04_shoppingList || (L04_shoppingList = {}));
