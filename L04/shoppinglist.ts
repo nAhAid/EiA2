@@ -40,7 +40,7 @@ namespace L04_shoppingList {
     }
 
     function handleButton(_event: MouseEvent) {
-    
+
         if (product == "") {
             return;
         }
@@ -51,41 +51,41 @@ namespace L04_shoppingList {
             if (checked.value == "") {
                 inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
             }
-    
+
             else if (checked.value != "") {
                 let element: number = parseInt(checked.value);
-    
+
                 inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase };
             }
-    
+
             product = "";
             quantity = 0;
             buyNext = false;
             isDone = false;
             comment = "";
             lastPurchase = "";
-    
-    
+
+
             let check: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
             check.value = "";
-    
+
             htmlProduct = <HTMLInputElement>document.querySelector("#product");
             htmlProduct.value = product;
-    
+
             htmlQuantity = <HTMLInputElement>document.querySelector("#quantity");
             htmlQuantity.value = quantity.toString();
-    
+
             htmlBuyNext = <HTMLInputElement>document.querySelector("#buyNext");
             htmlBuyNext.checked = buyNext;
-    
+
             htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
             htmlComment.value = comment;
-    
+
             writeList();
 
         }
-        
-        
+
+
     }
 
 
@@ -98,12 +98,12 @@ namespace L04_shoppingList {
             let buyNext: string = inputs[index].buyNext ? "buy" : "dontbuy";
 
             if (inputs[index].lastPurchase != undefined) {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
 
             else {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
 
@@ -138,6 +138,14 @@ namespace L04_shoppingList {
             editElement(newID);
 
         }
+        
+        else if (id.includes("buyNextElement")) {
+            let newID: number = cutID(id, 14);
+
+            buyNexttime(newID);
+
+        }
+        
     }
 
     function clickList(_bought: number): void {
@@ -146,7 +154,7 @@ namespace L04_shoppingList {
         let date: Date = new Date();
 
         let day: number = date.getDate();
-        let month: number = date.getMonth();
+        let month: number = (new Date().getMonth() + 1);
         let year: number = date.getFullYear();
 
         inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
@@ -161,6 +169,12 @@ namespace L04_shoppingList {
 
     function deleteElement(_element: number) {
         inputs.splice(_element, 1);
+        writeList();
+    }
+
+    function buyNexttime (_element: number) {
+        inputs[_element].buyNext = !inputs[_element].buyNext;
+
         writeList();
     }
 

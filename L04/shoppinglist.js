@@ -69,10 +69,10 @@ var L04_shoppingList;
             let checked = L04_shoppingList.inputs[index].isDone ? "done" : "open";
             let buyNext = L04_shoppingList.inputs[index].buyNext ? "buy" : "dontbuy";
             if (L04_shoppingList.inputs[index].lastPurchase != undefined) {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + ", " + L04_shoppingList.inputs[index].lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + ", " + L04_shoppingList.inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
             else {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + L04_shoppingList.inputs[index].product + ", " + L04_shoppingList.inputs[index].quantity + ", " + L04_shoppingList.inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
         }
         for (let index = 0; index < L04_shoppingList.inputs.length; index++) {
@@ -94,12 +94,16 @@ var L04_shoppingList;
             let newID = cutID(id, 11);
             editElement(newID);
         }
+        else if (id.includes("buyNextElement")) {
+            let newID = cutID(id, 14);
+            buyNexttime(newID);
+        }
     }
     function clickList(_bought) {
         L04_shoppingList.inputs[_bought].isDone = !L04_shoppingList.inputs[_bought].isDone;
         let date = new Date();
         let day = date.getDate();
-        let month = date.getMonth();
+        let month = (new Date().getMonth() + 1);
         let year = date.getFullYear();
         L04_shoppingList.inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
         writeList();
@@ -110,6 +114,10 @@ var L04_shoppingList;
     }
     function deleteElement(_element) {
         L04_shoppingList.inputs.splice(_element, 1);
+        writeList();
+    }
+    function buyNexttime(_element) {
+        L04_shoppingList.inputs[_element].buyNext = !L04_shoppingList.inputs[_element].buyNext;
         writeList();
     }
     function editElement(_element) {
