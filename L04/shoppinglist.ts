@@ -1,16 +1,13 @@
 /*
-Aufgabe: <L03_shoppingList>
+Aufgabe: <L04_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <29.10.2022>
+Datum: <03.11.2022>
 Quellen: <Ich, StackOverflow>
 */
 
 namespace L04_shoppingList {
     window.addEventListener("load", handleLoad);
-
-
-
 
     function handleLoad() {
         let input: HTMLDivElement = <HTMLDivElement>document.getElementById("input");
@@ -27,40 +24,12 @@ namespace L04_shoppingList {
         let formData: FormData = new FormData(document.forms[0]);
         console.log(formData);
 
-        /* for (let entry of formData) {
-
-            if (entry[0] == "checkbox") {
-                htmlBuyNext = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                buyNext = JSON.parse(htmlBuyNext.value);
-                console.log(buyNext);
-
-            }
-
-            else if (entry[0] == "Product") {
-                htmlProduct = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                product = htmlProduct.value;
-                console.log(product);
-            }
-
-            else if (entry[0] == "Quantity") {
-                htmlQuantity = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                quantity = parseInt(htmlQuantity.value);
-                console.log(quantity);
-            }
-
-            else if (entry[0] == "Comment") {
-                htmlComment = <HTMLTextAreaElement>document.querySelector("[name='" + entry[0] + "']");
-                comment = htmlComment.value;
-                console.log(comment);
-            }
-        } */
-
         let buy: string | undefined = formData.get("buyNext")?.toString();
         product = formData.get("Product")?.toString()!;
         quantity = Number(formData.get("Quantity")!);
         comment = formData.get("Comment")?.toString()!;
 
-        if ( buy != "true") {
+        if (buy != "true") {
             buyNext = false;
         }
 
@@ -68,23 +37,14 @@ namespace L04_shoppingList {
             buyNext = true;
         }
 
-        console.log(product);
-        console.log(quantity);
-        console.log(buyNext);
-        console.log(comment);
-
-
     }
 
     function handleButton(_event: MouseEvent) {
-        //console.log("Button clicked!");
-        
-
+    
         let checked: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
 
         if (checked.value == "") {
             inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
-            console.log(inputs);
         }
 
         else if (checked.value != "") {
@@ -98,9 +58,9 @@ namespace L04_shoppingList {
         buyNext = false;
         isDone = false;
         comment = "";
-        lastPurchase = ""; 
+        lastPurchase = "";
 
-       
+
         let check: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
         check.value = "";
 
@@ -116,11 +76,7 @@ namespace L04_shoppingList {
         htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
         htmlComment.value = comment;
 
-
         writeList();
-
-
-
     }
 
 
@@ -134,14 +90,14 @@ namespace L04_shoppingList {
 
             if (inputs[index].lastPurchase != undefined) {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
-            
+
             }
-            
+
             else {
                 list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
-            
+
         }
         for (let index: number = 0; index < inputs.length; index++) {
             let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
@@ -169,7 +125,6 @@ namespace L04_shoppingList {
 
         else if (id.includes("editElement")) {
             let newID: number = cutID(id, 11);
-            //console.log("Element " + newID + " is about to change");
 
             editElement(newID);
 
@@ -179,13 +134,13 @@ namespace L04_shoppingList {
     function clickList(_bought: number): void {
 
         inputs[_bought].isDone = !inputs[_bought].isDone;
-        console.log(inputs[_bought].isDone);
-        /* let date: number = 0;
-        date = Date.now(); */
         let date: Date = new Date();
 
-        inputs[_bought].lastPurchase = date.toString();
-        console.log(inputs[_bought].lastPurchase);
+        let day: number = date.getDate();
+        let month: number = date.getMonth();
+        let year: number = date.getFullYear();
+
+        inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
 
         writeList();
     }

@@ -1,9 +1,9 @@
 "use strict";
 /*
-Aufgabe: <L03_shoppingList>
+Aufgabe: <L04_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <29.10.2022>
+Datum: <03.11.2022>
 Quellen: <Ich, StackOverflow>
 */
 var L04_shoppingList;
@@ -19,33 +19,6 @@ var L04_shoppingList;
     function handleInputChange(_event) {
         let formData = new FormData(document.forms[0]);
         console.log(formData);
-        /* for (let entry of formData) {
-
-            if (entry[0] == "checkbox") {
-                htmlBuyNext = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                buyNext = JSON.parse(htmlBuyNext.value);
-                console.log(buyNext);
-
-            }
-
-            else if (entry[0] == "Product") {
-                htmlProduct = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                product = htmlProduct.value;
-                console.log(product);
-            }
-
-            else if (entry[0] == "Quantity") {
-                htmlQuantity = <HTMLInputElement>document.querySelector("[name='" + entry[0] + "']");
-                quantity = parseInt(htmlQuantity.value);
-                console.log(quantity);
-            }
-
-            else if (entry[0] == "Comment") {
-                htmlComment = <HTMLTextAreaElement>document.querySelector("[name='" + entry[0] + "']");
-                comment = htmlComment.value;
-                console.log(comment);
-            }
-        } */
         let buy = formData.get("buyNext")?.toString();
         L04_shoppingList.product = formData.get("Product")?.toString();
         L04_shoppingList.quantity = Number(formData.get("Quantity"));
@@ -56,17 +29,11 @@ var L04_shoppingList;
         else if (buy == "true") {
             L04_shoppingList.buyNext = true;
         }
-        console.log(L04_shoppingList.product);
-        console.log(L04_shoppingList.quantity);
-        console.log(L04_shoppingList.buyNext);
-        console.log(L04_shoppingList.comment);
     }
     function handleButton(_event) {
-        //console.log("Button clicked!");
         let checked = document.querySelector("#check");
         if (checked.value == "") {
             L04_shoppingList.inputs.push({ product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase });
-            console.log(L04_shoppingList.inputs);
         }
         else if (checked.value != "") {
             let element = parseInt(checked.value);
@@ -120,18 +87,16 @@ var L04_shoppingList;
         }
         else if (id.includes("editElement")) {
             let newID = cutID(id, 11);
-            //console.log("Element " + newID + " is about to change");
             editElement(newID);
         }
     }
     function clickList(_bought) {
         L04_shoppingList.inputs[_bought].isDone = !L04_shoppingList.inputs[_bought].isDone;
-        console.log(L04_shoppingList.inputs[_bought].isDone);
-        /* let date: number = 0;
-        date = Date.now(); */
         let date = new Date();
-        L04_shoppingList.inputs[_bought].lastPurchase = date.toString();
-        console.log(L04_shoppingList.inputs[_bought].lastPurchase);
+        let day = date.getDate();
+        let month = date.getMonth();
+        let year = date.getFullYear();
+        L04_shoppingList.inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
         writeList();
     }
     function cutID(_id, _length) {
