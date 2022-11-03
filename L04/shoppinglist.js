@@ -128,8 +128,6 @@ var L04_shoppingList;
         L04_shoppingList.inputs[_bought].isDone = !L04_shoppingList.inputs[_bought].isDone;
         console.log(L04_shoppingList.inputs[_bought].isDone);
         /* let date: number = 0;
-
-
         date = Date.now(); */
         let date = new Date();
         L04_shoppingList.inputs[_bought].lastPurchase = date.toString();

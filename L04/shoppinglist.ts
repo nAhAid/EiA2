@@ -181,8 +181,6 @@ namespace L04_shoppingList {
         inputs[_bought].isDone = !inputs[_bought].isDone;
         console.log(inputs[_bought].isDone);
         /* let date: number = 0;
-
-
         date = Date.now(); */
         let date: Date = new Date();
 
