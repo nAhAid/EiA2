@@ -39,7 +39,7 @@ namespace L04_shoppingList {
     ];
 
 
-    export let product: string;
+    export let product: string = "";
     export let quantity: number;
     export let buyNext: boolean;
     export let isDone: boolean;

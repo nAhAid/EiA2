@@ -22,7 +22,6 @@ namespace L04_shoppingList {
     function handleInputChange(_event: Event) {
 
         let formData: FormData = new FormData(document.forms[0]);
-        console.log(formData);
 
         let buy: string | undefined = formData.get("buyNext")?.toString();
         product = formData.get("Product")?.toString()!;
@@ -41,42 +40,51 @@ namespace L04_shoppingList {
 
     function handleButton(_event: MouseEvent) {
     
-        let checked: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
-
-        if (checked.value == "") {
-            inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
+        if (product == "") {
+            return;
         }
 
-        else if (checked.value != "") {
-            let element: number = parseInt(checked.value);
+        else {
+            let checked: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
 
-            inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase };
+            if (checked.value == "") {
+                inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
+            }
+    
+            else if (checked.value != "") {
+                let element: number = parseInt(checked.value);
+    
+                inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase };
+            }
+    
+            product = "";
+            quantity = 0;
+            buyNext = false;
+            isDone = false;
+            comment = "";
+            lastPurchase = "";
+    
+    
+            let check: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
+            check.value = "";
+    
+            htmlProduct = <HTMLInputElement>document.querySelector("#product");
+            htmlProduct.value = product;
+    
+            htmlQuantity = <HTMLInputElement>document.querySelector("#quantity");
+            htmlQuantity.value = quantity.toString();
+    
+            htmlBuyNext = <HTMLInputElement>document.querySelector("#buyNext");
+            htmlBuyNext.checked = buyNext;
+    
+            htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
+            htmlComment.value = comment;
+    
+            writeList();
+
         }
-
-        product = "";
-        quantity = 0;
-        buyNext = false;
-        isDone = false;
-        comment = "";
-        lastPurchase = "";
-
-
-        let check: HTMLInputElement = <HTMLInputElement>document.querySelector("#check");
-        check.value = "";
-
-        htmlProduct = <HTMLInputElement>document.querySelector("#product");
-        htmlProduct.value = product;
-
-        htmlQuantity = <HTMLInputElement>document.querySelector("#quantity");
-        htmlQuantity.value = quantity.toString();
-
-        htmlBuyNext = <HTMLInputElement>document.querySelector("#buyNext");
-        htmlBuyNext.checked = buyNext;
-
-        htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
-        htmlComment.value = comment;
-
-        writeList();
+        
+        
     }
 
 

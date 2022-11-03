@@ -27,5 +27,6 @@ var L04_shoppingList;
             lastPurchase: "10.10.2022"
         }
     ];
+    L04_shoppingList.product = "";
 })(L04_shoppingList || (L04_shoppingList = {}));
 //# sourceMappingURL=data.js.map

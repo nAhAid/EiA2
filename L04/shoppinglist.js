@@ -18,7 +18,6 @@ var L04_shoppingList;
     }
     function handleInputChange(_event) {
         let formData = new FormData(document.forms[0]);
-        console.log(formData);
         let buy = formData.get("buyNext")?.toString();
         L04_shoppingList.product = formData.get("Product")?.toString();
         L04_shoppingList.quantity = Number(formData.get("Quantity"));
@@ -31,31 +30,36 @@ var L04_shoppingList;
         }
     }
     function handleButton(_event) {
-        let checked = document.querySelector("#check");
-        if (checked.value == "") {
-            L04_shoppingList.inputs.push({ product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase });
+        if (L04_shoppingList.product == "") {
+            return;
         }
-        else if (checked.value != "") {
-            let element = parseInt(checked.value);
-            L04_shoppingList.inputs[element] = { product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase };
+        else {
+            let checked = document.querySelector("#check");
+            if (checked.value == "") {
+                L04_shoppingList.inputs.push({ product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase });
+            }
+            else if (checked.value != "") {
+                let element = parseInt(checked.value);
+                L04_shoppingList.inputs[element] = { product: L04_shoppingList.product, quantity: L04_shoppingList.quantity, buyNext: L04_shoppingList.buyNext, isDone: L04_shoppingList.isDone, comment: L04_shoppingList.comment, lastPurchase: L04_shoppingList.lastPurchase };
+            }
+            L04_shoppingList.product = "";
+            L04_shoppingList.quantity = 0;
+            L04_shoppingList.buyNext = false;
+            L04_shoppingList.isDone = false;
+            L04_shoppingList.comment = "";
+            L04_shoppingList.lastPurchase = "";
+            let check = document.querySelector("#check");
+            check.value = "";
+            L04_shoppingList.htmlProduct = document.querySelector("#product");
+            L04_shoppingList.htmlProduct.value = L04_shoppingList.product;
+            L04_shoppingList.htmlQuantity = document.querySelector("#quantity");
+            L04_shoppingList.htmlQuantity.value = L04_shoppingList.quantity.toString();
+            L04_shoppingList.htmlBuyNext = document.querySelector("#buyNext");
+            L04_shoppingList.htmlBuyNext.checked = L04_shoppingList.buyNext;
+            L04_shoppingList.htmlComment = document.querySelector("#comment");
+            L04_shoppingList.htmlComment.value = L04_shoppingList.comment;
+            writeList();
         }
-        L04_shoppingList.product = "";
-        L04_shoppingList.quantity = 0;
-        L04_shoppingList.buyNext = false;
-        L04_shoppingList.isDone = false;
-        L04_shoppingList.comment = "";
-        L04_shoppingList.lastPurchase = "";
-        let check = document.querySelector("#check");
-        check.value = "";
-        L04_shoppingList.htmlProduct = document.querySelector("#product");
-        L04_shoppingList.htmlProduct.value = L04_shoppingList.product;
-        L04_shoppingList.htmlQuantity = document.querySelector("#quantity");
-        L04_shoppingList.htmlQuantity.value = L04_shoppingList.quantity.toString();
-        L04_shoppingList.htmlBuyNext = document.querySelector("#buyNext");
-        L04_shoppingList.htmlBuyNext.checked = L04_shoppingList.buyNext;
-        L04_shoppingList.htmlComment = document.querySelector("#comment");
-        L04_shoppingList.htmlComment.value = L04_shoppingList.comment;
-        writeList();
     }
     function writeList() {
         let list = document.querySelector("#uList");
