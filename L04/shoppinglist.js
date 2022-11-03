@@ -18,6 +18,7 @@ var L04_shoppingList;
     }
     function handleInputChange(_event) {
         let formData = new FormData(document.forms[0]);
+        console.log(formData);
         let buy = formData.get("buyNext")?.toString();
         L04_shoppingList.product = formData.get("Product")?.toString();
         L04_shoppingList.quantity = Number(formData.get("Quantity"));

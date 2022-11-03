@@ -23,6 +23,7 @@ namespace L04_shoppingList {
 
         let formData: FormData = new FormData(document.forms[0]);
 
+        console.log(formData);
         let buy: string | undefined = formData.get("buyNext")?.toString();
         product = formData.get("Product")?.toString()!;
         quantity = Number(formData.get("Quantity")!);
@@ -180,7 +181,6 @@ namespace L04_shoppingList {
 
         htmlBuyNext = <HTMLInputElement>document.querySelector("#buyNext");
         htmlBuyNext.checked = buyNext;
-
 
         htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
         htmlComment.value = comment;
