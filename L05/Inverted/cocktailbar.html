@@ -8,8 +8,7 @@
     <title>Cocktailbar</title>
     <link rel="stylesheet" href="cocktailbar.css" type="text/css" media="screen">
 
-    <script src="interfaces.js" defer=""></script>
-    <script src="Data.js" defer=""></script>
+    
     <script src="communicate.js" defer=""></script>
     <script src="GenerateContent.js" defer=""></script>
     <script src="cocktailbar.js" defer=""></script>
@@ -24,8 +23,8 @@
 
 
     <main>
-        <form method="post" action="">
-            <div id="form">
+        <form id="form" method="post">
+            <div>
                 <h2>Choose Here</h2>
                 <fieldset id="Drink">
                     <legend>Drink</legend>
@@ -52,9 +51,6 @@
                         <progress value="0.1" max="1"></progress>
                     </span>
                 </fieldset>
-                <fieldset>
-                    <button type="submit">Submit Order</button>
-                </fieldset>
 
             </div>
             <div>
@@ -64,6 +60,9 @@
                     <br>
                     <p id="total">0 €</p>
                 </div>
+                <button type="reset" form="form">Reset</button>
+                <button type="button" form="form">Order</button>
+                
             </div>
         </form>
     </main>

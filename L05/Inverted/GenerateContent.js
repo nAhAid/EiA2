@@ -3,7 +3,7 @@ var L05_CocktailBar;
 (function (L05_CocktailBar) {
     function generateContent(_data) {
         console.log(_data);
-        for (let category in L05_CocktailBar.data) {
+        for (let category in _data) {
             //console.log(category);
             let items = _data[category];
             let group = null;

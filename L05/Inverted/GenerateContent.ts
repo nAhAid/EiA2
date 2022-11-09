@@ -1,8 +1,18 @@
 namespace L05_CocktailBar {
+    export interface Item {
+        name: string;
+        price: number;
+    }
+
+    export interface Data {
+        //In den eckigen Klammern steht ein variabler Schlüssel, nur fürden der den Code liest
+        [category: string]: Item[];
+    }
+   
     export function generateContent(_data: Data) {
         console.log(_data);
 
-        for (let category in data) {
+        for (let category in _data) {
             //console.log(category);
 
             let items: Item[] = _data[category];

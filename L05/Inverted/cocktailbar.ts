@@ -3,19 +3,41 @@
 namespace L05_CocktailBar {
     window.addEventListener("load", handleLoad);
 
-    function handleLoad() {
-       
+    let form: HTMLFormElement;
+
+    async function handleLoad(): Promise<void> {
+
+        let response: Response = await fetch("Data.json");
+        let offer: string = await response.text();
+        let data: Data = JSON.parse(offer);
+        
+        
         generateContent(data);
 
-        let form: HTMLElement = <HTMLElement>document.getElementById("form");
+        form = <HTMLFormElement>document.getElementById("form");
         form.addEventListener("change", handleChange);
 
         let slider: HTMLElement = <HTMLElement>document.querySelector("#amount");
         slider.addEventListener("input", displayAmount);
 
+        let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[type=button]");
+        console.log(submit);
+
+        submit.addEventListener("click", sendOrder);
+
         console.log("Start");
         communicate("https://jirkadelloro.github.io/EIA2-Inverted/L05_Client/Material/Test.txt");
         console.log("End");
+
+    }
+
+    async function sendOrder (_event: Event): Promise<void> {
+        //console.log("Send order!");
+
+        let formData: FormData = new FormData(form);
+        let query: URLSearchParams = new URLSearchParams(<any>formData);
+        await fetch("index.html?" + query.toString());
+        alert("Order Send!!");
 
     }
 
@@ -41,14 +63,14 @@ namespace L05_CocktailBar {
         let totalOrder: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("total");
 
 
-        let formData: FormData = new FormData(document.forms[0]);
+        let formData: FormData = new FormData(form);
         //console.log(formData);
         for (let entry of formData) {
             console.log(entry);
             let item: HTMLInputElement = <HTMLInputElement>document.querySelector("[value='" + entry[1] + "']");
             console.log(item);
             let price: number = Number(item.getAttribute("price"));
-        
+
             if (item.name == undefined && entry[0] != "Amount") {
                 let amount: number = parseFloat(checkAmount());
                 let cocktailPrice: number = price * amount;

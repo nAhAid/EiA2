@@ -2,15 +2,29 @@
 var L05_CocktailBar;
 (function (L05_CocktailBar) {
     window.addEventListener("load", handleLoad);
-    function handleLoad() {
-        L05_CocktailBar.generateContent(L05_CocktailBar.data);
-        let form = document.getElementById("form");
+    let form;
+    async function handleLoad() {
+        let response = await fetch("Data.json");
+        let offer = await response.text();
+        let data = JSON.parse(offer);
+        L05_CocktailBar.generateContent(data);
+        form = document.getElementById("form");
         form.addEventListener("change", handleChange);
         let slider = document.querySelector("#amount");
         slider.addEventListener("input", displayAmount);
+        let submit = document.querySelector("button[type=button]");
+        console.log(submit);
+        submit.addEventListener("click", sendOrder);
         console.log("Start");
         L05_CocktailBar.communicate("https://jirkadelloro.github.io/EIA2-Inverted/L05_Client/Material/Test.txt");
         console.log("End");
+    }
+    async function sendOrder(_event) {
+        //console.log("Send order!");
+        let formData = new FormData(form);
+        let query = new URLSearchParams(formData);
+        await fetch("index.html?" + query.toString());
+        alert("Order Send!!");
     }
     function handleChange(_event) {
         displayOrder();
@@ -28,7 +42,7 @@ var L05_CocktailBar;
         order.innerHTML = "";
         let total = 0;
         let totalOrder = document.getElementById("total");
-        let formData = new FormData(document.forms[0]);
+        let formData = new FormData(form);
         //console.log(formData);
         for (let entry of formData) {
             console.log(entry);
