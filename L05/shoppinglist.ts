@@ -45,9 +45,9 @@ namespace L05_shoppingList {
     }
 
     async function requestList() {
-        let response: Response = await fetch("Data.json");
+        let response: Response = await fetch("data.json");
         let list: string = await response.text();
-        let inputs: Input = JSON.parse(list);
+        let inputs: Input[] = JSON.parse(list);
         writeList(inputs);
     }
 
@@ -121,35 +121,35 @@ namespace L05_shoppingList {
     }
 
 
-    function writeList(_inputs: Input): void {
+    function writeList(_inputs: Input[]): void {
         let list: HTMLElement = <HTMLElement>document.querySelector("#uList");
         list.innerHTML = "";
 
-        for (let index: number = 0; index < inputs.length; index++) {
-            let checked: string = inputs[index].isDone ? "done" : "open";
-            let buyNext: string = inputs[index].buyNext ? "buy" : "dontbuy";
+        for (let index: number = 0; index < _inputs.length; index++) {
+            let checked: string = _inputs[index].isDone ? "done" : "open";
+            let buyNext: string = _inputs[index].buyNext ? "buy" : "dontbuy";
 
-            if (inputs[index].lastPurchase != "" && inputs[index].comment != "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
-
-            }
-
-            else if (inputs[index].lastPurchase != "" && inputs[index].comment == "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            if (_inputs[index].lastPurchase != "" && _inputs[index].comment != "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].comment + ", " + _inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
 
-            else if (inputs[index].lastPurchase == "" && inputs[index].comment == "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            else if (_inputs[index].lastPurchase != "" && _inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
-            else if (inputs[index].lastPurchase == "" && inputs[index].comment != "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+
+            else if (_inputs[index].lastPurchase == "" && _inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+
+            }
+            else if (_inputs[index].lastPurchase == "" && _inputs[index].comment != "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
 
             }
 
         }
-        for (let index: number = 0; index < inputs.length; index++) {
+        for (let index: number = 0; index < _inputs.length; index++) {
             let listElement: HTMLElement = <HTMLElement>document.querySelector("#listElement" + index);
             listElement.addEventListener("click", handleClick);
 

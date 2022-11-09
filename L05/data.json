@@ -1,4 +1,4 @@
-{
+[
     {
         "product": "Milk",
         "quantity": 1,
@@ -6,7 +6,7 @@
         "isDone": false,
         "comment": "Pack",
         "lastPurchase": "17.10.2022"
-    }
+    },
     {
         "product": "Eggs",
         "quantity": 6,
@@ -23,5 +23,7 @@
         "comment": "Pack",
         "lastPurchase": "10.10.2022"
     }
-}
+]
+   
+
 
