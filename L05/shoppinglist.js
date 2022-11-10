@@ -34,7 +34,8 @@ var L05_shoppingList;
         writeList(inputs);
     }
     async function sendList() {
-        let query = new URLSearchParams(inputs);
+        let sendInputs = JSON.stringify(inputs);
+        let query = new URLSearchParams(sendInputs);
         await fetch("shoppinglist.html?" + query.toString());
         alert("List Send!!");
         requestList();

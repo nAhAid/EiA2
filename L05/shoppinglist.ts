@@ -54,7 +54,9 @@ namespace L05_shoppingList {
     }
 
     async function sendList(): Promise<void> {
-        let query: URLSearchParams = new URLSearchParams(<any>inputs);
+        let sendInputs: string = JSON.stringify(inputs);
+        
+        let query: URLSearchParams = new URLSearchParams(<any>sendInputs);
         await fetch("shoppinglist.html?" + query.toString());
         alert("List Send!!");
 
