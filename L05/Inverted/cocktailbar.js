@@ -23,7 +23,7 @@ var L05_CocktailBar;
         //console.log("Send order!");
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
-        await fetch("index.html?" + query.toString());
+        await fetch("cocktailbar.html?" + query.toString());
         alert("Order Send!!");
     }
     function handleChange(_event) {

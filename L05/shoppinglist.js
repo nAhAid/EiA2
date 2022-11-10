@@ -18,6 +18,7 @@ var L05_shoppingList;
     let htmlQuantity;
     let htmlBuyNext;
     let htmlComment;
+    let inputs;
     window.addEventListener("load", handleLoad);
     async function handleLoad() {
         let input = document.getElementById("input");
@@ -27,10 +28,16 @@ var L05_shoppingList;
         await requestList();
     }
     async function requestList() {
-        let response = await fetch("Data.json");
+        let response = await fetch("data.json");
         let list = await response.text();
-        let inputs = JSON.parse(list);
+        inputs = JSON.parse(list);
         writeList(inputs);
+    }
+    async function sendList() {
+        let query = new URLSearchParams(inputs);
+        await fetch("shoppinglist.html?" + query.toString());
+        alert("List Send!!");
+        requestList();
     }
     function handleInputChange(_event) {
         let formData = new FormData(document.forms[0]);
@@ -75,29 +82,29 @@ var L05_shoppingList;
             htmlBuyNext.checked = buyNext;
             htmlComment = document.querySelector("#comment");
             htmlComment.value = comment;
-            //writeList();
+            sendList();
         }
     }
     function writeList(_inputs) {
         let list = document.querySelector("#uList");
         list.innerHTML = "";
-        for (let index = 0; index < inputs.length; index++) {
-            let checked = inputs[index].isDone ? "done" : "open";
-            let buyNext = inputs[index].buyNext ? "buy" : "dontbuy";
-            if (inputs[index].lastPurchase != "" && inputs[index].comment != "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+        for (let index = 0; index < _inputs.length; index++) {
+            let checked = _inputs[index].isDone ? "done" : "open";
+            let buyNext = _inputs[index].buyNext ? "buy" : "dontbuy";
+            if (_inputs[index].lastPurchase != "" && _inputs[index].comment != "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].comment + ", " + _inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
-            else if (inputs[index].lastPurchase != "" && inputs[index].comment == "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            else if (_inputs[index].lastPurchase != "" && _inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].lastPurchase + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
-            else if (inputs[index].lastPurchase == "" && inputs[index].comment == "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            else if (_inputs[index].lastPurchase == "" && _inputs[index].comment == "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
-            else if (inputs[index].lastPurchase == "" && inputs[index].comment != "") {
-                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + inputs[index].product + ", " + inputs[index].quantity + ", " + inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
+            else if (_inputs[index].lastPurchase == "" && _inputs[index].comment != "") {
+                list.innerHTML += "<li id=\"listElement" + index + "\" class=\"" + checked + " " + buyNext + "\" >" + _inputs[index].product + ", " + _inputs[index].quantity + ", " + _inputs[index].comment + " <img id=\"buyNextElement" + index + "\" class=\"trash\" src=\"assets/mark.png\"><img id=\"removeElement" + index + "\" class=\"trash\" src=\"assets/trash.png\"><img id=\"editElement" + index + "\" class=\"trash\" src=\"assets/edit.png\"></li>";
             }
         }
-        for (let index = 0; index < inputs.length; index++) {
+        for (let index = 0; index < _inputs.length; index++) {
             let listElement = document.querySelector("#listElement" + index);
             listElement.addEventListener("click", handleClick);
         }
@@ -128,7 +135,7 @@ var L05_shoppingList;
         let month = (new Date().getMonth() + 1);
         let year = date.getFullYear();
         inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
-        //writeList();
+        sendList();
     }
     function cutID(_id, _length) {
         let newId = _id.slice(_length);
@@ -136,11 +143,11 @@ var L05_shoppingList;
     }
     function deleteElement(_element) {
         inputs.splice(_element, 1);
-        //writeList();
+        sendList();
     }
     function buyNexttime(_element) {
         inputs[_element].buyNext = !inputs[_element].buyNext;
-        //writeList();
+        sendList();
     }
     function editElement(_element) {
         product = inputs[_element].product;

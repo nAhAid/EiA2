@@ -36,7 +36,7 @@ namespace L05_CocktailBar {
 
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
-        await fetch("index.html?" + query.toString());
+        await fetch("cocktailbar.html?" + query.toString());
         alert("Order Send!!");
 
     }

@@ -28,6 +28,8 @@ namespace L05_shoppingList {
     let htmlBuyNext: HTMLInputElement;
     let htmlComment: HTMLTextAreaElement;
 
+    let inputs: Input[];
+
     window.addEventListener("load", handleLoad);
 
 
@@ -47,8 +49,17 @@ namespace L05_shoppingList {
     async function requestList() {
         let response: Response = await fetch("data.json");
         let list: string = await response.text();
-        let inputs: Input[] = JSON.parse(list);
+        inputs = JSON.parse(list);
         writeList(inputs);
+    }
+
+    async function sendList(): Promise<void> {
+        let query: URLSearchParams = new URLSearchParams(<any>inputs);
+        await fetch("shoppinglist.html?" + query.toString());
+        alert("List Send!!");
+
+        requestList();
+
     }
 
     function handleInputChange(_event: Event) {
@@ -113,7 +124,7 @@ namespace L05_shoppingList {
             htmlComment = <HTMLTextAreaElement>document.querySelector("#comment");
             htmlComment.value = comment;
 
-            //writeList();
+            sendList();
 
         }
 
@@ -200,7 +211,7 @@ namespace L05_shoppingList {
 
         inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
 
-        //writeList();
+        sendList();
     }
 
     function cutID(_id: string, _length: number) {
@@ -210,13 +221,13 @@ namespace L05_shoppingList {
 
     function deleteElement(_element: number) {
         inputs.splice(_element, 1);
-        //writeList();
+        sendList();
+        
     }
 
     function buyNexttime(_element: number) {
         inputs[_element].buyNext = !inputs[_element].buyNext;
-
-        //writeList();
+        sendList();
     }
 
     function editElement(_element: number) {
