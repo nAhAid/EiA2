@@ -2,8 +2,8 @@
 Aufgabe: <L04_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <09.11.2022>
-Quellen: <Ich, StackOverflow>
+Datum: <10.11.2022>
+Quellen: <Ich>
 */
 
 namespace L05_shoppingList {
