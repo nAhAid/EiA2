@@ -47,7 +47,7 @@ namespace L06_shoppingList {
     }
 
     async function requestList() {
-        let response: Response = await fetch("data.json");
+        let response: Response = await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=find&collection=data");
         let list: string = await response.text();
         inputs = JSON.parse(list);
         writeList(inputs);
@@ -57,7 +57,7 @@ namespace L06_shoppingList {
         let sendInputs: string = JSON.stringify(inputs);
 
         let query: URLSearchParams = new URLSearchParams(<any>sendInputs);
-        await fetch("shoppinglist.html?command=" + _command + "&collection=Data&id=" + _element + "&" + query.toString());
+        await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=" + _command + "&collection=data&id=" + _element + "&" + query.toString());
         alert("List Send!!");
 
         requestList();

@@ -28,7 +28,7 @@ var L06_shoppingList;
         await requestList();
     }
     async function requestList() {
-        let response = await fetch("data.json");
+        let response = await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=find&collection=data");
         let list = await response.text();
         inputs = JSON.parse(list);
         writeList(inputs);
@@ -36,7 +36,7 @@ var L06_shoppingList;
     async function sendListElement(_element, _command) {
         let sendInputs = JSON.stringify(inputs);
         let query = new URLSearchParams(sendInputs);
-        await fetch("shoppinglist.html?command=" + _command + "&collection=Data&id=" + _element + "&" + query.toString());
+        await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=" + _command + "&collection=data&id=" + _element + "&" + query.toString());
         alert("List Send!!");
         requestList();
     }
