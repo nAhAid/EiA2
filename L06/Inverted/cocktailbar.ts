@@ -1,17 +1,23 @@
-
-
 namespace L06_CocktailBar {
     window.addEventListener("load", handleLoad);
 
     let form: HTMLFormElement;
 
+    interface FormDataJSON {
+        [key: string]: FormDataEntryValue | FormDataEntryValue[];
+    }
+
+   
+    let json: FormDataJSON = {};
+
+
     async function handleLoad(): Promise<void> {
 
-        let response: Response = await fetch("Data.json");
+        let response: Response = await fetch("https://webuser.hs-furtwangen.de/~haiderna/Database/Data.json");
         let offer: string = await response.text();
         let data: Data = JSON.parse(offer);
-        
-        
+
+
         generateContent(data);
 
         form = <HTMLFormElement>document.getElementById("form");
@@ -31,11 +37,24 @@ namespace L06_CocktailBar {
 
     }
 
-    async function sendOrder (_event: Event): Promise<void> {
+    async function sendOrder(_event: Event): Promise<void> {
         //console.log("Send order!");
 
         let formData: FormData = new FormData(form);
-        let query: URLSearchParams = new URLSearchParams(<any>formData);
+    
+        for (let key of formData.keys())
+            if (!json[key]) {
+                let values: FormDataEntryValue[] = formData.getAll(key);
+                json[key] = values.length > 1 ? values : values[0];
+            }
+
+        let query: URLSearchParams = new URLSearchParams();
+        query.set("command", "insert");
+        query.set("collection", "Data");
+        query.set("data", JSON.stringify(json));
+
+
+
         await fetch("cocktailbar.html?" + query.toString());
         alert("Order Send!!");
 

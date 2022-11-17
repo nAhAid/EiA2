@@ -3,8 +3,9 @@ var L06_CocktailBar;
 (function (L06_CocktailBar) {
     window.addEventListener("load", handleLoad);
     let form;
+    let json = {};
     async function handleLoad() {
-        let response = await fetch("Data.json");
+        let response = await fetch("https://webuser.hs-furtwangen.de/~haiderna/Database/Data.json");
         let offer = await response.text();
         let data = JSON.parse(offer);
         L06_CocktailBar.generateContent(data);
@@ -22,7 +23,15 @@ var L06_CocktailBar;
     async function sendOrder(_event) {
         //console.log("Send order!");
         let formData = new FormData(form);
-        let query = new URLSearchParams(formData);
+        for (let key of formData.keys())
+            if (!json[key]) {
+                let values = formData.getAll(key);
+                json[key] = values.length > 1 ? values : values[0];
+            }
+        let query = new URLSearchParams();
+        query.set("command", "insert");
+        query.set("collection", "Data");
+        query.set("data", JSON.stringify(json));
         await fetch("cocktailbar.html?" + query.toString());
         alert("Order Send!!");
     }
