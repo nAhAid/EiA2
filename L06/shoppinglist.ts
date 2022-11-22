@@ -181,21 +181,18 @@ namespace L06_shoppingList {
 
         else if (id.includes("removeElement")) {
             let newID: number = cutID(id, 13);
-
             deleteElement(newID);
 
         }
 
         else if (id.includes("editElement")) {
             let newID: number = cutID(id, 11);
-
             editElement(newID);
 
         }
 
         else if (id.includes("buyNextElement")) {
             let newID: number = cutID(id, 14);
-
             buyNexttime(newID);
 
         }
