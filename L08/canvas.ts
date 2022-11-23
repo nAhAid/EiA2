@@ -26,8 +26,39 @@ namespace L08_generativeArt {
             generateLines(index);
             generateTriangles(index);
             generateRectangles(index);
+            generateBezier(index);
 
         }
+    }
+
+    function generateBezier(_index: number): void {
+        let x: number = randomNumber(100);
+        let y: number = randomNumber(100);
+
+        let xTranslate: number = randomNumber(100) + randomNumber(50) + x;
+        let yTranslate: number = randomNumber(100) - randomNumber(50) - y;
+
+
+        cc2.translate(xTranslate, yTranslate);
+        cc2.rotate(randomNumber(2) * Math.PI);
+
+        let grd: CanvasGradient = cc2.createRadialGradient(75, x, 5, 90, y, 5);
+        grd.addColorStop(0, colors[randomNumber(colors.length)]);
+        grd.addColorStop(0.5, colors[randomNumber(colors.length)]);
+        grd.addColorStop(1, colors[randomNumber(colors.length)]);
+
+        cc2.beginPath();
+        cc2.moveTo(x + 200, y);
+        cc2.bezierCurveTo(x + y + x, x - y, x, y * x, y, x * (x + y));
+        cc2.strokeStyle = colors[randomNumber(colors.length)];
+        cc2.lineWidth = randomNumber(5);
+        cc2.closePath();
+        cc2.stroke();
+
+        cc2.resetTransform();
+
+
+
     }
 
     function generatePattern(_index: number): void {
@@ -64,8 +95,8 @@ namespace L08_generativeArt {
         cc2.translate(randomNumber(333), randomNumber(666));
         cc2.scale(randomNumber(30), randomNumber(20));
 
-        cc2.fillStyle = grd;
-        cc2.fillRect(0, 0, randomNumber(_index + 20), randomNumber(_index + 20));
+        cc2.strokeStyle = grd;
+        cc2.strokeRect(0, 0, randomNumber(10), randomNumber(11));
 
         cc2.resetTransform();
 
@@ -78,7 +109,7 @@ namespace L08_generativeArt {
 
         cc2.translate(randomNumber(111) * 10, randomNumber(randomNumber(222)) * 5);
 
-        let grd: CanvasGradient = cc2.createRadialGradient(75, 50, 5, 90, 60, 100);
+        let grd: CanvasGradient = cc2.createRadialGradient(10, 50, 5, 90, 60, 100);
         grd.addColorStop(0, colors[randomNumber(colors.length)]);
         grd.addColorStop(0.5, colors[randomNumber(colors.length)]);
         grd.addColorStop(1, colors[randomNumber(colors.length)]);
@@ -130,19 +161,22 @@ namespace L08_generativeArt {
     }
 
     function generateCircle(_position: number) {
-       
-        cc2.translate(randomNumber(10), randomNumber(20));
-
         let randomPosition: number = randomNumber(_position);
         let x: number = randomNumber(100 * randomPosition * randomNumber(_position));
         let r: number = randomNumber(100);
+
+        cc2.translate(randomNumber(10) * randomPosition, randomNumber(20));
+
+       
         cc2.beginPath();
         cc2.arc(x + _position * randomNumber(_position), 100, r, 0, 2 * Math.PI);
         cc2.strokeStyle = randomColor();
+        cc2.lineWidth = randomNumber(10);
         cc2.closePath();
         cc2.stroke();
 
         cc2.resetTransform();
+        cc2.lineWidth = 1;
 
     }
 
