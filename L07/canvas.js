@@ -3,6 +3,9 @@ var L08_generativeArt;
 (function (L08_generativeArt) {
     let canvas = document.querySelector("canvas");
     let cc2 = canvas.getContext("2d");
+    let colors = [
+        "red", "blue", "green", "magenta", "aquamarine", "brown", "white", "orange", "yellow", "pink", "violet", "turquoise", "gold", "silver"
+    ];
     window.addEventListener("load", handleLoad);
     function handleLoad() {
         cc2.fillStyle = "#000000";
@@ -10,10 +13,63 @@ var L08_generativeArt;
         generateRandomArt();
     }
     function generateRandomArt() {
-        for (let index = 0; index < 5 * randomNumber(100); index++) {
+        generatePattern(1);
+        for (let index = 0; index < 5 + randomNumber(100); index++) {
             generateCircle(index);
             generateLines(index);
+            generateTriangles(index);
+            generateRectangles(index);
         }
+    }
+    function generatePattern(_index) {
+        let pattern = document.createElement("canvas").getContext("2d");
+        pattern.canvas.width = 40;
+        pattern.canvas.height = 20;
+        pattern.fillStyle = "#000";
+        pattern.strokeStyle = randomColor();
+        pattern.fillRect(0, 0, pattern.canvas.width, pattern.canvas.height);
+        pattern.moveTo(0, 10);
+        pattern.lineJoin = "bevel";
+        pattern.lineTo(10, randomNumber(10));
+        pattern.lineTo(randomNumber(20), 0);
+        pattern.lineTo(randomNumber(30), 0);
+        pattern.lineTo(40, randomNumber(10));
+        pattern.lineTo(randomNumber(30), 20);
+        pattern.lineTo(20, randomNumber(10));
+        pattern.lineTo(randomNumber(10), 10);
+        pattern.stroke();
+        cc2.fillStyle = cc2.createPattern(pattern.canvas, "repeat");
+        cc2.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    function generateRectangles(_index) {
+        let grd = cc2.createRadialGradient(75, 50, 5, 90, 60, 5);
+        grd.addColorStop(0, colors[randomNumber(colors.length)]);
+        grd.addColorStop(0.5, colors[randomNumber(colors.length)]);
+        grd.addColorStop(1, colors[randomNumber(colors.length)]);
+        cc2.translate(randomNumber(333), randomNumber(666));
+        cc2.scale(randomNumber(30), randomNumber(20));
+        cc2.fillStyle = grd;
+        cc2.fillRect(0, 0, randomNumber(_index + 20), randomNumber(_index + 20));
+        cc2.resetTransform();
+    }
+    function generateTriangles(_index) {
+        let x = randomNumber(_index);
+        let y = randomNumber(_index * x);
+        cc2.translate(randomNumber(111) * 10, randomNumber(randomNumber(222)) * 5);
+        let grd = cc2.createRadialGradient(75, 50, 5, 90, 60, 100);
+        grd.addColorStop(0, colors[randomNumber(colors.length)]);
+        grd.addColorStop(0.5, colors[randomNumber(colors.length)]);
+        grd.addColorStop(1, colors[randomNumber(colors.length)]);
+        cc2.beginPath();
+        cc2.moveTo(x, y);
+        cc2.lineJoin = "bevel";
+        cc2.lineTo(x, 20);
+        cc2.lineTo(30, y);
+        cc2.fillStyle = grd;
+        cc2.closePath();
+        cc2.fill();
+        cc2.stroke();
+        cc2.resetTransform();
     }
     function generateLines(_position) {
         let lines = new Path2D();
@@ -22,19 +78,25 @@ var L08_generativeArt;
         let endX = randomNumber(90);
         let endY = randomNumber(90);
         lines.moveTo(startX, startY);
+        cc2.lineCap = "round";
+        cc2.lineJoin = "round";
         lines.lineTo(randomNumber(30), randomNumber(30));
         lines.lineTo(endX, endY);
         cc2.translate(randomNumber(333), randomNumber(666));
+        cc2.scale(randomNumber(30), randomNumber(20));
         let gradient = cc2.createLinearGradient(startX, startY, endX, endY);
-        gradient.addColorStop(0, "red");
-        gradient.addColorStop(0.5, "blue");
-        gradient.addColorStop(1, "green");
+        gradient.addColorStop(0, colors[randomNumber(colors.length)]);
+        gradient.addColorStop(0.5, colors[randomNumber(colors.length)]);
+        gradient.addColorStop(1, colors[randomNumber(colors.length)]);
         cc2.strokeStyle = gradient;
         cc2.stroke(lines);
         cc2.resetTransform();
         cc2.strokeStyle = "white";
+        cc2.lineCap = "butt";
+        cc2.lineJoin = "miter";
     }
     function generateCircle(_position) {
+        cc2.translate(randomNumber(10), randomNumber(20));
         let randomPosition = randomNumber(_position);
         let x = randomNumber(100 * randomPosition * randomNumber(_position));
         let r = randomNumber(100);
@@ -43,6 +105,7 @@ var L08_generativeArt;
         cc2.strokeStyle = randomColor();
         cc2.closePath();
         cc2.stroke();
+        cc2.resetTransform();
     }
     function randomColor() {
         let R = (Math.floor(Math.random() * 255));
