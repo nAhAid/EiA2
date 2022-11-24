@@ -6,7 +6,7 @@ namespace L08_generativeArt {
 
     let colors: string[] = [
         "red", "blue", "green", "magenta", "aquamarine", "brown", "white", "orange", "yellow", "pink", "violet", "turquoise", "gold", "silver"
-    ]
+    ];
 
 
     window.addEventListener("load", handleLoad);
@@ -20,6 +20,7 @@ namespace L08_generativeArt {
 
     function generateRandomArt(): void {
         generatePattern(1);
+        
         for (let index: number = 0; index < 5 + randomNumber(100); index++) {
 
             generateCircle(index);
@@ -193,8 +194,8 @@ namespace L08_generativeArt {
 
 
     function randomNumber(_multiplicator: number) {
-        let random: number = Math.floor(Math.random() * _multiplicator);
-        return Math.floor(Math.random() * random);
+        
+        return Math.floor(Math.random() * _multiplicator);
     }
 
 
