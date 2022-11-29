@@ -138,8 +138,7 @@ var L08_generativeArt;
         return randColor;
     }
     function randomNumber(_multiplicator) {
-        let random = Math.floor(Math.random() * _multiplicator);
-        return Math.floor(Math.random() * random);
+        return Math.floor(Math.random() * _multiplicator);
     }
 })(L08_generativeArt || (L08_generativeArt = {}));
 //# sourceMappingURL=canvas.js.map

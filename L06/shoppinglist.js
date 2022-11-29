@@ -8,17 +8,19 @@ Quellen: <Ich>
 */
 var L06_shoppingList;
 (function (L06_shoppingList) {
+    let url = "https://webuser.hs-furtwangen.de/~haiderna/Database/index.php";
     let product = "";
-    let quantity;
-    let buyNext;
-    let isDone;
+    let quantity = 1;
+    let buyNext = false;
+    let isDone = false;
     let comment = "";
     let lastPurchase = "";
+    let id = "";
     let htmlProduct;
     let htmlQuantity;
     let htmlBuyNext;
     let htmlComment;
-    let inputs;
+    let inputs = [];
     window.addEventListener("load", handleLoad);
     async function handleLoad() {
         let input = document.getElementById("input");
@@ -28,16 +30,89 @@ var L06_shoppingList;
         await requestList();
     }
     async function requestList() {
-        let response = await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=find&collection=data");
+        let response = await fetch(url + "?command=find&collection=Data");
         let list = await response.text();
-        inputs = JSON.parse(list);
+        let data = JSON.parse(list);
+        generateLocalData(data);
+    }
+    function generateLocalData(_data) {
+        inputs = [];
+        let keys = Object.keys(_data.data);
+        let values = Object.values(_data.data);
+        for (let index = 0; index < keys.length; index++) {
+            let item = Object.values(values[index]);
+            product = item[0];
+            quantity = Number(item[1]);
+            buyNext = JSON.parse(item[2]);
+            isDone = JSON.parse(item[3]);
+            comment = item[4];
+            lastPurchase = item[5];
+            id = keys[index];
+            inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase, id });
+            product = "";
+            quantity = 0;
+            buyNext = false,
+                isDone = false;
+            comment = "";
+            lastPurchase = "";
+            id = "";
+        }
         writeList(inputs);
     }
     async function sendListElement(_element, _command) {
-        let sendInputs = JSON.stringify(inputs);
-        let query = new URLSearchParams(sendInputs);
-        await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=" + _command + "&collection=data&id=" + _element + "&" + query.toString());
-        alert("List Send!!");
+        if (_element.includes("Defined") && _command != "delete") {
+            let newElement = cutID(_element, 7);
+            let json = inputs[newElement];
+            let query = new URLSearchParams();
+            query.set("command", _command);
+            query.set("collection", "Data");
+            query.set("data", JSON.stringify(json));
+            query.set("id", inputs[newElement].id);
+            console.log(query);
+            let response = await fetch(url + "?" + query.toString());
+            let responseText = await response.text();
+            if (responseText.includes("success")) {
+                alert("Item Updated!");
+            }
+            else {
+                alert("Error! Try again!");
+            }
+        }
+        else if (_element == "Undefined") {
+            let newElement = inputs.length - 1;
+            let json = inputs[newElement];
+            let query = new URLSearchParams();
+            query.set("command", _command);
+            query.set("collection", "Data");
+            query.set("data", JSON.stringify(json));
+            let response = await fetch(url + "?" + query.toString());
+            let responseText = await response.text();
+            if (responseText.includes("success")) {
+                alert("Item added!");
+            }
+            else {
+                alert("Error! Try again!");
+            }
+        }
+        else if (_element.includes("Defined") && _command == "delete") {
+            let newElement = cutID(_element, 7);
+            let query = new URLSearchParams();
+            query.set("command", _command);
+            query.set("collection", "Data");
+            query.set("id", inputs[newElement].id);
+            console.log(query);
+            let response = await fetch(url + "?" + query.toString());
+            let responseText = await response.text();
+            console.log();
+            if (responseText.includes("success")) {
+                alert("Item delted!");
+            }
+            else {
+                alert("Error! Try again!");
+            }
+        }
+        //await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=" + _command + "&collection=Data&id=" + _element + "&" + query.toString());
+        //alert("List Send!!");
         requestList();
     }
     function handleInputChange(_event) {
@@ -61,13 +136,15 @@ var L06_shoppingList;
         else {
             let checked = document.querySelector("#check");
             if (checked.value == "") {
-                inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase });
-                sendListElement(0, "insert");
+                id = "";
+                inputs.push({ product, quantity, buyNext, isDone, comment, lastPurchase, id });
+                sendListElement("Undefined", "insert");
             }
             else if (checked.value != "") {
                 let element = parseInt(checked.value);
-                inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase };
-                sendListElement(element, "update");
+                id = inputs[element].id;
+                inputs[element] = { product, quantity, buyNext, isDone, comment, lastPurchase, id };
+                sendListElement("Defined" + element, "update");
             }
             product = "";
             quantity = 0;
@@ -137,19 +214,18 @@ var L06_shoppingList;
         let month = (new Date().getMonth() + 1);
         let year = date.getFullYear();
         inputs[_bought].lastPurchase = day.toString() + "." + month.toString() + "." + year.toString();
-        sendListElement(_bought, "update");
+        sendListElement("Defined" + _bought, "update");
     }
     function cutID(_id, _length) {
         let newId = _id.slice(_length);
         return parseInt(newId);
     }
     function deleteElement(_element) {
-        inputs.splice(_element, 1);
-        sendListElement(_element, "delete");
+        sendListElement("Defined" + _element, "delete");
     }
     function buyNexttime(_element) {
         inputs[_element].buyNext = !inputs[_element].buyNext;
-        sendListElement(_element, "update");
+        sendListElement("Defined" + _element, "update");
     }
     function editElement(_element) {
         product = inputs[_element].product;
