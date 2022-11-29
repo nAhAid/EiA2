@@ -1,10 +1,10 @@
 "use strict";
 /*
-Aufgabe: <L04_shoppingList>
+Aufgabe: <L06_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <17.11.2022>
-Quellen: <Ich>
+Datum: <29.11.2022>
+Quellen: <Ich, StackOverflow>
 */
 var L06_shoppingList;
 (function (L06_shoppingList) {
@@ -68,7 +68,6 @@ var L06_shoppingList;
             query.set("collection", "Data");
             query.set("data", JSON.stringify(json));
             query.set("id", inputs[newElement].id);
-            console.log(query);
             let response = await fetch(url + "?" + query.toString());
             let responseText = await response.text();
             if (responseText.includes("success")) {
@@ -100,10 +99,8 @@ var L06_shoppingList;
             query.set("command", _command);
             query.set("collection", "Data");
             query.set("id", inputs[newElement].id);
-            console.log(query);
             let response = await fetch(url + "?" + query.toString());
             let responseText = await response.text();
-            console.log();
             if (responseText.includes("success")) {
                 alert("Item delted!");
             }

@@ -1,9 +1,9 @@
 /*
-Aufgabe: <L04_shoppingList>
+Aufgabe: <L06_shoppingList>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <17.11.2022>
-Quellen: <Ich>
+Datum: <29.11.2022>
+Quellen: <Ich, StackOverflow>
 */
 
 namespace L06_shoppingList {
@@ -104,7 +104,6 @@ namespace L06_shoppingList {
 
         if (_element.includes("Defined") && _command != "delete") {
             let newElement: number = cutID(_element, 7);
-
             let json: Input = inputs[newElement];
 
             let query: URLSearchParams = new URLSearchParams();
@@ -112,7 +111,6 @@ namespace L06_shoppingList {
             query.set("collection", "Data");
             query.set("data", JSON.stringify(json));
             query.set("id", inputs[newElement].id);
-            console.log(query);
             let response: Response = await fetch(url + "?" + query.toString());
             let responseText: string = await response.text();
             if (responseText.includes("success")) {
@@ -125,7 +123,6 @@ namespace L06_shoppingList {
 
         else if (_element == "Undefined") {
             let newElement: number = inputs.length - 1;
-
             let json: Input = inputs[newElement];
         
 
@@ -151,10 +148,8 @@ namespace L06_shoppingList {
             query.set("command", _command);
             query.set("collection", "Data");
             query.set("id", inputs[newElement].id);
-            console.log(query);
             let response: Response = await fetch(url + "?" + query.toString());
             let responseText: string = await response.text();
-            console.log();
             if (responseText.includes("success")) {
                 alert("Item delted!");
             }
