@@ -18,11 +18,14 @@ namespace L08_2_aivary {
         let horizon: number = cc2.canvas.height * golden;
         drawBackground();
         drawSun({ x: 75, y: 100 });
-        drawMountains({ x: 0, y: cc2.canvas.height * golden }, 50, 135, "#6B7A7D", "#E6FEFE");
-        drawMountains({ x: 0, y: cc2.canvas.height * golden }, 35, 85, "#7c8d8a", "#c5d8d5");
+        drawMountains({ x: 0, y: horizon }, 50, 135, "#6B7A7D", "#E6FEFE");
+        drawMountains({ x: 0, y: horizon }, 35, 85, "#7c8d8a", "#c5d8d5");
         drawCloud({ x: 550, y: 150 }, { x: 325, y: 125 }, 40, 60);
-        drawTrees(5, { x: 0, y: cc2.canvas.height * golden }, { x: 0.5, y: 0.5 });
-        drawSnowflakes(50, {x: 400, y: 175});
+        drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
+        drawSnowman({ x: randomBetween(10, 740), y: 200 });
+
+
+        drawSnowflakes(50, { x: 400, y: 175 });
     }
 
     function drawBackground(): void {
@@ -130,7 +133,7 @@ namespace L08_2_aivary {
 
         for (let drawn: number = 0; drawn < _nTrees; drawn++) {
             let x: number = randomBetween(20, 750) + drawn * drawn;
-            let y: number = Math.random() * 115;
+            let y: number = randomBetween(1, 130);
             let scale: Vector = { x: _maxScale.x * (y / 115), y: _maxScale.y * (y / 115) };
 
             cc2.save();
@@ -211,12 +214,89 @@ namespace L08_2_aivary {
             let xPosition: number = randomBetween(0, 325);
             let yPosition: number = randomBetween(0, 250);
 
-            drawCloud({ x: xPosition, y: yPosition }, {x: 10, y: 10}, 1, 10);
+            drawCloud({ x: xPosition, y: yPosition }, { x: 10, y: 10 }, 1, 10);
             cc2.restore();
 
         }
 
         cc2.setTransform(transform);
+    }
+
+    function drawSnowman(_position: Vector) {
+        let r1: number = 70;
+        let r2: number = r1 / 3;
+        let r3: number = r2 / 3;
+        let r: number[] = [
+            70, 50, 30
+        ];
+
+        //let x1: Vector = { x: 0, y: r1 };
+        //let x2: Vector = { x: 0, y: r1 };
+        //let x3: Vector = { x: 0, y: r2 };
+        let x: Vector[] = [
+            { x: 0, y: r1 },
+            { x: 0, y: r2 },
+            { x: 0, y: r3 }
+        ];
+
+        let color: string = "#FFF";
+        let transform: DOMMatrix = cc2.getTransform();
+
+        let branch: Path2D = new Path2D();
+
+        cc2.save();
+        cc2.translate(_position.x, _position.y);
+        for (let index: number = 1; index < 4; index++) {
+            cc2.translate(x[index - 1].x, x[index - 1].y);
+            branch.arc(0, 0, r[index - 1], 0, 2 * Math.PI);
+            cc2.fillStyle = color;
+            cc2.fill(branch);
+        }
+
+        /*  cc2.translate(_position.x, _position.y);
+         cc2.translate(x[index].x, x[index].y);
+         branch.arc(0, 0, r[index], 0, 2 * Math.PI);
+         cc2.fillStyle = color;
+         cc2.fill(branch);
+ 
+ 
+         cc2.translate(x2.x, x2.y);
+         branch.arc(0, 0, r2, 0, 2 * Math.PI);
+         cc2.fillStyle = color;
+         cc2.fill(branch);
+ 
+         cc2.translate(x3.x, x3.y);
+         branch.arc(0, 0, r3, 0, 2 * Math.PI);
+         cc2.fillStyle = color;
+         cc2.fill(branch); */
+
+
+
+        cc2.save();
+        cc2.translate(r3 / 2, 0);
+        branch.arc(0, 0, r3 / 4, 0, 2 * Math.PI);
+        cc2.strokeStyle = "#000";
+        cc2.stroke();
+
+        cc2.save();
+        cc2.translate(-r3, 0);
+        branch.arc(0, 0, r3 / 4, 0, 2 * Math.PI);
+        cc2.strokeStyle = "#000";
+        cc2.stroke();
+
+        cc2.restore();
+        cc2.beginPath();
+        cc2.moveTo(-r3, 0);
+        cc2.bezierCurveTo(0, -r3 / 4, -r3 / 2, -r3 / 4, r3 / 4, 0);
+        cc2.strokeStyle = "#000";
+        //cc2.lineWidth = randomNumber(5);
+        cc2.closePath();
+        cc2.stroke();
+
+        cc2.strokeStyle = "#FFF";
+        cc2.setTransform(transform);
+
+
     }
 
 }
