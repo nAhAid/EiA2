@@ -14,8 +14,8 @@ var L08_2_aivary;
         drawMountains({ x: 0, y: horizon }, 35, 85, "#7c8d8a", "#c5d8d5");
         drawCloud({ x: 550, y: 150 }, { x: 325, y: 125 }, 40, 60);
         drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
-        drawSnowman({ x: randomBetween(10, 740), y: 425 });
-        drawAviary({ x: randomBetween(10, 740), y: 450 }, 1);
+        drawSnowman({ x: randomBetween(10, 325), y: 425 });
+        drawAviary({ x: randomBetween(335, 700), y: 450 }, 1);
         drawSnowflakes(50, { x: 400, y: 175 });
     }
     function drawBackground() {
@@ -85,7 +85,7 @@ var L08_2_aivary;
         cc2.restore();
     }
     function randomBetween(_min, _max) {
-        let returnNumber = Math.random() * (_max - _min);
+        let returnNumber = Math.floor(Math.random() * (_max - _min)) + _min;
         return returnNumber;
     }
     function drawTrees(_nTrees, _position, _maxScale) {
@@ -122,7 +122,7 @@ var L08_2_aivary;
             cc2.translate(0, -y);
             cc2.scale(size, size);
             cc2.translate(x, 0);
-            let colorAngle = randomBetween(35, 70);
+            let colorAngle = randomBetween(10, 50);
             let color = "HSLA(122, 50%," + colorAngle + "%, 0.5)";
             cc2.fillStyle = color;
             cc2.fill(branch);

@@ -22,8 +22,8 @@ namespace L08_2_aivary {
         drawMountains({ x: 0, y: horizon }, 35, 85, "#7c8d8a", "#c5d8d5");
         drawCloud({ x: 550, y: 150 }, { x: 325, y: 125 }, 40, 60);
         drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
-        drawSnowman({ x: randomBetween(10, 740), y: 425 });
-        drawAviary({ x: randomBetween(10, 740), y: 450 }, 1);
+        drawSnowman({ x: randomBetween(10, 325), y: 425 });
+        drawAviary({ x: randomBetween(335, 700), y: 450 }, 1);
 
 
         drawSnowflakes(50, { x: 400, y: 175 });
@@ -122,7 +122,7 @@ namespace L08_2_aivary {
     }
 
     function randomBetween(_min: number, _max: number) {
-        let returnNumber: number = Math.random() * (_max - _min);
+        let returnNumber: number = Math.floor(Math.random() * (_max - _min)) + _min;
         return returnNumber;
     }
 
@@ -174,7 +174,7 @@ namespace L08_2_aivary {
             cc2.scale(size, size);
             cc2.translate(x, 0);
 
-            let colorAngle: number = randomBetween(35, 70);
+            let colorAngle: number = randomBetween(10, 50);
             let color: string = "HSLA(122, 50%," + colorAngle + "%, 0.5)";
 
             cc2.fillStyle = color;
