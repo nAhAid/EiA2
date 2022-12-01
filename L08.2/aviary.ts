@@ -481,11 +481,11 @@ namespace L08_2_aivary {
             let x: number = randomBetween(minWidth, maxWidth);
             let y: number = randomBetween(minHeight, maxHeight);
             let scale: Vector = { x: (y / maxHeight), y: (y / maxHeight) };
-            
-            cc2.translate(x, y);
-            cc2.scale(scale.x, scale.y );
 
-            drawSittingBird({x: 0, y: 0});
+            cc2.translate(x, y);
+            cc2.scale(scale.x, scale.y);
+
+            drawSittingBird({ x: 0, y: 0 });
 
             cc2.restore();
 
@@ -496,17 +496,17 @@ namespace L08_2_aivary {
 
             let maxWidth: number = 740;
             let minWidth: number = 10;
-            let minHeight: number = cc2.canvas.height * golden;
-            let maxHeight: number = 500;
+            let minHeight: number = 0;
+            let maxHeight: number = 225;
 
             let x: number = randomBetween(minWidth, maxWidth);
             let y: number = randomBetween(minHeight, maxHeight);
             let scale: Vector = { x: (y / maxHeight), y: (y / maxHeight) };
-            
-            cc2.translate(x, y);
-            cc2.scale(scale.x, scale.y );
 
-            drawFlyingBird({x: 0, y: 0});
+            cc2.translate(x, y);
+            cc2.scale(scale.x, scale.y);
+
+            drawFlyingBird({ x: 0, y: 0 });
 
             cc2.restore();
 
@@ -515,6 +515,27 @@ namespace L08_2_aivary {
 
     function drawFlyingBird(_position: Vector) {
         console.log("Flying Bird");
+
+        cc2.save();
+        cc2.translate(_position.x, _position.y);
+
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.bezierCurveTo(0, -10, -10, -10, -10, 0);
+        cc2.moveTo(0,0);
+        cc2.strokeStyle = "#000";
+        cc2.closePath();
+        cc2.stroke();
+
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.bezierCurveTo(0, -10, 10, -10, 10, 0);
+        cc2.moveTo(0,0);
+        cc2.strokeStyle = "#000";
+        cc2.closePath();
+        cc2.stroke();
+
+        cc2.restore();
     }
 
 }

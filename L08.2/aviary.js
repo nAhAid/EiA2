@@ -375,8 +375,8 @@ var L08_2_aivary;
             cc2.save();
             let maxWidth = 740;
             let minWidth = 10;
-            let minHeight = cc2.canvas.height * golden;
-            let maxHeight = 500;
+            let minHeight = 0;
+            let maxHeight = 225;
             let x = randomBetween(minWidth, maxWidth);
             let y = randomBetween(minHeight, maxHeight);
             let scale = { x: (y / maxHeight), y: (y / maxHeight) };
@@ -388,6 +388,23 @@ var L08_2_aivary;
     }
     function drawFlyingBird(_position) {
         console.log("Flying Bird");
+        cc2.save();
+        cc2.translate(_position.x, _position.y);
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.bezierCurveTo(0, -10, -10, -10, -10, 0);
+        cc2.moveTo(0, 0);
+        cc2.strokeStyle = "#000";
+        cc2.closePath();
+        cc2.stroke();
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.bezierCurveTo(0, -10, 10, -10, 10, 0);
+        cc2.moveTo(0, 0);
+        cc2.strokeStyle = "#000";
+        cc2.closePath();
+        cc2.stroke();
+        cc2.restore();
     }
 })(L08_2_aivary || (L08_2_aivary = {}));
 //# sourceMappingURL=aviary.js.map
