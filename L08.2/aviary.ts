@@ -22,7 +22,7 @@ namespace L08_2_aivary {
         drawMountains({ x: 0, y: horizon }, 35, 85, "#7c8d8a", "#c5d8d5");
         drawCloud({ x: 550, y: 150 }, { x: 325, y: 125 }, 40, 60);
         drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
-        drawSnowman({ x: randomBetween(10, 740), y: 200 });
+        drawSnowman({ x: randomBetween(10, 740), y: 425 });
 
 
         drawSnowflakes(50, { x: 400, y: 175 });
@@ -223,73 +223,100 @@ namespace L08_2_aivary {
     }
 
     function drawSnowman(_position: Vector) {
-        let r1: number = 70;
-        let r2: number = r1 / 3;
-        let r3: number = r2 / 3;
+        let r1: number = 60;
+        let r2: number = r1 * 0.8;
+        let r3: number = r2 * 0.8;
         let r: number[] = [
             70, 50, 30
         ];
 
-        //let x1: Vector = { x: 0, y: r1 };
-        //let x2: Vector = { x: 0, y: r1 };
-        //let x3: Vector = { x: 0, y: r2 };
+        let x1: Vector = { x: 0, y: r1 };
+        let x2: Vector = { x: 0, y: r1 * 0.75 };
+        let x3: Vector = { x: 0, y: r2 };
         let x: Vector[] = [
-            { x: 0, y: r1 },
-            { x: 0, y: r2 },
-            { x: 0, y: r3 }
+            { x: 0, y: 70 },
+            { x: 0, y: 60 },
+            { x: 0, y: 40 }
         ];
 
         let color: string = "#FFF";
         let transform: DOMMatrix = cc2.getTransform();
 
-        let branch: Path2D = new Path2D();
+        let circle1: Path2D = new Path2D();
+        let circle2: Path2D = new Path2D();
+        let circle3: Path2D = new Path2D();
+        let eye: Path2D = new Path2D();
+        let pupil: Path2D = new Path2D();
 
         cc2.save();
         cc2.translate(_position.x, _position.y);
-        for (let index: number = 1; index < 4; index++) {
-            cc2.translate(x[index - 1].x, x[index - 1].y);
+        /* for (let index: number = 1; index < 4; index++) {
+            cc2.translate(x[index - 1].x, -x[index - 1].y);
             branch.arc(0, 0, r[index - 1], 0, 2 * Math.PI);
             cc2.fillStyle = color;
             cc2.fill(branch);
-        }
-
-        /*  cc2.translate(_position.x, _position.y);
-         cc2.translate(x[index].x, x[index].y);
-         branch.arc(0, 0, r[index], 0, 2 * Math.PI);
-         cc2.fillStyle = color;
-         cc2.fill(branch);
- 
- 
-         cc2.translate(x2.x, x2.y);
-         branch.arc(0, 0, r2, 0, 2 * Math.PI);
-         cc2.fillStyle = color;
-         cc2.fill(branch);
- 
-         cc2.translate(x3.x, x3.y);
-         branch.arc(0, 0, r3, 0, 2 * Math.PI);
-         cc2.fillStyle = color;
-         cc2.fill(branch); */
+        } */
 
 
+        cc2.translate(x1.x, -x1.y);
+        circle1.arc(0, 0, r1, 0, 2 * Math.PI);
+        cc2.fillStyle = color;
+        cc2.fill(circle1);
+
+
+        cc2.translate(x2.x, -x2.y);
+        circle2.arc(0, 0, r2, 0, 2 * Math.PI);
+        cc2.fillStyle = color;
+        cc2.fill(circle2);
+
+        pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
+        cc2.fillStyle = "#000";
+        cc2.fill(pupil);
 
         cc2.save();
-        cc2.translate(r3 / 2, 0);
-        branch.arc(0, 0, r3 / 4, 0, 2 * Math.PI);
-        cc2.strokeStyle = "#000";
-        cc2.stroke();
-
-        cc2.save();
-        cc2.translate(-r3, 0);
-        branch.arc(0, 0, r3 / 4, 0, 2 * Math.PI);
-        cc2.strokeStyle = "#000";
-        cc2.stroke();
+        cc2.translate(x2.x, x2.y);
+        pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
+        cc2.fillStyle = "#000";
+        cc2.fill(pupil);
 
         cc2.restore();
-        cc2.beginPath();
-        cc2.moveTo(-r3, 0);
-        cc2.bezierCurveTo(0, -r3 / 4, -r3 / 2, -r3 / 4, r3 / 4, 0);
+
+        cc2.translate(x3.x, -x3.y);
+        let head: DOMMatrix = cc2.getTransform();
+        circle3.arc(0, 0, r3, 0, 2 * Math.PI);
+        cc2.fillStyle = color;
+        cc2.fill(circle3);
+
+
+
+        cc2.save();
+        cc2.translate(r3 / 2, - r3 / 4);
+        eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
         cc2.strokeStyle = "#000";
-        //cc2.lineWidth = randomNumber(5);
+        cc2.stroke(eye);
+
+        pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
+        cc2.fillStyle = "#000";
+        cc2.fill(pupil);
+
+        cc2.translate(-r3, 0);
+        eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
+        cc2.strokeStyle = "#000";
+        cc2.stroke(eye);
+
+        pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
+        cc2.fillStyle = "#000";
+        cc2.fill(pupil);
+
+        cc2.restore();
+
+        cc2.setTransform(head);
+        cc2.beginPath();
+        cc2.moveTo(-r3 / 2, r3 / 10);
+        cc2.bezierCurveTo(-r3 / 2, r3 * golden, r3 / 2, r3 * golden, r3 / 2, r3 / 10);
+        cc2.moveTo(-r3, 0);
+        cc2.strokeStyle = "#FF0000";
+        cc2.lineWidth = 2;
         cc2.closePath();
         cc2.stroke();
 
