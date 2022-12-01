@@ -16,6 +16,7 @@ var L08_2_aivary;
         drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
         drawSnowman({ x: randomBetween(10, 325), y: 425 });
         drawAviary({ x: randomBetween(335, 700), y: 450 }, 1);
+        drawBirds(20);
         drawSnowflakes(50, { x: 400, y: 175 });
     }
     function drawBackground() {
@@ -92,13 +93,13 @@ var L08_2_aivary;
         let transform = cc2.getTransform();
         cc2.translate(_position.x, _position.y);
         for (let drawn = 0; drawn < _nTrees; drawn++) {
-            let x = randomBetween(20, 750) + drawn * drawn;
+            let x = randomBetween(20, 750);
             let y = randomBetween(1, 130);
-            let scale = { x: _maxScale.x * (y / 115), y: _maxScale.y * (y / 115) };
+            let scale = { x: (y / 115), y: (y / 115) };
             cc2.save();
             cc2.scale(scale.x, scale.y);
             cc2.translate(x, y);
-            drawTree(0.2);
+            drawTree(randomBetween(0.2, 0.8));
             cc2.restore();
         }
         cc2.setTransform(transform);
@@ -350,6 +351,43 @@ var L08_2_aivary;
         cc2.closePath();
         cc2.fill();
         cc2.setTransform(transform);
+    }
+    function drawBirds(_nBirds) {
+        console.log("draw BIRDS!");
+        let ratio = Math.random();
+        let nSitting = Math.floor(_nBirds * ratio);
+        let nFlying = _nBirds - nSitting;
+        for (let drawn = 0; drawn < nSitting; drawn++) {
+            cc2.save();
+            let maxWidth = 740;
+            let minWidth = 10;
+            let minHeight = cc2.canvas.height * golden;
+            let maxHeight = 500;
+            let x = randomBetween(minWidth, maxWidth);
+            let y = randomBetween(minHeight, maxHeight);
+            let scale = { x: (y / maxHeight), y: (y / maxHeight) };
+            cc2.translate(x, y);
+            cc2.scale(scale.x, scale.y);
+            drawSittingBird({ x: 0, y: 0 });
+            cc2.restore();
+        }
+        for (let drawn = 0; drawn < nFlying; drawn++) {
+            cc2.save();
+            let maxWidth = 740;
+            let minWidth = 10;
+            let minHeight = cc2.canvas.height * golden;
+            let maxHeight = 500;
+            let x = randomBetween(minWidth, maxWidth);
+            let y = randomBetween(minHeight, maxHeight);
+            let scale = { x: (y / maxHeight), y: (y / maxHeight) };
+            cc2.translate(x, y);
+            cc2.scale(scale.x, scale.y);
+            drawFlyingBird({ x: 0, y: 0 });
+            cc2.restore();
+        }
+    }
+    function drawFlyingBird(_position) {
+        console.log("Flying Bird");
     }
 })(L08_2_aivary || (L08_2_aivary = {}));
 //# sourceMappingURL=aviary.js.map
