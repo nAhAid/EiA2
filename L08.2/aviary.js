@@ -15,6 +15,7 @@ var L08_2_aivary;
         drawCloud({ x: 550, y: 150 }, { x: 325, y: 125 }, 40, 60);
         drawTrees(5, { x: 0, y: horizon }, { x: 0.5, y: 0.5 });
         drawSnowman({ x: randomBetween(10, 740), y: 425 });
+        drawAviary({ x: randomBetween(10, 740), y: 450 }, 1);
         drawSnowflakes(50, { x: 400, y: 175 });
     }
     function drawBackground() {
@@ -158,17 +159,9 @@ var L08_2_aivary;
         let r1 = 60;
         let r2 = r1 * 0.8;
         let r3 = r2 * 0.8;
-        let r = [
-            70, 50, 30
-        ];
         let x1 = { x: 0, y: r1 };
         let x2 = { x: 0, y: r1 * 0.75 };
         let x3 = { x: 0, y: r2 };
-        let x = [
-            { x: 0, y: 70 },
-            { x: 0, y: 60 },
-            { x: 0, y: 40 }
-        ];
         let color = "#FFF";
         let transform = cc2.getTransform();
         let circle1 = new Path2D();
@@ -178,12 +171,6 @@ var L08_2_aivary;
         let pupil = new Path2D();
         cc2.save();
         cc2.translate(_position.x, _position.y);
-        /* for (let index: number = 1; index < 4; index++) {
-            cc2.translate(x[index - 1].x, -x[index - 1].y);
-            branch.arc(0, 0, r[index - 1], 0, 2 * Math.PI);
-            cc2.fillStyle = color;
-            cc2.fill(branch);
-        } */
         cc2.translate(x1.x, -x1.y);
         circle1.arc(0, 0, r1, 0, 2 * Math.PI);
         cc2.fillStyle = color;
@@ -232,6 +219,136 @@ var L08_2_aivary;
         cc2.closePath();
         cc2.stroke();
         cc2.strokeStyle = "#FFF";
+        cc2.setTransform(transform);
+    }
+    function drawAviary(_position, _nBirds) {
+        console.log("Aviary");
+        let transform = cc2.getTransform();
+        cc2.translate(_position.x, _position.y);
+        let colorFill = "#883607";
+        let colorStroke = "#532a13";
+        let t1 = { x: -45, y: 30 };
+        let t2 = { x: 0, y: -30 };
+        let t3 = { x: 45, y: 30 };
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.lineTo(0, -120);
+        cc2.strokeStyle = colorFill;
+        cc2.lineWidth = 8;
+        cc2.closePath();
+        cc2.stroke();
+        cc2.translate(0, -150);
+        cc2.beginPath();
+        cc2.moveTo(t1.x, t1.y);
+        cc2.lineTo(t1.x / 2, 0);
+        cc2.lineTo(t3.x / 2, 0);
+        cc2.lineTo(t3.x, t3.y);
+        cc2.fillStyle = colorFill;
+        cc2.strokeStyle = colorStroke;
+        cc2.lineWidth = 8;
+        cc2.closePath();
+        cc2.stroke();
+        cc2.fill();
+        cc2.beginPath();
+        cc2.moveTo(t1.x / 2, 0);
+        cc2.lineTo(t2.x, t2.y);
+        cc2.lineTo(t3.x / 2, 0);
+        cc2.closePath();
+        cc2.stroke();
+        cc2.beginPath();
+        cc2.moveTo(t3.x / 2, 0);
+        cc2.lineTo(t3.x / 2 + 25, 0);
+        cc2.lineWidth = 5;
+        cc2.closePath();
+        cc2.stroke();
+        let birdPosition = { x: (t3.x / 2 + 25) * 0.75, y: 0 };
+        drawSittingBird(birdPosition);
+        cc2.setTransform(transform);
+    }
+    function drawSittingBird(_position) {
+        console.log("Sitting Bird");
+        let color = [
+            {
+                bColor: "#9e5124",
+                hColor: "#9e4624",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#000",
+                hColor: "#000",
+                eyeColor: "#FFF"
+            },
+            {
+                bColor: "#7e2c15",
+                hColor: "#c5452b",
+                eyeColor: "#FFF"
+            },
+            {
+                bColor: "#7e2c15",
+                hColor: "#c5452b",
+                eyeColor: "#000"
+            }
+        ];
+        let beakColor = ["#f2da21", "#f2a221", "#f26321", "#f41f1f", "#8f1d00", "#a84600", "#ffd11a"];
+        let r1 = 15;
+        let randomColor = Math.floor(Math.random() * color.length);
+        let transform = cc2.getTransform();
+        //Draw Feet
+        cc2.translate(_position.x, _position.y);
+        cc2.beginPath();
+        cc2.moveTo(-10, 10);
+        cc2.lineTo(-5, 0);
+        cc2.lineTo(0, 10);
+        cc2.lineTo(5, 0);
+        cc2.lineTo(10, 10);
+        cc2.moveTo(0, 10);
+        cc2.strokeStyle = "#000";
+        cc2.lineWidth = 2;
+        cc2.closePath();
+        cc2.stroke();
+        //Draw Legs
+        let leg = new Path2D();
+        leg.moveTo(0, 0);
+        leg.lineTo(0, -20);
+        cc2.save();
+        cc2.translate(-5, 0);
+        cc2.stroke(leg);
+        cc2.translate(10, 0);
+        cc2.stroke(leg);
+        cc2.restore();
+        cc2.translate(0, -25);
+        let body = cc2.getTransform();
+        let bCircle = new Path2D;
+        let hCircle = new Path2D;
+        let eye = new Path2D;
+        //drawBody
+        bCircle.arc(0, 0, r1, 0, 2 * Math.PI);
+        cc2.fillStyle = color[randomColor].bColor;
+        cc2.fill(bCircle);
+        //drawHead
+        cc2.translate(0, -r1);
+        hCircle.arc(0, 0, r1 * 0.8, 0, 2 * Math.PI);
+        cc2.fillStyle = color[randomColor].hColor;
+        cc2.fill(hCircle);
+        //drawEye
+        cc2.translate(-r1 / 2, -r1 * 0.1);
+        eye.arc(0, 0, r1 * 0.1, 0, 2 * Math.PI);
+        cc2.fillStyle = color[randomColor].eyeColor;
+        cc2.fill(eye);
+        //drawEye
+        cc2.translate(r1, 0);
+        eye.arc(0, 0, r1 * 0.1, 0, 2 * Math.PI);
+        cc2.fillStyle = color[randomColor].eyeColor;
+        cc2.fill(eye);
+        //drawBeak
+        cc2.setTransform(body);
+        cc2.beginPath();
+        cc2.moveTo(0, 0);
+        cc2.lineTo(-5, -r1 * 0.8);
+        cc2.lineTo(5, -r1 * 0.8);
+        cc2.fillStyle = beakColor[Math.floor(Math.random() * beakColor.length)];
+        cc2.closePath();
+        cc2.fill();
         cc2.setTransform(transform);
     }
 })(L08_2_aivary || (L08_2_aivary = {}));
