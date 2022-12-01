@@ -93,9 +93,9 @@ var L08_2_aivary;
         let transform = cc2.getTransform();
         cc2.translate(_position.x, _position.y);
         for (let drawn = 0; drawn < _nTrees; drawn++) {
-            let x = randomBetween(20, 750);
-            let y = randomBetween(1, 130);
-            let scale = { x: (y / 115), y: (y / 115) };
+            let x = randomBetween(0, 750);
+            let y = randomBetween(10, 30);
+            let scale = { x: (y / 50), y: (y / 50) };
             cc2.save();
             cc2.scale(scale.x, scale.y);
             cc2.translate(x, y);
@@ -170,6 +170,7 @@ var L08_2_aivary;
         let circle3 = new Path2D();
         let eye = new Path2D();
         let pupil = new Path2D();
+        let cylinder = new Path2D();
         cc2.save();
         cc2.translate(_position.x, _position.y);
         cc2.translate(x1.x, -x1.y);
@@ -194,22 +195,27 @@ var L08_2_aivary;
         circle3.arc(0, 0, r3, 0, 2 * Math.PI);
         cc2.fillStyle = color;
         cc2.fill(circle3);
+        //draw Eye
         cc2.save();
         cc2.translate(r3 / 2, -r3 / 4);
         eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
         cc2.strokeStyle = "#000";
         cc2.stroke(eye);
+        //draw Pupil
         pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
         cc2.fillStyle = "#000";
         cc2.fill(pupil);
+        //draw Eye
         cc2.translate(-r3, 0);
         eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
         cc2.strokeStyle = "#000";
         cc2.stroke(eye);
+        //draw Pupil
         pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
         cc2.fillStyle = "#000";
         cc2.fill(pupil);
         cc2.restore();
+        //draw Mouth
         cc2.setTransform(head);
         cc2.beginPath();
         cc2.moveTo(-r3 / 2, r3 / 10);
@@ -217,6 +223,24 @@ var L08_2_aivary;
         cc2.moveTo(-r3, 0);
         cc2.strokeStyle = "#FF0000";
         cc2.lineWidth = 2;
+        cc2.closePath();
+        cc2.stroke();
+        //draw Cylinder
+        cc2.setTransform(head);
+        cc2.translate(0, -(r3 * 0.8));
+        let cWidth = r3 * 1.2;
+        let cHeight = r3 * 1.1;
+        cylinder.moveTo(-(cWidth / 2), 0);
+        cylinder.lineTo(-(cWidth / 2), -cHeight);
+        cylinder.lineTo(cWidth / 2, -cHeight);
+        cylinder.lineTo(cWidth / 2, 0);
+        cc2.fillStyle = "#000";
+        cc2.fill(cylinder);
+        cc2.beginPath();
+        cc2.moveTo(-r3, 0);
+        cc2.lineTo(r3, 0);
+        cc2.lineWidth = 10;
+        cc2.strokeStyle = "#000";
         cc2.closePath();
         cc2.stroke();
         cc2.strokeStyle = "#FFF";
@@ -287,6 +311,46 @@ var L08_2_aivary;
             {
                 bColor: "#7e2c15",
                 hColor: "#c5452b",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#4cf000",
+                hColor: "#277a00",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#6179ff",
+                hColor: "#0023eb",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#c547ff",
+                hColor: "#a400f0",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#9800a3",
+                hColor: "#e400f5",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#ff6524",
+                hColor: "#ffe733",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#41ff33",
+                hColor: "#33ffa7",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#38f",
+                hColor: "#33e0ff",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#da33ff",
+                hColor: "#ff33f5",
                 eyeColor: "#000"
             }
         ];
@@ -359,9 +423,9 @@ var L08_2_aivary;
         let nFlying = _nBirds - nSitting;
         for (let drawn = 0; drawn < nSitting; drawn++) {
             cc2.save();
-            let maxWidth = 740;
-            let minWidth = 10;
-            let minHeight = cc2.canvas.height * golden;
+            let maxWidth = 650;
+            let minWidth = 100;
+            let minHeight = 400;
             let maxHeight = 500;
             let x = randomBetween(minWidth, maxWidth);
             let y = randomBetween(minHeight, maxHeight);

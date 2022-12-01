@@ -132,9 +132,9 @@ namespace L08_2_aivary {
         cc2.translate(_position.x, _position.y);
 
         for (let drawn: number = 0; drawn < _nTrees; drawn++) {
-            let x: number = randomBetween(20, 750);
-            let y: number = randomBetween(1, 130);
-            let scale: Vector = { x: (y / 115), y: (y / 115) };
+            let x: number = randomBetween(0, 750);
+            let y: number = randomBetween(10, 30);
+            let scale: Vector = { x: (y / 50), y: (y / 50) };
 
             cc2.save();
             cc2.scale(scale.x, scale.y);
@@ -240,6 +240,7 @@ namespace L08_2_aivary {
         let circle3: Path2D = new Path2D();
         let eye: Path2D = new Path2D();
         let pupil: Path2D = new Path2D();
+        let cylinder: Path2D = new Path2D();
 
         cc2.save();
         cc2.translate(_position.x, _position.y);
@@ -272,27 +273,31 @@ namespace L08_2_aivary {
         cc2.fillStyle = color;
         cc2.fill(circle3);
 
+        //draw Eye
         cc2.save();
         cc2.translate(r3 / 2, - r3 / 4);
         eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
         cc2.strokeStyle = "#000";
         cc2.stroke(eye);
 
+        //draw Pupil
         pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
         cc2.fillStyle = "#000";
         cc2.fill(pupil);
 
+        //draw Eye
         cc2.translate(-r3, 0);
         eye.arc(0, 0, r3 / 6, 0, 2 * Math.PI);
         cc2.strokeStyle = "#000";
         cc2.stroke(eye);
-
+        //draw Pupil
         pupil.arc(0, 0, r3 / 15, 0, 2 * Math.PI);
         cc2.fillStyle = "#000";
         cc2.fill(pupil);
 
         cc2.restore();
 
+        //draw Mouth
         cc2.setTransform(head);
         cc2.beginPath();
         cc2.moveTo(-r3 / 2, r3 / 10);
@@ -302,6 +307,29 @@ namespace L08_2_aivary {
         cc2.lineWidth = 2;
         cc2.closePath();
         cc2.stroke();
+
+
+        //draw Cylinder
+        cc2.setTransform(head);
+        cc2.translate(0, -(r3 * 0.8));
+        let cWidth: number = r3 * 1.2;
+        let cHeight: number = r3 * 1.1;
+        cylinder.moveTo(-(cWidth / 2), 0);
+        cylinder.lineTo(-(cWidth / 2), - cHeight);
+        cylinder.lineTo(cWidth / 2, - cHeight);
+        cylinder.lineTo(cWidth / 2, 0);
+        cc2.fillStyle = "#000";
+        cc2.fill(cylinder);
+
+        cc2.beginPath();
+        cc2.moveTo(-r3, 0);
+        cc2.lineTo(r3, 0);
+        cc2.lineWidth = 10;
+        cc2.strokeStyle = "#000";
+        cc2.closePath();
+        cc2.stroke();
+
+
 
         cc2.strokeStyle = "#FFF";
         cc2.setTransform(transform);
@@ -388,6 +416,46 @@ namespace L08_2_aivary {
                 bColor: "#7e2c15",
                 hColor: "#c5452b",
                 eyeColor: "#000"
+            },
+            {
+                bColor: "#4cf000",
+                hColor: "#277a00",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#6179ff",
+                hColor: "#0023eb",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#c547ff",
+                hColor: "#a400f0",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#9800a3",
+                hColor: "#e400f5",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#ff6524",
+                hColor: "#ffe733",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#41ff33",
+                hColor: "#33ffa7",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#38f",
+                hColor: "#33e0ff",
+                eyeColor: "#000"
+            },
+            {
+                bColor: "#da33ff",
+                hColor: "#ff33f5",
+                eyeColor: "#000"
             }
         ];
         let beakColor: string[] = ["#f2da21", "#f2a221", "#f26321", "#f41f1f", "#8f1d00", "#a84600", "#ffd11a"];
@@ -473,9 +541,9 @@ namespace L08_2_aivary {
         for (let drawn: number = 0; drawn < nSitting; drawn++) {
             cc2.save();
 
-            let maxWidth: number = 740;
-            let minWidth: number = 10;
-            let minHeight: number = cc2.canvas.height * golden;
+            let maxWidth: number = 650;
+            let minWidth: number = 100;
+            let minHeight: number = 400;
             let maxHeight: number = 500;
 
             let x: number = randomBetween(minWidth, maxWidth);
@@ -522,7 +590,7 @@ namespace L08_2_aivary {
         cc2.beginPath();
         cc2.moveTo(0, 0);
         cc2.bezierCurveTo(0, -10, -10, -10, -10, 0);
-        cc2.moveTo(0,0);
+        cc2.moveTo(0, 0);
         cc2.strokeStyle = "#000";
         cc2.closePath();
         cc2.stroke();
@@ -530,7 +598,7 @@ namespace L08_2_aivary {
         cc2.beginPath();
         cc2.moveTo(0, 0);
         cc2.bezierCurveTo(0, -10, 10, -10, 10, 0);
-        cc2.moveTo(0,0);
+        cc2.moveTo(0, 0);
         cc2.strokeStyle = "#000";
         cc2.closePath();
         cc2.stroke();
