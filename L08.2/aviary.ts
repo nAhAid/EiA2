@@ -1,3 +1,11 @@
+/*
+Aufgabe: <L08.2_shoppingList>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <02.12.2022>
+Quellen: <Ich, W3Schools>
+*/
+
 namespace L08_2_aivary {
 
     interface Vector {
