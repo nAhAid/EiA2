@@ -158,10 +158,6 @@ namespace L06_shoppingList {
             }
         }
 
-
-
-
-
         //await fetch("https://webuser.hs-furtwangen.de/~haiderna/Datenbank/?command=" + _command + "&collection=Data&id=" + _element + "&" + query.toString());
         //alert("List Send!!");
 
