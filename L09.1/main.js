@@ -1,4 +1,11 @@
 "use strict";
+/*
+Aufgabe: <L08.2_shoppingList>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <13.12.2022>
+Quellen: <Ich, W3Schools, Daniel Meier>
+*/
 var L09_OldMcDonald;
 (function (L09_OldMcDonald) {
     window.addEventListener("load", handleLoad);
