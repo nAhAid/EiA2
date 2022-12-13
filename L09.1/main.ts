@@ -41,7 +41,6 @@ namespace L09_OldMcDonald {
     function startSing(): void {
         animals[0].sing();
         animals[0].eat();
-        console.log(animals);
 
         interval = setInterval(makeLyrics, 10000);
     }
@@ -70,7 +69,7 @@ namespace L09_OldMcDonald {
     }
 
     function restart(): void {
-        let div: HTMLElement = <HTMLElement>document.querySelector("div");
+        let div: HTMLElement = <HTMLElement>document.querySelector("#overview");
         let againButton: HTMLElement = <HTMLElement>document.querySelector("button");
         div.removeChild(againButton);
         startSing();

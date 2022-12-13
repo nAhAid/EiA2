@@ -32,7 +32,6 @@ var L09_OldMcDonald;
     function startSing() {
         animals[0].sing();
         animals[0].eat();
-        console.log(animals);
         interval = setInterval(makeLyrics, 10000);
     }
     function makeLyrics() {
@@ -55,7 +54,7 @@ var L09_OldMcDonald;
         againButton.addEventListener("click", restart);
     }
     function restart() {
-        let div = document.querySelector("div");
+        let div = document.querySelector("#overview");
         let againButton = document.querySelector("button");
         div.removeChild(againButton);
         startSing();
