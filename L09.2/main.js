@@ -16,6 +16,9 @@ var L09_Birdhouse;
         let mountainNear = new L09_Birdhouse.Mountain(positionMountain, "#7c8d8a", "#c5d8d5", 35, 85);
         mountainFar.draw();
         mountainNear.draw();
+        let cloudPos = new L09_Birdhouse.Vector(550, 150);
+        let cloud = new L09_Birdhouse.Cloud(cloudPos, 40);
+        cloud.draw();
     }
     function randomBetween(_min, _max) {
         let returnNumber = Math.floor(Math.random() * (_max - _min)) + _min;

@@ -3,7 +3,7 @@ namespace L09_Birdhouse {
 
     export let cc2: CanvasRenderingContext2D;
     export let golden: number = 0.62;
-    
+
 
     function handleLoad(_event: Event): void {
         console.log("load");
@@ -12,7 +12,7 @@ namespace L09_Birdhouse {
         cc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
 
         let horizon: number = cc2.canvas.height * golden;
-    
+
         let positionSun: Vector = new Vector(75, 100);
         let background: Background = new Background(positionSun);
         background.draw();
@@ -22,6 +22,10 @@ namespace L09_Birdhouse {
         let mountainNear: Mountain = new Mountain(positionMountain, "#7c8d8a", "#c5d8d5", 35, 85);
         mountainFar.draw();
         mountainNear.draw();
+
+        let cloudPos: Vector = new Vector(550, 150);
+        let cloud: Cloud = new Cloud(cloudPos, 40);
+        cloud.draw();
 
 
 
