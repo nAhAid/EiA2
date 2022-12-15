@@ -3,22 +3,30 @@ var L09_Birdhouse;
 (function (L09_Birdhouse) {
     window.addEventListener("load", handleLoad);
     L09_Birdhouse.golden = 0.62;
+    let posSnowflakes = new L09_Birdhouse.Vector(400, 175);
+    let snowflakes = [];
     function handleLoad(_event) {
         console.log("load");
         let canvas = document.querySelector("canvas");
         L09_Birdhouse.cc2 = canvas.getContext("2d");
-        let horizon = L09_Birdhouse.cc2.canvas.height * L09_Birdhouse.golden;
-        let positionSun = new L09_Birdhouse.Vector(75, 100);
-        let background = new L09_Birdhouse.Background(positionSun);
-        background.draw();
-        let positionMountain = new L09_Birdhouse.Vector(0, horizon);
-        let mountainFar = new L09_Birdhouse.Mountain(positionMountain, "#6B7A7D", "#E6FEFE", 50, 135);
-        let mountainNear = new L09_Birdhouse.Mountain(positionMountain, "#7c8d8a", "#c5d8d5", 35, 85);
-        mountainFar.draw();
-        mountainNear.draw();
-        let cloudPos = new L09_Birdhouse.Vector(550, 150);
-        let cloud = new L09_Birdhouse.Cloud(cloudPos, 40);
-        cloud.draw();
+        L09_Birdhouse.drawStatic();
+        L09_Birdhouse.imgData = L09_Birdhouse.cc2.getImageData(0, 0, L09_Birdhouse.cc2.canvas.width, L09_Birdhouse.cc2.canvas.height);
+        drawSnowflakes(50, posSnowflakes);
+    }
+    function drawSnowflakes(_nFlakes, _position) {
+        let transform = L09_Birdhouse.cc2.getTransform();
+        L09_Birdhouse.cc2.translate(_position.x, _position.y);
+        for (let drawn = 0; drawn < _nFlakes; drawn++) {
+            L09_Birdhouse.cc2.save();
+            let pos = new L09_Birdhouse.Vector(randomBetween(0, 325), randomBetween(0, 250));
+            let size = new L09_Birdhouse.Vector(10, 10);
+            let snowflake = new L09_Birdhouse.Snowflake(pos, size);
+            snowflake.draw();
+            snowflakes.push(snowflake);
+            L09_Birdhouse.cc2.restore();
+        }
+        L09_Birdhouse.cc2.setTransform(transform);
+        console.log(snowflakes);
     }
     function randomBetween(_min, _max) {
         let returnNumber = Math.floor(Math.random() * (_max - _min)) + _min;
