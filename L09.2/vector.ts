@@ -43,7 +43,7 @@ namespace L09_Birdhouse {
                 this.scale(length);
             }
             else if (_directions == "-x") {
-                let direction: number = -1 * Math.PI;
+                let direction: number = -2 * Math.PI;
                 this.set(Math.cos(direction), Math.sin(direction));
                 this.scale(length);
             }

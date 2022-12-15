@@ -6,6 +6,7 @@ var L09_Birdhouse;
     let posSnowflakes = new L09_Birdhouse.Vector(400, 175);
     let snowflakes = [];
     let flyingBirds = [];
+    let sittingBirds = [];
     function handleLoad(_event) {
         console.log("load");
         let canvas = document.querySelector("canvas");
@@ -15,6 +16,7 @@ var L09_Birdhouse;
         drawSnowflakes(50, posSnowflakes);
         drawBirds(20);
         window.setInterval(update, 20);
+        window.setInterval(updateBird, 500);
     }
     function drawBirds(_nBirds) {
         console.log("draw BIRDS!");
@@ -23,16 +25,18 @@ var L09_Birdhouse;
         let nFlying = _nBirds - nSitting;
         for (let drawn = 0; drawn < nSitting; drawn++) {
             L09_Birdhouse.cc2.save();
+            let randomColor = Math.floor(Math.random() * L09_Birdhouse.color.length);
+            let randomBeakColor = Math.floor(Math.random() * L09_Birdhouse.beakColor.length);
             let maxWidth = 650;
             let minWidth = 100;
             let minHeight = 400;
             let maxHeight = 500;
             let x = randomBetween(minWidth, maxWidth);
             let y = randomBetween(minHeight, maxHeight);
-            let scale = new L09_Birdhouse.Vector(y / maxHeight, y / maxHeight);
-            L09_Birdhouse.cc2.translate(x, y);
-            L09_Birdhouse.cc2.scale(scale.x, scale.y);
-            //drawSittingBird({ x: 0, y: 0 });
+            let birdPos = new L09_Birdhouse.Vector(x, y);
+            let sittingBird = new L09_Birdhouse.SitBird(birdPos, L09_Birdhouse.color[randomColor], L09_Birdhouse.beakColor[randomBeakColor]);
+            sittingBirds.push(sittingBird);
+            sittingBird.draw();
             L09_Birdhouse.cc2.restore();
         }
         for (let drawn = 0; drawn < nFlying; drawn++) {
@@ -55,6 +59,23 @@ var L09_Birdhouse;
         L09_Birdhouse.cc2.putImageData(L09_Birdhouse.imgData, 0, 0);
         updateSnowflakes(posSnowflakes);
         updateBirdsOnFly();
+        updateSittingBird(false);
+    }
+    function updateBird() {
+        updateSittingBird(true);
+    }
+    function updateSittingBird(_update) {
+        if (_update == false) {
+            for (let bird of sittingBirds) {
+                bird.draw();
+            }
+        }
+        if (_update == true) {
+            for (let bird of sittingBirds) {
+                bird.eat(1 / 100);
+                bird.draw();
+            }
+        }
     }
     function updateBirdsOnFly() {
         for (let bird of flyingBirds) {
@@ -92,5 +113,6 @@ var L09_Birdhouse;
         return returnNumber;
     }
     L09_Birdhouse.randomBetween = randomBetween;
+    L09_Birdhouse.directions = ["x", "-x"];
 })(L09_Birdhouse || (L09_Birdhouse = {}));
 //# sourceMappingURL=main.js.map

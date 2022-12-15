@@ -8,7 +8,7 @@ var L09_Birdhouse;
         constructor(_position) {
             this.position = _position;
             this.velocity = new L09_Birdhouse.Vector(0, 0);
-            this.velocity.random(50, 200, "x");
+            this.velocity.random(50, 200, L09_Birdhouse.directions[Math.floor(Math.random() * L09_Birdhouse.directions.length)]);
             this.scale = new L09_Birdhouse.Vector(0, 0);
             this.scale.set(this.position.y / 225, this.position.y / 225);
         }

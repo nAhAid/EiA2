@@ -7,7 +7,7 @@ namespace L09_Birdhouse {
         constructor(_position: Vector) {
             this.position = _position;
             this.velocity = new Vector(0, 0);
-            this.velocity.random(50, 200, "x");
+            this.velocity.random(50, 200, directions[Math.floor(Math.random() * directions.length)]);
 
             this.scale = new Vector(0, 0);
             this.scale.set(this.position.y / 225, this.position.y / 225);

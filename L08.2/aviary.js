@@ -362,8 +362,8 @@ var L08_2_aivary;
             }
         ];
         let beakColor = ["#f2da21", "#f2a221", "#f26321", "#f41f1f", "#8f1d00", "#a84600", "#ffd11a"];
-        let r1 = 15;
         let randomColor = Math.floor(Math.random() * color.length);
+        let r1 = 15;
         let transform = cc2.getTransform();
         //Draw Feet
         cc2.translate(_position.x, _position.y);

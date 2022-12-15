@@ -6,8 +6,11 @@ namespace L09_Birdhouse {
     export let imgData: ImageData;
     let posSnowflakes: Vector = new Vector(400, 175);
 
+
+
     let snowflakes: Snowflake[] = [];
     let flyingBirds: BirdOnFly[] = [];
+    let sittingBirds: SitBird[] = [];
 
     function handleLoad(_event: Event): void {
         console.log("load");
@@ -23,10 +26,10 @@ namespace L09_Birdhouse {
         drawBirds(20);
 
         window.setInterval(update, 20);
+        window.setInterval(updateBird, 500);
 
 
     }
-
 
     function drawBirds(_nBirds: number) {
         console.log("draw BIRDS!");
@@ -38,6 +41,9 @@ namespace L09_Birdhouse {
         for (let drawn: number = 0; drawn < nSitting; drawn++) {
             cc2.save();
 
+            let randomColor: number = Math.floor(Math.random() * color.length);
+            let randomBeakColor: number = Math.floor(Math.random() * beakColor.length);
+
             let maxWidth: number = 650;
             let minWidth: number = 100;
             let minHeight: number = 400;
@@ -45,13 +51,12 @@ namespace L09_Birdhouse {
 
             let x: number = randomBetween(minWidth, maxWidth);
             let y: number = randomBetween(minHeight, maxHeight);
-            let scale: Vector = new Vector(y / maxHeight, y / maxHeight);
+            let birdPos: Vector = new Vector(x, y);
 
-            cc2.translate(x, y);
-            cc2.scale(scale.x, scale.y);
 
-            //drawSittingBird({ x: 0, y: 0 });
-
+            let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
+            sittingBirds.push(sittingBird);
+            sittingBird.draw();
             cc2.restore();
 
         }
@@ -83,8 +88,25 @@ namespace L09_Birdhouse {
 
         updateSnowflakes(posSnowflakes);
         updateBirdsOnFly();
+        updateSittingBird(false);
+    }
 
+    function updateBird(): void {
+        updateSittingBird(true);
+    }
 
+    function updateSittingBird(_update: boolean): void {
+        if (_update == false) {
+            for (let bird of sittingBirds) {
+                bird.draw();
+            }
+        }
+        if (_update == true) {
+            for (let bird of sittingBirds) {
+                bird.eat(1 / 100);
+                bird.draw();
+            }
+        }
 
     }
 
@@ -136,5 +158,8 @@ namespace L09_Birdhouse {
         let returnNumber: number = Math.floor(Math.random() * (_max - _min)) + _min;
         return returnNumber;
     }
+
+    export let directions: string[] = ["x", "-x"];
+
 
 }

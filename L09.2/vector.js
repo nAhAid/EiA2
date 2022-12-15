@@ -38,7 +38,7 @@ var L09_Birdhouse;
                 this.scale(length);
             }
             else if (_directions == "-x") {
-                let direction = -1 * Math.PI;
+                let direction = -2 * Math.PI;
                 this.set(Math.cos(direction), Math.sin(direction));
                 this.scale(length);
             }

@@ -467,9 +467,9 @@ namespace L08_2_aivary {
             }
         ];
         let beakColor: string[] = ["#f2da21", "#f2a221", "#f26321", "#f41f1f", "#8f1d00", "#a84600", "#ffd11a"];
-        let r1: number = 15;
+        
         let randomColor: number = Math.floor(Math.random() * color.length);
-
+        let r1: number = 15;
 
         let transform: DOMMatrix = cc2.getTransform();
         //Draw Feet
