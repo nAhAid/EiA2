@@ -7,6 +7,7 @@ namespace L09_Birdhouse {
     let posSnowflakes: Vector = new Vector(400, 175);
 
     let snowflakes: Snowflake[] = [];
+    let flyingBirds: BirdOnFly[] = [];
 
     function handleLoad(_event: Event): void {
         console.log("load");
@@ -19,9 +20,61 @@ namespace L09_Birdhouse {
 
 
         drawSnowflakes(50, posSnowflakes);
+        drawBirds(20);
+
         window.setInterval(update, 20);
 
 
+    }
+
+
+    function drawBirds(_nBirds: number) {
+        console.log("draw BIRDS!");
+
+        let ratio: number = Math.random();
+        let nSitting: number = Math.floor(_nBirds * ratio);
+        let nFlying: number = _nBirds - nSitting;
+
+        for (let drawn: number = 0; drawn < nSitting; drawn++) {
+            cc2.save();
+
+            let maxWidth: number = 650;
+            let minWidth: number = 100;
+            let minHeight: number = 400;
+            let maxHeight: number = 500;
+
+            let x: number = randomBetween(minWidth, maxWidth);
+            let y: number = randomBetween(minHeight, maxHeight);
+            let scale: Vector = new Vector(y / maxHeight, y / maxHeight);
+
+            cc2.translate(x, y);
+            cc2.scale(scale.x, scale.y);
+
+            //drawSittingBird({ x: 0, y: 0 });
+
+            cc2.restore();
+
+        }
+
+        for (let drawn: number = 0; drawn < nFlying; drawn++) {
+            cc2.save();
+
+            let maxWidth: number = 740;
+            let minWidth: number = 10;
+            let minHeight: number = 0;
+            let maxHeight: number = 225;
+
+            let x: number = randomBetween(minWidth, maxWidth);
+            let y: number = randomBetween(minHeight, maxHeight);
+            let birdPos: Vector = new Vector(x, y);
+
+            let flyingBird: BirdOnFly = new BirdOnFly(birdPos);
+            flyingBirds.push(flyingBird);
+            flyingBird.draw();
+
+            cc2.restore();
+
+        }
     }
 
     function update(): void {
@@ -29,12 +82,23 @@ namespace L09_Birdhouse {
         cc2.putImageData(imgData, 0, 0);
 
         updateSnowflakes(posSnowflakes);
+        updateBirdsOnFly();
 
-    
+
 
     }
 
-    function updateSnowflakes(_position: Vector) {
+    function updateBirdsOnFly(): void {
+        for (let bird of flyingBirds) {
+            cc2.save();
+
+            bird.fly(1 / 50);
+            bird.draw();
+            cc2.restore();
+        }
+    }
+
+    function updateSnowflakes(_position: Vector): void {
         let transform: DOMMatrix = cc2.getTransform();
         cc2.translate(_position.x, _position.y);
 

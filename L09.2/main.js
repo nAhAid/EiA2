@@ -5,6 +5,7 @@ var L09_Birdhouse;
     L09_Birdhouse.golden = 0.62;
     let posSnowflakes = new L09_Birdhouse.Vector(400, 175);
     let snowflakes = [];
+    let flyingBirds = [];
     function handleLoad(_event) {
         console.log("load");
         let canvas = document.querySelector("canvas");
@@ -12,12 +13,56 @@ var L09_Birdhouse;
         L09_Birdhouse.drawStatic();
         L09_Birdhouse.imgData = L09_Birdhouse.cc2.getImageData(0, 0, L09_Birdhouse.cc2.canvas.width, L09_Birdhouse.cc2.canvas.height);
         drawSnowflakes(50, posSnowflakes);
+        drawBirds(20);
         window.setInterval(update, 20);
+    }
+    function drawBirds(_nBirds) {
+        console.log("draw BIRDS!");
+        let ratio = Math.random();
+        let nSitting = Math.floor(_nBirds * ratio);
+        let nFlying = _nBirds - nSitting;
+        for (let drawn = 0; drawn < nSitting; drawn++) {
+            L09_Birdhouse.cc2.save();
+            let maxWidth = 650;
+            let minWidth = 100;
+            let minHeight = 400;
+            let maxHeight = 500;
+            let x = randomBetween(minWidth, maxWidth);
+            let y = randomBetween(minHeight, maxHeight);
+            let scale = new L09_Birdhouse.Vector(y / maxHeight, y / maxHeight);
+            L09_Birdhouse.cc2.translate(x, y);
+            L09_Birdhouse.cc2.scale(scale.x, scale.y);
+            //drawSittingBird({ x: 0, y: 0 });
+            L09_Birdhouse.cc2.restore();
+        }
+        for (let drawn = 0; drawn < nFlying; drawn++) {
+            L09_Birdhouse.cc2.save();
+            let maxWidth = 740;
+            let minWidth = 10;
+            let minHeight = 0;
+            let maxHeight = 225;
+            let x = randomBetween(minWidth, maxWidth);
+            let y = randomBetween(minHeight, maxHeight);
+            let birdPos = new L09_Birdhouse.Vector(x, y);
+            let flyingBird = new L09_Birdhouse.BirdOnFly(birdPos);
+            flyingBirds.push(flyingBird);
+            flyingBird.draw();
+            L09_Birdhouse.cc2.restore();
+        }
     }
     function update() {
         console.log("Update");
         L09_Birdhouse.cc2.putImageData(L09_Birdhouse.imgData, 0, 0);
         updateSnowflakes(posSnowflakes);
+        updateBirdsOnFly();
+    }
+    function updateBirdsOnFly() {
+        for (let bird of flyingBirds) {
+            L09_Birdhouse.cc2.save();
+            bird.fly(1 / 50);
+            bird.draw();
+            L09_Birdhouse.cc2.restore();
+        }
     }
     function updateSnowflakes(_position) {
         let transform = L09_Birdhouse.cc2.getTransform();
