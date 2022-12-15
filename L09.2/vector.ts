@@ -13,22 +13,45 @@ namespace L09_Birdhouse {
             this.y = _y;
         }
 
-        scale( _factor: number): void {
+        scale(_factor: number): void {
             this.x *= _factor;
             this.y *= _factor;
         }
 
-        add (_addend: Vector): void {
+        add(_addend: Vector): void {
             this.x += _addend.x;
             this.y += _addend.y;
         }
 
-        random(_minLength: number, _maxLength: number): void {
+        random(_minLength: number, _maxLength: number, _directions?: string): void {
             let length: number = _minLength + Math.random() * (_maxLength - _minLength);
-            let direction: number = Math.random() * 2 * Math.PI;
 
-            this.set(Math.cos(direction), Math.sin(direction));
-            this.scale(length);
+
+            if (_directions == "y") {
+                let direction: number = 0.5 * Math.PI;
+                this.set(Math.cos(direction), Math.sin(direction));
+                this.scale(length);
+            }
+            else if (_directions == "-y") {
+                let direction: number = -0.5 * Math.PI;
+                this.set(Math.cos(direction), Math.sin(direction));
+                this.scale(length);
+            }
+            else if (_directions == "x") {
+                let direction: number = 1 * Math.PI;
+                this.set(Math.cos(direction), Math.sin(direction));
+                this.scale(length);
+            }
+            else if (_directions == "-x") {
+                let direction: number = -1 * Math.PI;
+                this.set(Math.cos(direction), Math.sin(direction));
+                this.scale(length);
+            }
+            else {
+                let direction: number = Math.random() * 2 * Math.PI;
+                this.set(Math.cos(direction), Math.sin(direction));
+                this.scale(length);
+            }
         }
     }
 }

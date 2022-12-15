@@ -12,6 +12,21 @@ var L09_Birdhouse;
         L09_Birdhouse.drawStatic();
         L09_Birdhouse.imgData = L09_Birdhouse.cc2.getImageData(0, 0, L09_Birdhouse.cc2.canvas.width, L09_Birdhouse.cc2.canvas.height);
         drawSnowflakes(50, posSnowflakes);
+        window.setInterval(update, 20);
+    }
+    function update() {
+        console.log("Update");
+        L09_Birdhouse.cc2.putImageData(L09_Birdhouse.imgData, 0, 0);
+        updateSnowflakes(posSnowflakes);
+    }
+    function updateSnowflakes(_position) {
+        let transform = L09_Birdhouse.cc2.getTransform();
+        L09_Birdhouse.cc2.translate(_position.x, _position.y);
+        for (let snow of snowflakes) {
+            snow.letItSnow(1 / 100);
+            snow.draw();
+        }
+        L09_Birdhouse.cc2.setTransform(transform);
     }
     function drawSnowflakes(_nFlakes, _position) {
         let transform = L09_Birdhouse.cc2.getTransform();
@@ -26,7 +41,6 @@ var L09_Birdhouse;
             L09_Birdhouse.cc2.restore();
         }
         L09_Birdhouse.cc2.setTransform(transform);
-        console.log(snowflakes);
     }
     function randomBetween(_min, _max) {
         let returnNumber = Math.floor(Math.random() * (_max - _min)) + _min;

@@ -10,9 +10,15 @@ var L09_Birdhouse;
             this.position = _position;
             this.size = _size;
             this.radiusParticle = 10;
+            this.velocity = new L09_Birdhouse.Vector(0, 0);
+            this.velocity.random(50, 100, "y");
         }
         letItSnow(_timeslice) {
-            console.log("Let it snow!");
+            let offset = new L09_Birdhouse.Vector(this.velocity.x, this.velocity.y);
+            offset.scale(_timeslice);
+            this.position.add(offset);
+            if (this.position.y > 250)
+                this.position.y -= 250;
         }
         draw() {
             let radiusParticle = 40;

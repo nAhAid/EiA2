@@ -19,9 +19,32 @@ namespace L09_Birdhouse {
 
 
         drawSnowflakes(50, posSnowflakes);
+        window.setInterval(update, 20);
 
 
+    }
 
+    function update(): void {
+        console.log("Update");
+        cc2.putImageData(imgData, 0, 0);
+
+        updateSnowflakes(posSnowflakes);
+
+    
+
+    }
+
+    function updateSnowflakes(_position: Vector) {
+        let transform: DOMMatrix = cc2.getTransform();
+        cc2.translate(_position.x, _position.y);
+
+        for (let snow of snowflakes) {
+            snow.letItSnow(1 / 100);
+            snow.draw();
+
+        }
+
+        cc2.setTransform(transform);
     }
 
     function drawSnowflakes(_nFlakes: number, _position: Vector) {
@@ -43,7 +66,6 @@ namespace L09_Birdhouse {
         }
 
         cc2.setTransform(transform);
-        console.log(snowflakes);
     }
 
     export function randomBetween(_min: number, _max: number): number {

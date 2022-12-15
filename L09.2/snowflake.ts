@@ -10,10 +10,17 @@ namespace L09_Birdhouse {
             this.position = _position;
             this.size = _size;
             this.radiusParticle = 10;
+            this.velocity = new Vector(0, 0);
+            this.velocity.random(50, 100, "y");
         }
 
         letItSnow(_timeslice: number) {
-            console.log("Let it snow!");
+            let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
+            offset.scale(_timeslice);
+            this.position.add(offset);
+
+            if (this.position.y > 250)
+                this.position.y -= 250;
         }
 
         draw() {
@@ -22,7 +29,7 @@ namespace L09_Birdhouse {
             let particle: Path2D = new Path2D();
             let gradient: CanvasGradient = cc2.createRadialGradient(0, 0, 0, 0, 0, this.radiusParticle);
 
-        
+
             particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
             gradient.addColorStop(0, "HSLA(0, 100%, 100%, 0.5)");
             gradient.addColorStop(1, "HSLA(0, 100%, 100%, 0)");
