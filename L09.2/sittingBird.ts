@@ -18,7 +18,6 @@ namespace L09_Birdhouse {
 
             let values: boolean[] = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
-            console.log(this.eating);
         }
 
         draw(): void {
@@ -168,7 +167,6 @@ namespace L09_Birdhouse {
 
         eat(_timeslice: number): void {
             let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
-            console.log("Eat");
             offset.scale(_timeslice);
             this.position.add(offset);
             this.eating = !this.eating;

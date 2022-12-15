@@ -19,7 +19,6 @@ var L09_Birdhouse;
         window.setInterval(updateBird, 500);
     }
     function drawBirds(_nBirds) {
-        console.log("draw BIRDS!");
         let ratio = Math.random();
         let nSitting = Math.floor(_nBirds * ratio);
         let nFlying = _nBirds - nSitting;

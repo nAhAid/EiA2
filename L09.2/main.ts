@@ -32,7 +32,6 @@ namespace L09_Birdhouse {
     }
 
     function drawBirds(_nBirds: number) {
-        console.log("draw BIRDS!");
 
         let ratio: number = Math.random();
         let nSitting: number = Math.floor(_nBirds * ratio);

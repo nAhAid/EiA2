@@ -18,7 +18,6 @@ var L09_Birdhouse;
             this.velocity.random(50, 100, L09_Birdhouse.directions[Math.floor(Math.random() * L09_Birdhouse.directions.length)]);
             let values = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
-            console.log(this.eating);
         }
         draw() {
             if (this.eating != true) {
@@ -140,7 +139,6 @@ var L09_Birdhouse;
         }
         eat(_timeslice) {
             let offset = new L09_Birdhouse.Vector(this.velocity.x, this.velocity.y);
-            console.log("Eat");
             offset.scale(_timeslice);
             this.position.add(offset);
             this.eating = !this.eating;
