@@ -1,3 +1,11 @@
+/*
+Aufgabe: <L09.2_Birdhouse>
+Name: <Natan Haider>
+Matrikel: <271115>
+Datum: <15.12.2022>
+Quellen: <W3Schools>
+*/
+
 namespace L09_Birdhouse {
     window.addEventListener("load", handleLoad);
 
