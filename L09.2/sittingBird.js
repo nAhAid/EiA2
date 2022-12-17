@@ -111,7 +111,6 @@ var L09_Birdhouse;
                 L09_Birdhouse.cc2.stroke(leg);
                 L09_Birdhouse.cc2.restore();
                 L09_Birdhouse.cc2.translate(0, -25);
-                let body = L09_Birdhouse.cc2.getTransform();
                 let bCircle = new Path2D;
                 let hCircle = new Path2D;
                 //drawBody

@@ -6,6 +6,7 @@ var L09_Birdhouse;
         size;
         velocity;
         radiusParticle;
+        xy;
         constructor(_position, _size) {
             this.position = _position;
             this.size = _size;
@@ -30,12 +31,20 @@ var L09_Birdhouse;
             L09_Birdhouse.cc2.save();
             L09_Birdhouse.cc2.translate(this.position.x, this.position.y);
             L09_Birdhouse.cc2.fillStyle = gradient;
-            let x = (Math.random() - 0.5) * this.size.x;
-            let y = -(Math.random() * this.size.y);
-            L09_Birdhouse.cc2.save();
-            L09_Birdhouse.cc2.translate(x, y);
-            L09_Birdhouse.cc2.fill(particle);
-            L09_Birdhouse.cc2.restore();
+            if (this.xy == undefined) {
+                let x = (Math.random() - 0.5) * this.size.x;
+                let y = -(Math.random() * this.size.y);
+                L09_Birdhouse.cc2.save();
+                L09_Birdhouse.cc2.translate(x, y);
+                L09_Birdhouse.cc2.fill(particle);
+                L09_Birdhouse.cc2.restore();
+            }
+            else {
+                L09_Birdhouse.cc2.save();
+                L09_Birdhouse.cc2.translate(this.xy.x, this.xy.y);
+                L09_Birdhouse.cc2.fill(particle);
+                L09_Birdhouse.cc2.restore();
+            }
             L09_Birdhouse.cc2.restore();
         }
     }

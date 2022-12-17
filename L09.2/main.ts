@@ -21,7 +21,6 @@ namespace L09_Birdhouse {
     let sittingBirds: SitBird[] = [];
 
     function handleLoad(_event: Event): void {
-        console.log("load");
 
         let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
         cc2 = <CanvasRenderingContext2D>canvas.getContext("2d");

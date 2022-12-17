@@ -129,7 +129,7 @@ namespace L09_Birdhouse {
                 cc2.restore();
 
                 cc2.translate(0, -25);
-                let body: DOMMatrix = cc2.getTransform();
+               
 
 
                 let bCircle: Path2D = new Path2D;

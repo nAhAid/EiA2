@@ -5,6 +5,7 @@ namespace L09_Birdhouse {
         size: Vector;
         velocity: Vector;
         radiusParticle: number;
+        xy: Vector;
 
         constructor(_position: Vector, _size: Vector) {
             this.position = _position;
@@ -39,13 +40,23 @@ namespace L09_Birdhouse {
 
             cc2.fillStyle = gradient;
 
+            if (this.xy == undefined) {
+                let x: number = (Math.random() - 0.5) * this.size.x;
+                let y: number = - (Math.random() * this.size.y);
+                cc2.save();
+                cc2.translate(x, y);
+                cc2.fill(particle);
+                cc2.restore();
+            }
 
-            let x: number = (Math.random() - 0.5) * this.size.x;
-            let y: number = - (Math.random() * this.size.y);
-            cc2.save();
-            cc2.translate(x, y);
-            cc2.fill(particle);
-            cc2.restore();
+            else {
+                cc2.save();
+                cc2.translate(this.xy.x, this.xy.y);
+                cc2.fill(particle);
+                cc2.restore();
+            }
+
+
 
 
             cc2.restore();

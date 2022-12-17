@@ -15,7 +15,6 @@ var L09_Birdhouse;
     let flyingBirds = [];
     let sittingBirds = [];
     function handleLoad(_event) {
-        console.log("load");
         let canvas = document.querySelector("canvas");
         L09_Birdhouse.cc2 = canvas.getContext("2d");
         L09_Birdhouse.drawStatic();
