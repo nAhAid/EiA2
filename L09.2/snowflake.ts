@@ -43,6 +43,9 @@ namespace L09_Birdhouse {
             if (this.xy == undefined) {
                 let x: number = (Math.random() - 0.5) * this.size.x;
                 let y: number = - (Math.random() * this.size.y);
+                let pos: Vector = new Vector(x, y);
+                this.xy = pos;
+
                 cc2.save();
                 cc2.translate(x, y);
                 cc2.fill(particle);

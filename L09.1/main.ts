@@ -11,6 +11,7 @@ namespace L09_OldMcDonald {
     let interval: number;
     let index: number = 1;
     let animals: Animal[] = [];
+    let food: Food[] = [];
 
     function handleLoad(): void {
 

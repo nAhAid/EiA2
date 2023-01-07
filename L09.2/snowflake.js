@@ -34,6 +34,8 @@ var L09_Birdhouse;
             if (this.xy == undefined) {
                 let x = (Math.random() - 0.5) * this.size.x;
                 let y = -(Math.random() * this.size.y);
+                let pos = new L09_Birdhouse.Vector(x, y);
+                this.xy = pos;
                 L09_Birdhouse.cc2.save();
                 L09_Birdhouse.cc2.translate(x, y);
                 L09_Birdhouse.cc2.fill(particle);
