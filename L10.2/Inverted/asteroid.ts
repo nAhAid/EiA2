@@ -1,5 +1,5 @@
 namespace L10_Asteroids {
-    export class Asteroid {
+    export class Asteroid extends Moveable {
         position: Vector;
         velocitiy: Vector;
         type: number;
@@ -7,6 +7,9 @@ namespace L10_Asteroids {
 
 
         constructor(_size: number, _position?: Vector) {
+            
+            super(_position);
+            
             if (_position)
                 this.position = _position.copy();
             
@@ -20,30 +23,13 @@ namespace L10_Asteroids {
             this.size = _size;
         }
 
-        move(_timeslice: number): void {
-            /* this.position.x = this.velocitiy.x * _timeslice;
-            this.position.y = this.velocitiy.y * _timeslice; */
-
-            let offset: Vector = new Vector(this.velocitiy.x, this.velocitiy.y);
-            offset.scale(_timeslice);
-            this.position.add(offset);
-
-            if (this.position.x < 0)
-                this.position.x += cc2.canvas.width;
-            if (this.position.y < 0)
-                this.position.y += cc2.canvas.height;
-            if (this.position.x > cc2.canvas.width)
-                this.position.x -= cc2.canvas.width;
-            if (this.position.y > cc2.canvas.height)
-                this.position.y -= cc2.canvas.height;
-        }
 
         draw() {
             cc2.save();
             cc2.translate(this.position.x, this.position.y);
             cc2.scale(this.size, this.size);
             cc2.translate(-50, -50);
-            cc2.lineWidth = 1 / this.size;
+            cc2.lineWidth = linewidth / this.size;
             cc2.stroke(asteroidPaths[this.type]);
             cc2.restore();
         }
