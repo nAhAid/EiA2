@@ -1,15 +1,15 @@
 "use strict";
 var L10_Birdhouse;
 (function (L10_Birdhouse) {
-    class SitBird {
-        position;
+    class SitBird extends L10_Birdhouse.Moveable {
         velocity;
         color;
         beakColor;
         scale;
         eating;
+        index;
         constructor(_position, _color, _beakColor) {
-            this.position = _position;
+            super(_position);
             this.color = _color;
             this.beakColor = _beakColor;
             this.scale = new L10_Birdhouse.Vector(0, 0);
@@ -18,6 +18,17 @@ var L10_Birdhouse;
             this.velocity.random(50, 100, L10_Birdhouse.directions[Math.floor(Math.random() * L10_Birdhouse.directions.length)]);
             let values = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
+            this.index = L10_Birdhouse.randomBetween(0, 25);
+        }
+        checkUpdate() {
+            if (this.index < 25) {
+                this.index++;
+                return false;
+            }
+            if (this.index == 25) {
+                this.index = 0;
+                return true;
+            }
         }
         draw() {
             if (this.eating != true) {

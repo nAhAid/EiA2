@@ -1,28 +1,26 @@
 "use strict";
 /*
-Aufgabe: <L09.2_Birdhouse>
+Aufgabe: <L10.2_Birdhouse>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <15.12.2022>
-Quellen: <W3Schools>
+Datum: <12.01.2023>
+Quellen: </>
 */
 var L10_Birdhouse;
 (function (L10_Birdhouse) {
     window.addEventListener("load", handleLoad);
     L10_Birdhouse.golden = 0.62;
-    let posSnowflakes = new L10_Birdhouse.Vector(400, 175);
-    let snowflakes = [];
-    let flyingBirds = [];
-    let sittingBirds = [];
+    L10_Birdhouse.posSnowflakes = new L10_Birdhouse.Vector(400, 175);
+    let moveables = [];
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         L10_Birdhouse.cc2 = canvas.getContext("2d");
         L10_Birdhouse.drawStatic();
         L10_Birdhouse.imgData = L10_Birdhouse.cc2.getImageData(0, 0, L10_Birdhouse.cc2.canvas.width, L10_Birdhouse.cc2.canvas.height);
-        drawSnowflakes(50, posSnowflakes);
+        drawSnowflakes(50, L10_Birdhouse.posSnowflakes);
         drawBirds(20);
         window.setInterval(update, 20);
-        window.setInterval(updateBird, 500);
+        //window.setInterval(updateBird, 500);
     }
     function drawBirds(_nBirds) {
         let ratio = Math.random();
@@ -40,7 +38,7 @@ var L10_Birdhouse;
             let y = randomBetween(minHeight, maxHeight);
             let birdPos = new L10_Birdhouse.Vector(x, y);
             let sittingBird = new L10_Birdhouse.SitBird(birdPos, L10_Birdhouse.color[randomColor], L10_Birdhouse.beakColor[randomBeakColor]);
-            sittingBirds.push(sittingBird);
+            moveables.push(sittingBird);
             sittingBird.draw();
             L10_Birdhouse.cc2.restore();
         }
@@ -54,7 +52,7 @@ var L10_Birdhouse;
             let y = randomBetween(minHeight, maxHeight);
             let birdPos = new L10_Birdhouse.Vector(x, y);
             let flyingBird = new L10_Birdhouse.BirdOnFly(birdPos);
-            flyingBirds.push(flyingBird);
+            moveables.push(flyingBird);
             flyingBird.draw();
             L10_Birdhouse.cc2.restore();
         }
@@ -62,53 +60,41 @@ var L10_Birdhouse;
     function update() {
         console.log("Update");
         L10_Birdhouse.cc2.putImageData(L10_Birdhouse.imgData, 0, 0);
-        updateSnowflakes(posSnowflakes);
-        updateBirdsOnFly();
-        updateSittingBird(false);
+        updateMoveables();
     }
-    function updateBird() {
-        updateSittingBird(true);
-    }
-    function updateSittingBird(_update) {
-        if (_update == false) {
-            for (let bird of sittingBirds) {
-                bird.draw();
-            }
-        }
-        if (_update == true) {
-            for (let bird of sittingBirds) {
-                bird.eat(1 / 100);
-                bird.draw();
-            }
-        }
-    }
-    function updateBirdsOnFly() {
-        for (let bird of flyingBirds) {
-            L10_Birdhouse.cc2.save();
-            bird.fly(1 / 50);
-            bird.draw();
-            L10_Birdhouse.cc2.restore();
-        }
-    }
-    function updateSnowflakes(_position) {
+    function updateMoveables() {
         let transform = L10_Birdhouse.cc2.getTransform();
-        L10_Birdhouse.cc2.translate(_position.x, _position.y);
-        for (let snow of snowflakes) {
-            snow.letItSnow(1 / 100);
-            snow.draw();
+        for (let moveable of moveables) {
+            if (moveable instanceof L10_Birdhouse.Snowflake) {
+                moveable.letItSnow(1 / 100);
+                moveable.draw();
+            }
+            if (moveable instanceof L10_Birdhouse.BirdOnFly) {
+                moveable.fly(1 / 50);
+                moveable.draw();
+            }
+            if (moveable instanceof L10_Birdhouse.SitBird) {
+                let check = moveable.checkUpdate();
+                if (check == true) {
+                    moveable.eat(1 / 100);
+                    moveable.draw();
+                }
+                if (check == false) {
+                    moveable.draw();
+                }
+            }
         }
         L10_Birdhouse.cc2.setTransform(transform);
     }
     function drawSnowflakes(_nFlakes, _position) {
         let transform = L10_Birdhouse.cc2.getTransform();
-        L10_Birdhouse.cc2.translate(_position.x, _position.y);
         for (let drawn = 0; drawn < _nFlakes; drawn++) {
             L10_Birdhouse.cc2.save();
             let pos = new L10_Birdhouse.Vector(randomBetween(0, 325), randomBetween(0, 250));
             let size = new L10_Birdhouse.Vector(10, 10);
             let snowflake = new L10_Birdhouse.Snowflake(pos, size);
             snowflake.draw();
-            snowflakes.push(snowflake);
+            moveables.push(snowflake);
             L10_Birdhouse.cc2.restore();
         }
         L10_Birdhouse.cc2.setTransform(transform);

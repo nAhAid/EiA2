@@ -1,9 +1,9 @@
 /*
-Aufgabe: <L09.2_Birdhouse>
+Aufgabe: <L10.2_Birdhouse>
 Name: <Natan Haider>
 Matrikel: <271115>
-Datum: <15.12.2022>
-Quellen: <W3Schools>
+Datum: <12.01.2023>
+Quellen: </>
 */
 
 namespace L10_Birdhouse {
@@ -12,13 +12,9 @@ namespace L10_Birdhouse {
     export let cc2: CanvasRenderingContext2D;
     export let golden: number = 0.62;
     export let imgData: ImageData;
-    let posSnowflakes: Vector = new Vector(400, 175);
+    export let posSnowflakes: Vector = new Vector(400, 175);
 
-
-
-    let snowflakes: Snowflake[] = [];
-    let flyingBirds: BirdOnFly[] = [];
-    let sittingBirds: SitBird[] = [];
+    let moveables: Moveable[] = [];
 
     function handleLoad(_event: Event): void {
 
@@ -33,7 +29,7 @@ namespace L10_Birdhouse {
         drawBirds(20);
 
         window.setInterval(update, 20);
-        window.setInterval(updateBird, 500);
+        //window.setInterval(updateBird, 500);
 
 
     }
@@ -61,7 +57,7 @@ namespace L10_Birdhouse {
 
 
             let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
-            sittingBirds.push(sittingBird);
+            moveables.push(sittingBird);
             sittingBird.draw();
             cc2.restore();
 
@@ -80,7 +76,7 @@ namespace L10_Birdhouse {
             let birdPos: Vector = new Vector(x, y);
 
             let flyingBird: BirdOnFly = new BirdOnFly(birdPos);
-            flyingBirds.push(flyingBird);
+            moveables.push(flyingBird);
             flyingBird.draw();
 
             cc2.restore();
@@ -92,47 +88,35 @@ namespace L10_Birdhouse {
         console.log("Update");
         cc2.putImageData(imgData, 0, 0);
 
-        updateSnowflakes(posSnowflakes);
-        updateBirdsOnFly();
-        updateSittingBird(false);
+        updateMoveables();
     }
 
-    function updateBird(): void {
-        updateSittingBird(true);
-    }
 
-    function updateSittingBird(_update: boolean): void {
-        if (_update == false) {
-            for (let bird of sittingBirds) {
-                bird.draw();
-            }
-        }
-        if (_update == true) {
-            for (let bird of sittingBirds) {
-                bird.eat(1 / 100);
-                bird.draw();
-            }
-        }
 
-    }
-
-    function updateBirdsOnFly(): void {
-        for (let bird of flyingBirds) {
-            cc2.save();
-
-            bird.fly(1 / 50);
-            bird.draw();
-            cc2.restore();
-        }
-    }
-
-    function updateSnowflakes(_position: Vector): void {
+    function updateMoveables(): void {
         let transform: DOMMatrix = cc2.getTransform();
-        cc2.translate(_position.x, _position.y);
+        
 
-        for (let snow of snowflakes) {
-            snow.letItSnow(1 / 100);
-            snow.draw();
+        for (let moveable of moveables) {
+            if (moveable instanceof Snowflake) {
+                moveable.letItSnow(1 / 100);
+                moveable.draw();
+            }
+            if (moveable instanceof BirdOnFly) {
+                moveable.fly(1 / 50);
+                moveable.draw();
+            }
+            if (moveable instanceof SitBird) {
+                let check: Boolean | void = moveable.checkUpdate();
+                if (check == true) {
+                    moveable.eat(1 / 100);
+                    moveable.draw();
+                }
+
+                if (check == false) {
+                    moveable.draw();
+                }
+            }            
 
         }
 
@@ -142,7 +126,6 @@ namespace L10_Birdhouse {
     function drawSnowflakes(_nFlakes: number, _position: Vector) {
         let transform: DOMMatrix = cc2.getTransform();
 
-        cc2.translate(_position.x, _position.y);
 
         for (let drawn: number = 0; drawn < _nFlakes; drawn++) {
             cc2.save();
@@ -151,7 +134,7 @@ namespace L10_Birdhouse {
 
             let snowflake: Snowflake = new Snowflake(pos, size);
             snowflake.draw();
-            snowflakes.push(snowflake);
+            moveables.push(snowflake);
 
             cc2.restore();
 

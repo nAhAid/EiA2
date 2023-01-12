@@ -1,14 +1,14 @@
 namespace L10_Birdhouse {
-    export class SitBird {
-        position: Vector;
+    export class SitBird extends Moveable {
         velocity: Vector;
         color: BirdColor;
         beakColor: string;
         scale: Vector;
         eating: boolean;
+        index: number;
 
         constructor(_position: Vector, _color: BirdColor, _beakColor: string) {
-            this.position = _position;
+            super(_position);
             this.color = _color;
             this.beakColor = _beakColor;
             this.scale = new Vector(0, 0);
@@ -18,6 +18,21 @@ namespace L10_Birdhouse {
 
             let values: boolean[] = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
+
+            this.index = randomBetween(0, 25);
+        }
+
+        checkUpdate(): Boolean | void {
+            if (this.index < 25) {
+                this.index++;
+                return false;
+            }
+            if (this.index == 25) {
+                this.index = 0;
+                return true;
+            }
+
+            
         }
 
         draw(): void {
@@ -129,7 +144,7 @@ namespace L10_Birdhouse {
                 cc2.restore();
 
                 cc2.translate(0, -25);
-               
+
 
 
                 let bCircle: Path2D = new Path2D;
@@ -153,9 +168,9 @@ namespace L10_Birdhouse {
 
                 cc2.setTransform(position);
                 cc2.translate(0, -25 / 2);
-                
+
                 //drawHead
-                
+
                 hCircle.arc(0, 0, r1 * 0.8, 0, 2 * Math.PI);
                 cc2.fillStyle = this.color.hColor;
                 cc2.fill(hCircle);

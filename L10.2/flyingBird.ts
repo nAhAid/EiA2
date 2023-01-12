@@ -1,11 +1,10 @@
 namespace L10_Birdhouse {
-    export class BirdOnFly {
-        position: Vector;
+    export class BirdOnFly extends Moveable {
         velocity: Vector;
         scale: Vector;
 
         constructor(_position: Vector) {
-            this.position = _position;
+            super(_position);
             this.velocity = new Vector(0, 0);
             this.velocity.random(50, 200, directions[Math.floor(Math.random() * directions.length)]);
 
@@ -14,6 +13,7 @@ namespace L10_Birdhouse {
         }
 
         draw(): void {
+            let start: DOMMatrix = cc2.getTransform();
             cc2.save();
             cc2.translate(this.position.x, this.position.y);
             cc2.scale(this.scale.x, this.scale.y);
@@ -35,6 +35,7 @@ namespace L10_Birdhouse {
             cc2.stroke();
 
             cc2.restore();
+            cc2.setTransform(start);
         }
 
         fly(_timeslice: number): void {

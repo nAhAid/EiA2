@@ -19,7 +19,7 @@ namespace L10_Asteroids {
             /* this.position.x = this.velocitiy.x * _timeslice;
             this.position.y = this.velocitiy.y * _timeslice; */
 
-            let offset: Vector = this.velocitiy.copy()
+            let offset: Vector = this.velocitiy.copy();
             offset.scale(_timeslice);
             this.position.add(offset);
 
@@ -33,7 +33,7 @@ namespace L10_Asteroids {
                 this.position.y -= cc2.canvas.height;
         }
 
-        draw() {
+        draw(): void {
             console.log("");
         }
     }
