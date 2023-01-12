@@ -89,6 +89,7 @@ namespace L10_Birdhouse {
         cc2.putImageData(imgData, 0, 0);
 
         updateMoveables();
+        
     }
 
 
