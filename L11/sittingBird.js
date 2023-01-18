@@ -36,20 +36,32 @@ var L11_Birdhouse;
                 this.velocity = this.newVelocity();
             }
             else {
-                this.velocity = new L11_Birdhouse.Vector(0, 0);
-                this.target = new L11_Birdhouse.Vector(0, 0);
+                let stop = new L11_Birdhouse.Vector(0, 0);
+                this.velocity = stop.copy();
+                this.target = stop.copy();
             }
+        }
+        waitForNewDestination() {
+            let intervall = L11_Birdhouse.randomBetween(50000, 100000);
+            window.setInterval(this.newDestination, intervall);
+        }
+        newDestination() {
+            this.newTarget();
+            this.newVelocity();
+            this.isFlying = true;
         }
         handleReachTarget() {
             this.velocity = new L11_Birdhouse.Vector(0, 0);
             this.target = new L11_Birdhouse.Vector(0, 0);
             this.action = false;
+            this.waitForNewDestination();
         }
         checkTargetDistance() {
             let distanceX = this.target.x - this.position.x;
             let distanceY = this.target.y - this.position.y;
             if (distanceX < 20 && distanceY < 20) {
                 this.isFlying = false;
+                this.handleReachTarget();
                 return true;
             }
             else {
@@ -74,6 +86,7 @@ var L11_Birdhouse;
                 else {
                     this.action = true;
                     this.frameIndex = 25;
+                    this.isFlying = true;
                 }
             }
             else {
@@ -330,14 +343,7 @@ var L11_Birdhouse;
             L11_Birdhouse.cc2.setTransform(saveTransform);
         }
         eat(_timeslice) {
-            let offset = new L11_Birdhouse.Vector(this.velocity.x, this.velocity.y);
-            offset.scale(_timeslice);
-            this.position.add(offset);
             this.eating = !this.eating;
-            if (this.position.x > L11_Birdhouse.cc2.canvas.width)
-                this.position.x -= L11_Birdhouse.cc2.canvas.width;
-            if (this.position.x < 0)
-                this.position.x += L11_Birdhouse.cc2.canvas.width;
         }
         fly(_timeslice) {
             let offset = new L11_Birdhouse.Vector(this.velocity.x, this.velocity.y);

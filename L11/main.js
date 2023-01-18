@@ -72,9 +72,9 @@ var L11_Birdhouse;
                 L11_Birdhouse.cc2.setTransform(transform);
             }
             if (moveable instanceof L11_Birdhouse.SitBird) {
-                let check = moveable.checkUpdate();
                 moveable.checkState();
                 if (moveable.checkTargetDistance() == true) {
+                    let check = moveable.checkUpdate();
                     if (check == true) {
                         moveable.eat(1 / 100);
                         moveable.draw();

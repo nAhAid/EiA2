@@ -15,10 +15,10 @@ var L11_Birdhouse;
             maxYValue: L11_Birdhouse.aviaryPos.y + 50
         },
         {
-            minXValue: L11_Birdhouse.cc2.canvas.width + 10,
-            minYValue: L11_Birdhouse.cc2.canvas.height + 10,
-            maxXValue: L11_Birdhouse.cc2.canvas.width + 30,
-            maxYValue: L11_Birdhouse.cc2.canvas.height + 10
+            minXValue: L11_Birdhouse.cc2.canvas.width,
+            minYValue: L11_Birdhouse.cc2.canvas.height,
+            maxXValue: L11_Birdhouse.cc2.canvas.width,
+            maxYValue: L11_Birdhouse.cc2.canvas.height
         },
         {
             minXValue: -L11_Birdhouse.cc2.canvas.width + 10,

@@ -45,16 +45,30 @@ namespace L11_Birdhouse {
             }
 
             else {
-                this.velocity = new Vector(0, 0);
-                this.target = new Vector(0, 0);
+                let stop: Vector = new Vector(0, 0);
+                this.velocity = stop.copy();
+                this.target = stop.copy();
             }
 
         }
+        waitForNewDestination(): void {
+            let intervall: number = randomBetween(50000, 100000);
+            window.setInterval(this.newDestination, intervall);
+        }
+
+        newDestination(): void {
+            this.newTarget();
+            this.newVelocity();
+            this.isFlying = true;
+
+        }
+
 
         handleReachTarget(): void {
             this.velocity = new Vector(0, 0);
             this.target = new Vector(0, 0);
             this.action = false;
+            this.waitForNewDestination();
         }
 
         checkTargetDistance(): Boolean | void {
@@ -63,6 +77,7 @@ namespace L11_Birdhouse {
 
             if (distanceX < 20 && distanceY < 20) {
                 this.isFlying = false;
+                this.handleReachTarget();
                 return true;
             }
 
@@ -92,9 +107,12 @@ namespace L11_Birdhouse {
             if (!this.isFlying) {
                 if (this.position.y >= horizon)
                     this.action = false;
+
                 else {
                     this.action = true;
                     this.frameIndex = 25;
+                    this.isFlying = true;
+
                 }
             }
 
@@ -398,16 +416,8 @@ namespace L11_Birdhouse {
         }
 
         eat(_timeslice: number): void {
-            let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
-            offset.scale(_timeslice);
-            this.position.add(offset);
+
             this.eating = !this.eating;
-
-            if (this.position.x > cc2.canvas.width)
-                this.position.x -= cc2.canvas.width;
-
-            if (this.position.x < 0)
-                this.position.x += cc2.canvas.width;
         }
 
         fly(_timeslice: number): void {

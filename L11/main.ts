@@ -99,9 +99,10 @@ namespace L11_Birdhouse {
                 cc2.setTransform(transform);
             }
             if (moveable instanceof SitBird) {
-                let check: Boolean | void = moveable.checkUpdate();
+                
                 moveable.checkState();
                 if (moveable.checkTargetDistance() == true) {
+                    let check: Boolean | void = moveable.checkUpdate();
                     if (check == true) {
                         moveable.eat(1 / 100);
                         moveable.draw();
