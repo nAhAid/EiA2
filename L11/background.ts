@@ -1,8 +1,10 @@
 namespace L11_Birdhouse {
+    export let aviaryPos: Vector = new Vector(0, 0);
+    export let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
+    export let cc2: CanvasRenderingContext2D = <CanvasRenderingContext2D>canvas.getContext("2d");
 
-    
     export function drawStatic(): void {
-        
+
 
         let sunPosition: Vector = new Vector(75, 100);
         let positionMountain: Vector = new Vector(0, horizon);

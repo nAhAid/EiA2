@@ -1,6 +1,9 @@
 "use strict";
 var L11_Birdhouse;
 (function (L11_Birdhouse) {
+    L11_Birdhouse.aviaryPos = new L11_Birdhouse.Vector(0, 0);
+    L11_Birdhouse.canvas = document.querySelector("canvas");
+    L11_Birdhouse.cc2 = L11_Birdhouse.canvas.getContext("2d");
     function drawStatic() {
         let sunPosition = new L11_Birdhouse.Vector(75, 100);
         let positionMountain = new L11_Birdhouse.Vector(0, L11_Birdhouse.horizon);
