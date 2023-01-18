@@ -46,8 +46,8 @@ var L11_Birdhouse;
             window.setInterval(this.newDestination, intervall);
         }
         newDestination() {
-            this.newTarget();
-            this.newVelocity();
+            this.target = this.newTarget();
+            this.velocity = this.newVelocity();
             this.isFlying = true;
         }
         handleReachTarget() {

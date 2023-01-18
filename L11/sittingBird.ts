@@ -57,8 +57,8 @@ namespace L11_Birdhouse {
         }
 
         newDestination(): void {
-            this.newTarget();
-            this.newVelocity();
+            this.target = this.newTarget();
+            this.velocity = this.newVelocity();
             this.isFlying = true;
 
         }
