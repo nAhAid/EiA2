@@ -6,9 +6,11 @@ var L11_Birdhouse;
         beakColor;
         scale;
         eating;
-        index;
+        frameIndex;
         hit = false;
         action;
+        isFlying;
+        target;
         constructor(_position, _color, _beakColor, _velocity) {
             super(_position);
             this.color = _color;
@@ -17,12 +19,14 @@ var L11_Birdhouse;
             //this.scale.set(this.position.y / 500, this.position.y / 500);
             let values = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
-            this.index = L11_Birdhouse.randomBetween(0, 25);
-            /*   if (_position.y > horizon) {
+            this.isFlying = values[Math.floor(Math.random() * values.length)];
+            this.target = this.searchTarget();
+            this.frameIndex = L11_Birdhouse.randomBetween(0, 25);
+            /*   if (_position.y >= horizon) {
                   this.action = false;
               }
   
-              else if (_position.y < horizon) {
+              else {
                   this.action = true;
               } */
             if (_velocity)
@@ -32,28 +36,32 @@ var L11_Birdhouse;
                 this.velocity.random(50, 100, L11_Birdhouse.directions[Math.floor(Math.random() * L11_Birdhouse.directions.length)]);
             }
         }
+        searchTarget() {
+            let target = L11_Birdhouse.targets[Math.floor(Math.random() * L11_Birdhouse.targets.length)];
+            return new L11_Birdhouse.Vector(0, 0);
+        }
         checkPosition() {
             if (this.position.y > L11_Birdhouse.horizon) {
                 this.action = false;
             }
             else {
                 this.action = true;
-                this.index = 25;
+                this.frameIndex = 25;
             }
         }
         checkUpdate() {
-            if (this.index < 25) {
-                this.index++;
+            if (this.frameIndex < 25) {
+                this.frameIndex++;
                 return false;
             }
-            if (this.index == 25) {
-                this.index = 0;
+            if (this.frameIndex == 25) {
+                this.frameIndex = 0;
                 return true;
             }
         }
         draw() {
             let saveTransform = L11_Birdhouse.cc2.getTransform();
-            if (this.action != true) {
+            if (this.action == false) {
                 if (this.eating != true) {
                     let r1 = 15;
                     let transform = L11_Birdhouse.cc2.getTransform();

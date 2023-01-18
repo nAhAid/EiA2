@@ -17,6 +17,7 @@ namespace L11_Birdhouse {
     export let horizon: number = cc2.canvas.height * golden;
     export let imgData: ImageData;
     export let posSnowflakes: Vector = new Vector(400, 175);
+    export let aviaryPos: Vector;
 
     let moveables: Moveable[] = [];
 
@@ -58,6 +59,7 @@ namespace L11_Birdhouse {
                 velocity.random(100, 400, directions[Math.floor(Math.random() * directions.length)]);
                 let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor], velocity);
                 moveables.push(sittingBird);
+            
                 cc2.save();
                 sittingBird.draw();
                 cc2.restore();
@@ -66,6 +68,7 @@ namespace L11_Birdhouse {
             else {
                 let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
                 moveables.push(sittingBird);
+              
                 cc2.save();
                 sittingBird.draw();
                 cc2.restore();

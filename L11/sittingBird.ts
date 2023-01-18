@@ -5,9 +5,12 @@ namespace L11_Birdhouse {
         beakColor: string;
         scale: Vector;
         eating: boolean;
-        index: number;
+        frameIndex: number;
         hit: boolean = false;
         action: boolean;
+        isFlying: boolean;
+        target: Vector;
+
 
         constructor(_position: Vector, _color: BirdColor, _beakColor: string, _velocity?: Vector) {
 
@@ -19,14 +22,16 @@ namespace L11_Birdhouse {
 
             let values: boolean[] = [true, false];
             this.eating = values[Math.floor(Math.random() * values.length)];
+            this.isFlying = values[Math.floor(Math.random() * values.length)];
+            this.target = this.searchTarget();
 
-            this.index = randomBetween(0, 25);
+            this.frameIndex = randomBetween(0, 25);
 
-            /*   if (_position.y > horizon) {
+            /*   if (_position.y >= horizon) {
                   this.action = false;
               }
   
-              else if (_position.y < horizon) {
+              else {
                   this.action = true;
               } */
 
@@ -39,6 +44,13 @@ namespace L11_Birdhouse {
             }
         }
 
+        searchTarget(): Vector {
+            let target: Targetfield = targets[Math.floor(Math.random() * targets.length)];
+            
+
+            return new Vector(0, 0);
+        }
+
 
         checkPosition(): Boolean | void {
             if (this.position.y > horizon) {
@@ -47,24 +59,24 @@ namespace L11_Birdhouse {
 
             else {
                 this.action = true;
-                this.index = 25;
+                this.frameIndex = 25;
             }
         }
 
         checkUpdate(): Boolean | void {
-            if (this.index < 25) {
-                this.index++;
+            if (this.frameIndex < 25) {
+                this.frameIndex++;
                 return false;
             }
-            if (this.index == 25) {
-                this.index = 0;
+            if (this.frameIndex == 25) {
+                this.frameIndex = 0;
                 return true;
             }
         }
 
         draw(): void {
             let saveTransform: DOMMatrix = cc2.getTransform();
-            if (this.action != true) {
+            if (this.action == false) {
                 if (this.eating != true) {
                     let r1: number = 15;
                     let transform: DOMMatrix = cc2.getTransform();
@@ -279,11 +291,11 @@ namespace L11_Birdhouse {
                 let eye: Path2D = new Path2D;
 
                 let transform: DOMMatrix = cc2.getTransform();
-                
+
                 cc2.translate(this.position.x, this.position.y);
                 cc2.rotate(180 * Math.PI / 180);
                 let body: DOMMatrix = cc2.getTransform();
-                
+
                 cc2.translate(r1, -r1);
                 cc2.save();
 

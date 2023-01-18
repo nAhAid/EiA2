@@ -10,7 +10,7 @@ namespace L11_Birdhouse {
         let cloudSize: Vector = new Vector(325, 125);
         let treeMaxScale: Vector = new Vector(0.5, 0.5);
         let snowmanPos: Vector = new Vector(randomBetween(10, 325), 425);
-        let aviaryPos: Vector = new Vector(randomBetween(335, 700), 450);
+        aviaryPos = new Vector(randomBetween(335, 700), 450);
 
         drawBackground();
         drawSun(sunPosition);
