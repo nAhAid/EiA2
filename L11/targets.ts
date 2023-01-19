@@ -9,27 +9,27 @@ namespace L11_Birdhouse {
     export let targets: Targetfield[] = [
         {
             minXValue: 100,
-            minYValue: horizon,
+            minYValue: horizon + 30,
             maxXValue: 600,
             maxYValue: 500
         },
         {
-            minXValue: aviaryPos.x - 30,
-            minYValue: aviaryPos.y - 30,
-            maxXValue: aviaryPos.x + 30,
-            maxYValue: aviaryPos.y + 30
+            minXValue: 335,
+            minYValue: 430,
+            maxXValue: 400,
+            maxYValue: 500
         },
         {
             minXValue: cc2.canvas.width,
             minYValue: cc2.canvas.height,
-            maxXValue: cc2.canvas.width,
-            maxYValue: cc2.canvas.height
+            maxXValue: cc2.canvas.width + 10,
+            maxYValue: cc2.canvas.height + 10
         },
         {
             minXValue: -cc2.canvas.width,
             minYValue: cc2.canvas.height,
-            maxXValue: -cc2.canvas.width,
-            maxYValue: cc2.canvas.height
+            maxXValue: -cc2.canvas.width -   10,
+            maxYValue: cc2.canvas.height + 10
         }
     ];
 }

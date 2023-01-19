@@ -11,7 +11,7 @@ var L11_Birdhouse;
         let cloudSize = new L11_Birdhouse.Vector(325, 125);
         let treeMaxScale = new L11_Birdhouse.Vector(0.5, 0.5);
         let snowmanPos = new L11_Birdhouse.Vector(L11_Birdhouse.randomBetween(10, 325), 425);
-        L11_Birdhouse.aviaryPos = new L11_Birdhouse.Vector(L11_Birdhouse.randomBetween(335, 700), 450);
+        L11_Birdhouse.aviaryPos = new L11_Birdhouse.Vector(355, 450);
         drawBackground();
         drawSun(sunPosition);
         drawMountains(positionMountain, 50, 135, "#6B7A7D", "#E6FEFE");

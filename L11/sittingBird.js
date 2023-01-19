@@ -20,6 +20,8 @@ var L11_Birdhouse;
             this.isFlying = this.checkPosition();
             this.frameIndex = L11_Birdhouse.randomBetween(0, 25);
             this.setFlying();
+            //let values: boolean[] = [true, false];
+            //this.action = values[Math.floor(Math.random() * values.length)];
         }
         isHit(_hotspot) {
             let hitsize = 50;
@@ -42,7 +44,7 @@ var L11_Birdhouse;
         }
         setFlying() {
             if (this.isFlying == true) {
-                this.target = this.newTarget();
+                this.target = this.getTarget();
                 this.velocity = this.newVelocity();
             }
             else {
@@ -51,28 +53,29 @@ var L11_Birdhouse;
                 this.target = stop.copy();
                 let values = [true, false];
                 this.eating = values[Math.floor(Math.random() * values.length)];
+                this.waitForNewDestination();
             }
         }
         waitForNewDestination() {
-            let intervall = L11_Birdhouse.randomBetween(500000, 10000000);
-            window.setInterval(this.newDestination, intervall);
+            let time = L11_Birdhouse.randomBetween(5000, 10000);
+            window.setTimeout(this.newDestination, time);
         }
-        newDestination() {
-            this.target = this.newTarget();
+        newDestination = () => {
+            this.target = this.getTarget();
             this.velocity = this.newVelocity();
             this.isFlying = true;
-        }
+        };
         handleReachTarget() {
             this.velocity = new L11_Birdhouse.Vector(0, 0);
             this.target = new L11_Birdhouse.Vector(0, 0);
-            this.action = false;
             this.waitForNewDestination();
         }
         checkTargetDistance() {
             let distanceX = this.target.x - this.position.x;
             let distanceY = this.target.y - this.position.y;
-            if (distanceX < 20 && distanceY < 20) {
+            if (distanceX < 5 && distanceY < 5) {
                 this.isFlying = false;
+                this.action = false;
                 this.handleReachTarget();
                 return true;
             }
@@ -86,7 +89,7 @@ var L11_Birdhouse;
             let newVelocity = new L11_Birdhouse.Vector(x, y);
             return newVelocity;
         }
-        newTarget() {
+        getTarget() {
             let target = L11_Birdhouse.targets[Math.floor(Math.random() * L11_Birdhouse.targets.length)];
             let targetVector = new L11_Birdhouse.Vector(L11_Birdhouse.randomBetween(target.minXValue, target.maxXValue), L11_Birdhouse.randomBetween(target.minYValue, target.maxYValue));
             return targetVector;

@@ -89,26 +89,26 @@ namespace L11_Birdhouse {
             let y: number = randomBetween(minHeight, maxHeight);
             let birdPos: Vector = new Vector(x, y);
             //let flyBirdPos: Vector = new Vector(100, 200);
+            /* 
+                        if (y < horizon) {
+                            let velocity: Vector = new Vector(0, 0);
+                            velocity.random(100, 400, directions[Math.floor(Math.random() * directions.length)]);
+                            let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
+                            moveables.push(sittingBird);
+            
+                            cc2.save();
+                            sittingBird.draw();
+                            cc2.restore();
+                        } */
 
-            if (y < horizon) {
-                let velocity: Vector = new Vector(0, 0);
-                velocity.random(100, 400, directions[Math.floor(Math.random() * directions.length)]);
-                let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
-                moveables.push(sittingBird);
 
-                cc2.save();
-                sittingBird.draw();
-                cc2.restore();
-            }
+            let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
+            moveables.push(sittingBird);
 
-            else {
-                let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
-                moveables.push(sittingBird);
+            cc2.save();
+            sittingBird.draw();
+            cc2.restore();
 
-                cc2.save();
-                sittingBird.draw();
-                cc2.restore();
-            }
 
         }
     }
@@ -154,7 +154,7 @@ namespace L11_Birdhouse {
                 }
                 moveable.checkTargetDistance();
             }
-            
+
         }
     }
 

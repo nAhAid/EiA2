@@ -61,22 +61,22 @@ var L11_Birdhouse;
             let y = randomBetween(minHeight, maxHeight);
             let birdPos = new L11_Birdhouse.Vector(x, y);
             //let flyBirdPos: Vector = new Vector(100, 200);
-            if (y < L11_Birdhouse.horizon) {
-                let velocity = new L11_Birdhouse.Vector(0, 0);
-                velocity.random(100, 400, L11_Birdhouse.directions[Math.floor(Math.random() * L11_Birdhouse.directions.length)]);
-                let sittingBird = new L11_Birdhouse.SitBird(birdPos, L11_Birdhouse.color[randomColor], L11_Birdhouse.beakColor[randomBeakColor]);
-                moveables.push(sittingBird);
-                L11_Birdhouse.cc2.save();
-                sittingBird.draw();
-                L11_Birdhouse.cc2.restore();
-            }
-            else {
-                let sittingBird = new L11_Birdhouse.SitBird(birdPos, L11_Birdhouse.color[randomColor], L11_Birdhouse.beakColor[randomBeakColor]);
-                moveables.push(sittingBird);
-                L11_Birdhouse.cc2.save();
-                sittingBird.draw();
-                L11_Birdhouse.cc2.restore();
-            }
+            /*
+                        if (y < horizon) {
+                            let velocity: Vector = new Vector(0, 0);
+                            velocity.random(100, 400, directions[Math.floor(Math.random() * directions.length)]);
+                            let sittingBird: SitBird = new SitBird(birdPos, color[randomColor], beakColor[randomBeakColor]);
+                            moveables.push(sittingBird);
+            
+                            cc2.save();
+                            sittingBird.draw();
+                            cc2.restore();
+                        } */
+            let sittingBird = new L11_Birdhouse.SitBird(birdPos, L11_Birdhouse.color[randomColor], L11_Birdhouse.beakColor[randomBeakColor]);
+            moveables.push(sittingBird);
+            L11_Birdhouse.cc2.save();
+            sittingBird.draw();
+            L11_Birdhouse.cc2.restore();
         }
     }
     function update() {

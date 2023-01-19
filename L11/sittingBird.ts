@@ -22,6 +22,8 @@ namespace L11_Birdhouse {
             this.isFlying = this.checkPosition();
             this.frameIndex = randomBetween(0, 25);
             this.setFlying();
+            //let values: boolean[] = [true, false];
+            //this.action = values[Math.floor(Math.random() * values.length)];
 
 
         }
@@ -39,21 +41,19 @@ namespace L11_Birdhouse {
             if (this.position.y >= horizon) {
                 fly = false;
                 //values[Math.floor(Math.random() * values.length)];
-                return fly;
-                
+                return fly;    
             }
 
             else {
                 fly = true;
-                return fly;
-                
+                return fly;    
             }
             return false;
         }
 
         setFlying(): void {
             if (this.isFlying == true) {
-                this.target = this.newTarget();
+                this.target = this.getTarget();
                 this.velocity = this.newVelocity();
             }
 
@@ -63,16 +63,17 @@ namespace L11_Birdhouse {
                 this.target = stop.copy();
                 let values: boolean[] = [true, false];
                 this.eating = values[Math.floor(Math.random() * values.length)];
+                this.waitForNewDestination();
             }
 
         }
         waitForNewDestination(): void {
-            let intervall: number = randomBetween(500000, 10000000);
-            window.setInterval(this.newDestination, intervall);
+            let time: number = randomBetween(5000, 10000);
+            window.setTimeout(this.newDestination, time);
         }
 
-        newDestination(): void {
-            this.target = this.newTarget();
+        newDestination = (): void => {
+            this.target = this.getTarget();
             this.velocity = this.newVelocity();
             this.isFlying = true;
 
@@ -81,7 +82,6 @@ namespace L11_Birdhouse {
         handleReachTarget(): void {
             this.velocity = new Vector(0, 0);
             this.target = new Vector(0, 0);
-            this.action = false;
             this.waitForNewDestination();
         }
 
@@ -89,8 +89,9 @@ namespace L11_Birdhouse {
             let distanceX: number = this.target.x - this.position.x;
             let distanceY: number = this.target.y - this.position.y;
 
-            if (distanceX < 20 && distanceY < 20) {
+            if (distanceX < 5 && distanceY < 5) {
                 this.isFlying = false;
+                this.action = false;
                 this.handleReachTarget();
                 return true;
             }
@@ -109,7 +110,7 @@ namespace L11_Birdhouse {
         }
 
 
-        newTarget(): Vector {
+        getTarget(): Vector {
             let target: Targetfield = targets[Math.floor(Math.random() * targets.length)];
             let targetVector: Vector = new Vector(randomBetween(target.minXValue, target.maxXValue), randomBetween(target.minYValue, target.maxYValue));
 
@@ -257,7 +258,7 @@ namespace L11_Birdhouse {
                     bCircle.arc(0, 0, r1, 0, 2 * Math.PI);
                     cc2.fillStyle = this.color.bColor;
                     cc2.fill(bCircle);
-
+                    
                     cc2.setTransform(position);
                     //drawBeak
                     cc2.translate(0, 5);
@@ -273,7 +274,6 @@ namespace L11_Birdhouse {
                     cc2.translate(0, -25 / 2);
 
                     //drawHead
-
                     hCircle.arc(0, 0, r1 * 0.8, 0, 2 * Math.PI);
                     cc2.fillStyle = this.color.hColor;
                     cc2.fill(hCircle);
