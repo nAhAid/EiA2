@@ -30,10 +30,48 @@ namespace L11_Birdhouse {
         drawBirds(10);
 
         window.setInterval(update, 20);
+        canvas.addEventListener("mouseup", clickCanvas);
         //window.setInterval(updateBird, 500);
 
 
     }
+
+    function clickCanvas(_event: MouseEvent) {
+        console.log("Shoot Laser");
+        let hotspot: Vector = new Vector(_event.clientX - cc2.canvas.offsetLeft, _event.clientY - cc2.canvas.offsetTop);
+        let birdHit: SitBird | null = getBirdHit(hotspot);
+        if (birdHit)
+            killBird(birdHit);
+        else {
+            createBird(hotspot);
+        }
+
+    }
+
+    function createBird(_hotspot: Vector): void {
+        let randomColor: number = Math.floor(Math.random() * color.length);
+        let randomBeakColor: number = Math.floor(Math.random() * beakColor.length);
+        let bird: SitBird = new SitBird(_hotspot, color[randomColor], beakColor[randomBeakColor]);
+        moveables.push(bird);
+
+    }
+
+
+
+    function getBirdHit(_hotspot: Vector): SitBird | null {
+        for (let moveable of moveables) {
+            if (moveable instanceof SitBird && moveable.isHit(_hotspot))
+                return moveable;
+        }
+
+        return null;
+    }
+
+
+    function killBird(_bird: SitBird): void {
+        _bird.expendable = true;
+    }
+
 
     function drawBirds(_nBirds: number) {
 
@@ -76,12 +114,13 @@ namespace L11_Birdhouse {
         }
     }
 
+
     function update(): void {
         console.log("Update");
         cc2.putImageData(imgData, 0, 0);
 
         updateMoveables();
-
+        deleteExpandables();
     }
 
     function updateMoveables(): void {
@@ -99,7 +138,7 @@ namespace L11_Birdhouse {
                 cc2.setTransform(transform);
             }
             if (moveable instanceof SitBird) {
-                
+
                 moveable.checkState();
                 if (moveable.checkTargetDistance() == true) {
                     let check: Boolean | void = moveable.checkUpdate();
@@ -115,11 +154,34 @@ namespace L11_Birdhouse {
                     }
                 }
                 else {
+                    let check: Boolean | void = moveable.checkUpdate();
+                    if (moveable.isFlying == true) {
                         moveable.fly(1 / 100);
                         moveable.draw();
                         cc2.setTransform(transform);
+                    }
+                    else {
+                        if (check == true) {
+                            moveable.eat(1 / 100);
+                            moveable.draw();
+                            cc2.setTransform(transform);
+                        }
+
+                        if (check == false) {
+                            moveable.draw();
+                            cc2.setTransform(transform);
+                        }
+                    }
+
                 }
             }
+        }
+    }
+
+    function deleteExpandables(): void {
+        for (let i: number = moveables.length - 1; i >= 0; i--) {
+            if (moveables[i].expendable)
+                moveables.splice(i, 1);
         }
     }
 

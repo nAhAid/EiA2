@@ -5,6 +5,7 @@ var L11_Birdhouse;
         position;
         velocity;
         update;
+        expendable = false;
         constructor(_position, _velocity) {
             this.position = _position.copy();
             if (_velocity)

@@ -17,18 +17,28 @@ var L11_Birdhouse;
             this.beakColor = _beakColor;
             //this.scale = new Vector(0, 0);
             //this.scale.set(this.position.y / 500, this.position.y / 500);
-            let values = [true, false];
-            this.eating = values[Math.floor(Math.random() * values.length)];
-            this.isFlying = values[Math.floor(Math.random() * values.length)];
-            this.setFlying();
+            this.isFlying = this.checkPosition();
             this.frameIndex = L11_Birdhouse.randomBetween(0, 25);
-            /*   if (_position.y >= horizon) {
-                  this.action = false;
-              }
-  
-              else {
-                  this.action = true;
-              } */
+            this.setFlying();
+        }
+        isHit(_hotspot) {
+            let hitsize = 50;
+            let difference = new L11_Birdhouse.Vector(_hotspot.x - this.position.x, _hotspot.y - this.position.y);
+            return (Math.abs(difference.x) < hitsize && Math.abs(difference.y) < hitsize);
+        }
+        checkPosition() {
+            let fly;
+            //let values: boolean[] = [true, false];
+            if (this.position.y >= L11_Birdhouse.horizon) {
+                fly = false;
+                //values[Math.floor(Math.random() * values.length)];
+                return fly;
+            }
+            else {
+                fly = true;
+                return fly;
+            }
+            return false;
         }
         setFlying() {
             if (this.isFlying == true) {
@@ -39,10 +49,12 @@ var L11_Birdhouse;
                 let stop = new L11_Birdhouse.Vector(0, 0);
                 this.velocity = stop.copy();
                 this.target = stop.copy();
+                let values = [true, false];
+                this.eating = values[Math.floor(Math.random() * values.length)];
             }
         }
         waitForNewDestination() {
-            let intervall = L11_Birdhouse.randomBetween(50000, 100000);
+            let intervall = L11_Birdhouse.randomBetween(500000, 10000000);
             window.setInterval(this.newDestination, intervall);
         }
         newDestination() {
@@ -81,15 +93,9 @@ var L11_Birdhouse;
         }
         checkState() {
             if (!this.isFlying) {
-                if (this.position.y >= L11_Birdhouse.horizon)
-                    this.action = false;
-                else {
-                    this.action = true;
-                    this.frameIndex = 25;
-                    this.isFlying = true;
-                }
+                this.action = false;
             }
-            else {
+            else if (this.isFlying == true) {
                 this.action = true;
                 this.frameIndex = 25;
             }
@@ -281,7 +287,7 @@ var L11_Birdhouse;
                 L11_Birdhouse.cc2.fill();
                 L11_Birdhouse.cc2.setTransform(transform);
             }
-            if (this.action == true && this.velocity.x < 0) {
+            if (this.action == true && this.velocity.x <= 0) {
                 let r1 = 15;
                 let r2 = r1 * 0.8;
                 let bCircle = new Path2D;

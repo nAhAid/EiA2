@@ -4,6 +4,7 @@ namespace L11_Birdhouse {
         position: Vector;
         velocity: Vector;
         update: Boolean;
+        expendable: Boolean = false;
 
         constructor(_position: Vector, _velocity?: Vector) {
             this.position = _position.copy();

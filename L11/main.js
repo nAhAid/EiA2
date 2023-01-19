@@ -20,7 +20,34 @@ var L11_Birdhouse;
         drawSnowflakes(50, L11_Birdhouse.posSnowflakes);
         drawBirds(10);
         window.setInterval(update, 20);
+        L11_Birdhouse.canvas.addEventListener("mouseup", clickCanvas);
         //window.setInterval(updateBird, 500);
+    }
+    function clickCanvas(_event) {
+        console.log("Shoot Laser");
+        let hotspot = new L11_Birdhouse.Vector(_event.clientX - L11_Birdhouse.cc2.canvas.offsetLeft, _event.clientY - L11_Birdhouse.cc2.canvas.offsetTop);
+        let birdHit = getBirdHit(hotspot);
+        if (birdHit)
+            killBird(birdHit);
+        else {
+            createBird(hotspot);
+        }
+    }
+    function createBird(_hotspot) {
+        let randomColor = Math.floor(Math.random() * L11_Birdhouse.color.length);
+        let randomBeakColor = Math.floor(Math.random() * L11_Birdhouse.beakColor.length);
+        let bird = new L11_Birdhouse.SitBird(_hotspot, L11_Birdhouse.color[randomColor], L11_Birdhouse.beakColor[randomBeakColor]);
+        moveables.push(bird);
+    }
+    function getBirdHit(_hotspot) {
+        for (let moveable of moveables) {
+            if (moveable instanceof L11_Birdhouse.SitBird && moveable.isHit(_hotspot))
+                return moveable;
+        }
+        return null;
+    }
+    function killBird(_bird) {
+        _bird.expendable = true;
     }
     function drawBirds(_nBirds) {
         for (let drawn = 0; drawn < _nBirds; drawn++) {
@@ -57,6 +84,7 @@ var L11_Birdhouse;
         console.log("Update");
         L11_Birdhouse.cc2.putImageData(L11_Birdhouse.imgData, 0, 0);
         updateMoveables();
+        deleteExpandables();
     }
     function updateMoveables() {
         let transform = L11_Birdhouse.cc2.getTransform();
@@ -86,11 +114,31 @@ var L11_Birdhouse;
                     }
                 }
                 else {
-                    moveable.fly(1 / 100);
-                    moveable.draw();
-                    L11_Birdhouse.cc2.setTransform(transform);
+                    let check = moveable.checkUpdate();
+                    if (moveable.isFlying == true) {
+                        moveable.fly(1 / 100);
+                        moveable.draw();
+                        L11_Birdhouse.cc2.setTransform(transform);
+                    }
+                    else {
+                        if (check == true) {
+                            moveable.eat(1 / 100);
+                            moveable.draw();
+                            L11_Birdhouse.cc2.setTransform(transform);
+                        }
+                        if (check == false) {
+                            moveable.draw();
+                            L11_Birdhouse.cc2.setTransform(transform);
+                        }
+                    }
                 }
             }
+        }
+    }
+    function deleteExpandables() {
+        for (let i = moveables.length - 1; i >= 0; i--) {
+            if (moveables[i].expendable)
+                moveables.splice(i, 1);
         }
     }
     function drawSnowflakes(_nFlakes, _position) {

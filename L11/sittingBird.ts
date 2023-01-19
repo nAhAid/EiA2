@@ -19,23 +19,36 @@ namespace L11_Birdhouse {
             this.beakColor = _beakColor;
             //this.scale = new Vector(0, 0);
             //this.scale.set(this.position.y / 500, this.position.y / 500);
-
-            let values: boolean[] = [true, false];
-            this.eating = values[Math.floor(Math.random() * values.length)];
-            this.isFlying = values[Math.floor(Math.random() * values.length)];
-
-            this.setFlying();
+            this.isFlying = this.checkPosition();
             this.frameIndex = randomBetween(0, 25);
-
-            /*   if (_position.y >= horizon) {
-                  this.action = false;
-              }
-  
-              else {
-                  this.action = true;
-              } */
+            this.setFlying();
 
 
+        }
+
+        isHit(_hotspot: Vector): boolean {
+            let hitsize: number = 50;
+            let difference: Vector = new Vector(_hotspot.x - this.position.x, _hotspot.y - this.position.y);
+            return (Math.abs(difference.x) < hitsize && Math.abs(difference.y) < hitsize);
+
+        }
+
+        checkPosition(): boolean {
+            let fly: boolean;
+            //let values: boolean[] = [true, false];
+            if (this.position.y >= horizon) {
+                fly = false;
+                //values[Math.floor(Math.random() * values.length)];
+                return fly;
+                
+            }
+
+            else {
+                fly = true;
+                return fly;
+                
+            }
+            return false;
         }
 
         setFlying(): void {
@@ -48,11 +61,13 @@ namespace L11_Birdhouse {
                 let stop: Vector = new Vector(0, 0);
                 this.velocity = stop.copy();
                 this.target = stop.copy();
+                let values: boolean[] = [true, false];
+                this.eating = values[Math.floor(Math.random() * values.length)];
             }
 
         }
         waitForNewDestination(): void {
-            let intervall: number = randomBetween(50000, 100000);
+            let intervall: number = randomBetween(500000, 10000000);
             window.setInterval(this.newDestination, intervall);
         }
 
@@ -62,7 +77,6 @@ namespace L11_Birdhouse {
             this.isFlying = true;
 
         }
-
 
         handleReachTarget(): void {
             this.velocity = new Vector(0, 0);
@@ -105,18 +119,10 @@ namespace L11_Birdhouse {
 
         checkState(): Boolean | void {
             if (!this.isFlying) {
-                if (this.position.y >= horizon)
-                    this.action = false;
-
-                else {
-                    this.action = true;
-                    this.frameIndex = 25;
-                    this.isFlying = true;
-
-                }
+                this.action = false;
             }
 
-            else {
+            else if (this.isFlying == true) {
                 this.action = true;
                 this.frameIndex = 25;
             }
@@ -342,7 +348,7 @@ namespace L11_Birdhouse {
                 cc2.setTransform(transform);
             }
 
-            if (this.action == true && this.velocity.x < 0) {
+            if (this.action == true && this.velocity.x <= 0) {
                 let r1: number = 15;
                 let r2: number = r1 * 0.8;
                 let bCircle: Path2D = new Path2D;
