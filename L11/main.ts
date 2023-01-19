@@ -36,8 +36,7 @@ namespace L11_Birdhouse {
 
     }
 
-    function clickCanvas(_event: MouseEvent) {
-        console.log("Shoot Laser");
+    function clickCanvas(_event: MouseEvent): void {
         let hotspot: Vector = new Vector(_event.clientX - cc2.canvas.offsetLeft, _event.clientY - cc2.canvas.offsetTop);
         let birdHit: SitBird | null = getBirdHit(hotspot);
         if (birdHit)
@@ -135,8 +134,13 @@ namespace L11_Birdhouse {
             if (moveable instanceof SitBird) {
 
                 moveable.checkState();
-                if (moveable.checkTargetDistance() == true) {
-                    let check: Boolean | void = moveable.checkUpdate();
+                let check: Boolean | void = moveable.checkUpdate();
+                if (moveable.isFlying == true) {
+                    moveable.fly(1 / 100);
+                    moveable.draw();
+                    cc2.setTransform(transform);
+                }
+                else {
                     if (check == true) {
                         moveable.eat(1 / 100);
                         moveable.draw();
@@ -148,28 +152,9 @@ namespace L11_Birdhouse {
                         cc2.setTransform(transform);
                     }
                 }
-                else {
-                    let check: Boolean | void = moveable.checkUpdate();
-                    if (moveable.isFlying == true) {
-                        moveable.fly(1 / 100);
-                        moveable.draw();
-                        cc2.setTransform(transform);
-                    }
-                    else {
-                        if (check == true) {
-                            moveable.eat(1 / 100);
-                            moveable.draw();
-                            cc2.setTransform(transform);
-                        }
-
-                        if (check == false) {
-                            moveable.draw();
-                            cc2.setTransform(transform);
-                        }
-                    }
-
-                }
+                moveable.checkTargetDistance();
             }
+            
         }
     }
 
