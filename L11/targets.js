@@ -15,6 +15,12 @@ var L11_Birdhouse;
             maxYValue: 500
         },
         {
+            minXValue: 135,
+            minYValue: 430,
+            maxXValue: 200,
+            maxYValue: 500
+        },
+        {
             minXValue: L11_Birdhouse.cc2.canvas.width,
             minYValue: L11_Birdhouse.cc2.canvas.height,
             maxXValue: L11_Birdhouse.cc2.canvas.width + 10,

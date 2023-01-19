@@ -41,12 +41,12 @@ namespace L11_Birdhouse {
             if (this.position.y >= horizon) {
                 fly = false;
                 //values[Math.floor(Math.random() * values.length)];
-                return fly;    
+                return fly;
             }
 
             else {
                 fly = true;
-                return fly;    
+                return fly;
             }
             return false;
         }
@@ -65,8 +65,8 @@ namespace L11_Birdhouse {
                 this.eating = values[Math.floor(Math.random() * values.length)];
                 this.waitForNewDestination();
             }
-
         }
+
         waitForNewDestination(): void {
             let time: number = randomBetween(5000, 10000);
             window.setTimeout(this.newDestination, time);
@@ -76,7 +76,6 @@ namespace L11_Birdhouse {
             this.target = this.getTarget();
             this.velocity = this.newVelocity();
             this.isFlying = true;
-
         }
 
         handleReachTarget(): void {
@@ -110,7 +109,7 @@ namespace L11_Birdhouse {
         }
 
 
-        getTarget(): Vector {
+        getTarget(_position?: Vector): Vector {
             let target: Targetfield = targets[Math.floor(Math.random() * targets.length)];
             let targetVector: Vector = new Vector(randomBetween(target.minXValue, target.maxXValue), randomBetween(target.minYValue, target.maxYValue));
 
@@ -258,7 +257,7 @@ namespace L11_Birdhouse {
                     bCircle.arc(0, 0, r1, 0, 2 * Math.PI);
                     cc2.fillStyle = this.color.bColor;
                     cc2.fill(bCircle);
-                    
+
                     cc2.setTransform(position);
                     //drawBeak
                     cc2.translate(0, 5);
@@ -358,7 +357,7 @@ namespace L11_Birdhouse {
                 let transform: DOMMatrix = cc2.getTransform();
 
                 cc2.translate(this.position.x, this.position.y);
-                cc2.rotate(180 * Math.PI / 180);
+                cc2.scale(-1, 1);
                 let body: DOMMatrix = cc2.getTransform();
 
                 cc2.translate(r1, -r1);

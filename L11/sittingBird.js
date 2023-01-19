@@ -89,7 +89,7 @@ var L11_Birdhouse;
             let newVelocity = new L11_Birdhouse.Vector(x, y);
             return newVelocity;
         }
-        getTarget() {
+        getTarget(_position) {
             let target = L11_Birdhouse.targets[Math.floor(Math.random() * L11_Birdhouse.targets.length)];
             let targetVector = new L11_Birdhouse.Vector(L11_Birdhouse.randomBetween(target.minXValue, target.maxXValue), L11_Birdhouse.randomBetween(target.minYValue, target.maxYValue));
             return targetVector;
@@ -298,7 +298,7 @@ var L11_Birdhouse;
                 let eye = new Path2D;
                 let transform = L11_Birdhouse.cc2.getTransform();
                 L11_Birdhouse.cc2.translate(this.position.x, this.position.y);
-                L11_Birdhouse.cc2.rotate(180 * Math.PI / 180);
+                L11_Birdhouse.cc2.scale(-1, 1);
                 let body = L11_Birdhouse.cc2.getTransform();
                 L11_Birdhouse.cc2.translate(r1, -r1);
                 L11_Birdhouse.cc2.save();
