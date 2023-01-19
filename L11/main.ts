@@ -73,7 +73,7 @@ namespace L11_Birdhouse {
     }
 
 
-    function drawBirds(_nBirds: number) {
+    function drawBirds(_nBirds: number): void {
 
         for (let drawn: number = 0; drawn < _nBirds; drawn++) {
             cc2.save();
@@ -129,11 +129,6 @@ namespace L11_Birdhouse {
         for (let moveable of moveables) {
             if (moveable instanceof Snowflake) {
                 moveable.letItSnow(1 / 100);
-                moveable.draw();
-                cc2.setTransform(transform);
-            }
-            if (moveable instanceof BirdOnFly) {
-                moveable.fly(1 / 50);
                 moveable.draw();
                 cc2.setTransform(transform);
             }

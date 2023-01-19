@@ -94,11 +94,6 @@ var L11_Birdhouse;
                 moveable.draw();
                 L11_Birdhouse.cc2.setTransform(transform);
             }
-            if (moveable instanceof L11_Birdhouse.BirdOnFly) {
-                moveable.fly(1 / 50);
-                moveable.draw();
-                L11_Birdhouse.cc2.setTransform(transform);
-            }
             if (moveable instanceof L11_Birdhouse.SitBird) {
                 moveable.checkState();
                 if (moveable.checkTargetDistance() == true) {
