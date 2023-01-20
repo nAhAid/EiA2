@@ -10,6 +10,7 @@ namespace L11_Birdhouse {
         action: boolean;
         isFlying: boolean;
         target: Vector;
+        distance: Vector = new Vector(0, 0);
 
 
         constructor(_position: Vector, _color: BirdColor, _beakColor: string) {
@@ -32,6 +33,22 @@ namespace L11_Birdhouse {
             let hitsize: number = 50;
             let difference: Vector = new Vector(_hotspot.x - this.position.x, _hotspot.y - this.position.y);
             return (Math.abs(difference.x) < hitsize && Math.abs(difference.y) < hitsize);
+
+        }
+
+        checkDistance(): void {
+            let distanceX: number = this.target.x - this.position.x;
+            let distanceY: number = this.target.y - this.position.y;
+            let distance: Vector = new Vector(distanceX, distanceY);
+
+            if (distanceX < this.distance.x && distanceY < this.distance.y) {
+                this.velocity = this.newVelocity();
+                this.distance = distance;
+
+            }
+            else {
+                this.distance = distance;
+            }
 
         }
 
@@ -105,16 +122,16 @@ namespace L11_Birdhouse {
             let y: number = this.target.y - this.position.y;
 
             let newVelocity: Vector = new Vector(x, y);
-            return newVelocity;
+            return newVelocity.copy();
         }
-
 
         getTarget(_position?: Vector): Vector {
             let target: Targetfield = targets[Math.floor(Math.random() * targets.length)];
             let targetVector: Vector = new Vector(randomBetween(target.minXValue, target.maxXValue), randomBetween(target.minYValue, target.maxYValue));
 
-            return targetVector;
+            return targetVector.copy();
         }
+
 
 
         checkState(): Boolean | void {

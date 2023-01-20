@@ -11,6 +11,7 @@ var L11_Birdhouse;
         action;
         isFlying;
         target;
+        distance = new L11_Birdhouse.Vector(0, 0);
         constructor(_position, _color, _beakColor) {
             super(_position);
             this.color = _color;
@@ -27,6 +28,18 @@ var L11_Birdhouse;
             let hitsize = 50;
             let difference = new L11_Birdhouse.Vector(_hotspot.x - this.position.x, _hotspot.y - this.position.y);
             return (Math.abs(difference.x) < hitsize && Math.abs(difference.y) < hitsize);
+        }
+        checkDistance() {
+            let distanceX = this.target.x - this.position.x;
+            let distanceY = this.target.y - this.position.y;
+            let distance = new L11_Birdhouse.Vector(distanceX, distanceY);
+            if (distanceX < this.distance.x && distanceY < this.distance.y) {
+                this.velocity = this.newVelocity();
+                this.distance = distance;
+            }
+            else {
+                this.distance = distance;
+            }
         }
         checkPosition() {
             let fly;
@@ -87,12 +100,12 @@ var L11_Birdhouse;
             let x = this.target.x - this.position.x;
             let y = this.target.y - this.position.y;
             let newVelocity = new L11_Birdhouse.Vector(x, y);
-            return newVelocity;
+            return newVelocity.copy();
         }
         getTarget(_position) {
             let target = L11_Birdhouse.targets[Math.floor(Math.random() * L11_Birdhouse.targets.length)];
             let targetVector = new L11_Birdhouse.Vector(L11_Birdhouse.randomBetween(target.minXValue, target.maxXValue), L11_Birdhouse.randomBetween(target.minYValue, target.maxYValue));
-            return targetVector;
+            return targetVector.copy();
         }
         checkState() {
             if (!this.isFlying) {

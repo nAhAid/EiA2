@@ -97,6 +97,7 @@ var L11_Birdhouse;
                 moveable.checkState();
                 let check = moveable.checkUpdate();
                 if (moveable.isFlying == true) {
+                    moveable.checkDistance();
                     moveable.fly(1 / 100);
                     moveable.draw();
                     L11_Birdhouse.cc2.setTransform(transform);

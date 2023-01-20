@@ -136,6 +136,7 @@ namespace L11_Birdhouse {
                 moveable.checkState();
                 let check: Boolean | void = moveable.checkUpdate();
                 if (moveable.isFlying == true) {
+                    moveable.checkDistance();
                     moveable.fly(1 / 100);
                     moveable.draw();
                     cc2.setTransform(transform);
