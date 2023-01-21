@@ -53,7 +53,6 @@ var L11_Birdhouse;
                 fly = true;
                 return fly;
             }
-            return false;
         }
         setFlying() {
             if (this.isFlying == true) {

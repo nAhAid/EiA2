@@ -65,7 +65,6 @@ namespace L11_Birdhouse {
                 fly = true;
                 return fly;
             }
-            return false;
         }
 
         setFlying(): void {
