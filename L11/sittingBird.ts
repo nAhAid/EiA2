@@ -107,7 +107,7 @@ namespace L11_Birdhouse {
             if (distanceX < 5 && distanceY < 5) {
                 this.isFlying = false;
                 this.action = false;
-                this.handleReachTarget();
+                this.handleReachTarget();   
                 return true;
             }
 
