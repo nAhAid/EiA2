@@ -315,7 +315,7 @@ namespace L06_shoppingList {
         sendListElement("Defined" + _bought, "update");
     }
 
-    function cutID(_id: string, _length: number) {
+    function cutID(_id: string, _length: number): number {
         let newId: string = _id.slice(_length);
         return parseInt(newId);
     }
